@@ -37,9 +37,12 @@ class Modelo:
         """ 
         self.__csv = Lectorcsv.Lectorcsv(self)
         self.__texto = list()
+        #comprobar longitud
         self.personajes= dict()
         self.__fincaps = list()
         self.__G = None
+        self.urlPelicula = ""
+        self.diccionarioApariciones = dict()
             
     def crearDict(self):
         """
@@ -55,7 +58,13 @@ class Modelo:
         d = Thread(target=creard.crearDict,args=(txt,))
         d.start()
         d.join()
-    
+        
+    def hayPersonajes(self):
+        if (len(self.personajes.items())>0):
+            return True
+        else:
+            return False
+        
     def obtenerPosPers(self):
         """
         Método para obtener las posiciones de los personajes
@@ -89,7 +98,35 @@ class Modelo:
                     c+=1
                 self.personajes[i].lennombres[n]=apar
                 self.personajes[i].sumNumApariciones(apar)
-        
+
+    def obtenerNumApariciones(self):
+        #diccionarioAp = dict()
+        listapar = list()
+        contador = 0
+        web = urllib.request.urlopen(self.urlPelicula)
+        html = BeautifulSoup(web.read(), "html.parser")
+        for i in self.personajes.keys():
+            self.personajes[i].lennombres = dict()
+            pers = self.personajes[i].getPersonaje()
+            for n in pers.keys():
+                listapar = list()
+                contador = 0
+                for perso in html.find_all("b"):
+                    pn = perso.contents[0]
+                    pn = pn.strip()
+                    if ('EXT.' in pn or 'INT.' in pn):
+                        contador = contador + 1
+                    elif(pn == i):
+                        if (not contador == 0):
+                            if (not contador in listapar):
+                                listapar.append(contador)
+                        #self.personajes[l].lennombres[n]=len(listapar)
+                        self.diccionarioApariciones[i] = listapar
+                        #diccionarioAp[l] = len(listapar)
+                self.personajes[i].lennombres[n] = len(listapar)
+                self.personajes[i].sumNumApariciones(len(listapar))
+        return self.diccionarioApariciones
+
     def getDictParsear(self):
         """
         Función que genera una lista de nombres para obtener su posición en el texto
@@ -275,6 +312,18 @@ class Modelo:
         d.join()
         self.juntarPosiciones()
         
+    def prepararRedPeliculas(self):
+        """
+        Método que obtiene las posiciones de los personajes y las junta
+    
+        Args:
+            
+        """
+        d = Thread(target=self.obtenerNumApariciones)
+        d.start()
+        d.join()
+        self.juntarPosiciones()
+        
     def getMatrizAdyacencia(self):
         """
         Método que devuelve la matriz de adyacencia de la red
@@ -361,6 +410,22 @@ class Modelo:
                         if(peso>0):
                             self.__G.add_edge(persk[i],persk[j],weight=peso)
     
+    def elementosComunes(lista, lista1):
+        return list(set(lista).intersection(lista1))
+
+    def obtenerEnlaces(self, apar):
+        self.__G = nx.Graph()
+        lista = list()
+        for key in self.diccionarioApariciones:
+            for key1 in self.diccionarioApariciones:
+                if (not key == key1):
+                    lista = Modelo.elementosComunes(self.diccionarioApariciones.get(key), self.diccionarioApariciones.get(key1))
+                    if (not len(lista) == 0):
+                        if (len(lista) >= apar):
+                            #listaprueba.append((key,key1,len(lista)))
+                            peso = len(lista)
+                            self.__G.add_edge(key,key1,weight=int(peso))
+    
     def visualizar(self):
         """
         Método para mandar a d3 la información para visualizar la red
@@ -382,7 +447,27 @@ class Modelo:
         for pers in html.find_all("a", {"class": "category-page__member-link"}):
             pn = pers.get('title')
             self.anadirPersonaje(pn,pn)
-
+            
+    def scrapeWikiPelicula(self,url):
+        """
+        Método para obtener un diccionario de personajes haciendo web scraping
+    
+        Args:
+            url: url donde hacer web scraping
+        """
+        self.urlPelicula = url
+        lista = list()
+        web = urllib.request.urlopen(url)
+        html = BeautifulSoup(web.read(), "html.parser")
+        for pers in html.find_all("b"):
+            pn = pers.contents[0]
+            pn = pn.strip()
+            if (not 'EXT.' in pn and not 'INT.' in pn and not '.' in pn and not ':' in pn and not ';' in pn and not '"' in pn and not '!' in pn and not '?' in pn and not '-' in pn and not ',' in pn and len(pn)<30 and not 'Genres' in pn and not 'Writers' in pn and not '_' in pn):
+                if (not pn in lista):
+                    lista.append(pn)
+                    self.anadirPersonaje(pn,pn)
+        return lista		
+	
     def importDict(self, fichero):
         """
         Método para importar un diccionario de personajes desde un fichero csv
