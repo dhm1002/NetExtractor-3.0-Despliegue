@@ -2,7 +2,7 @@
 import os
 from flask import render_template, Flask, request, url_for, redirect, json, send_file, make_response, g, session, send_from_directory
 from src.Modelo import Modelo as mod
-from src import Config as cfg
+from src import config as cfg
 from src.PersistenciaSesiones import TempBD
 from flask_babel import Babel, gettext
 import shutil
@@ -26,7 +26,31 @@ def get_locale():
 def before_request():
     g.locale = get_locale()
 
-@app.route('/', methods=["GET","POST"])
+@app.route('/' , methods=["GET","POST"])
+def inicio():
+    return render_template('seleccion.html')
+	
+@app.route('/Dicts-Pelicula/' , methods=["GET","POST"])
+def diccionarioPelicula():
+    if request.method == "POST":
+        m = mod.Modelo()
+        if('usuario' not in session or session['usuario'] not in tbd.getSesiones().keys()):
+            session['usuario'] = tbd.addSesion(m)
+            dirName = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']))
+            if(not os.path.exists(dirName)):
+                os.makedirs(dirName)
+        #APUNTAR EN LA DOCUMENTACION
+        print(session['usuario'])
+        tbd.replaceObject(session['usuario'],m)
+        if('configVis' not in session):
+            session['configVis'] = {'Path to file (csv or json)': 'https://gist.githubusercontent.com/ulfaslak/6be66de1ac3288d5c1d9452570cbba5a/raw/0b9595c09b9f70a77ee05ca16d5a8b42a9130c9e/miserables.json', 'Apply heat (wiggle)': False, 'Charge strength': -50, 'Center gravity': 0.1, 'Link distance': 10, 'Link width': 5, 'Link alpha': 0.5, 'Node size': 10, 'Node stroke size': 0.5, 'Node size exponent': 0.5, 'Link width exponent': 0.5, 'Collision': False, 'Node fill': '#16a085', 'Node stroke': '#000000', 'Link stroke': '#7c7c7c', 'Label stroke': '#000000', 'Show labels': True, 'Show singleton nodes': False, 'Node size by strength': True, 'Zoom': 1.5, 'Min. link weight %': 0, 'Max. link weight %': 100}   
+        url = request.form['txt txt-url1']
+        m = tbd.getObject(session['usuario'])
+        m.scrapeWikiPelicula(url)
+        return redirect(url_for('moddictPelicula'))
+    return render_template('dictpelicula.html')
+	
+@app.route('/Sel-Epub/', methods=["GET","POST"])
 def index():
     error = ''
     if request.method == "POST":
@@ -60,7 +84,7 @@ def about():
 def dictaut():
     msg = ''
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     if request.method == "POST":
         if("btn btn-vacdit"  in request.form):
@@ -75,11 +99,11 @@ def dictaut():
         elif("btn btn-obtdict" in request.form):
             return redirect(url_for('obtdict'))
     return render_template('dictaut.html', msg = msg)
-
+	
 @app.route('/Dicts-Automaticos/Importar-Dict/', methods=["GET","POST"])
 def impdict():
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     if request.method == "POST":
         fich = request.files["btn btn-selcsv"]
@@ -88,11 +112,11 @@ def impdict():
         m = tbd.getObject(session['usuario'])
         m.importDict(fullpath)
     return render_template('impdict.html')
-
+	
 @app.route('/Dicts-Automaticos/Obtener-Dict/', methods=["GET","POST"])
 def obtdict():
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     if request.method == "POST":
         url = request.form['txt txt-url']
@@ -103,9 +127,11 @@ def obtdict():
 @app.route('/Modificar-Diccionario/', methods=["GET", "POST"])   
 def moddict():
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
+    if (not m.hayPersonajes()):
+        return redirect(url_for('inicio'))
     if request.method == "POST":
         ajax = request.get_json()
         if(ajax != None):
@@ -129,12 +155,46 @@ def moddict():
             return send_file(filename, mimetype='text/csv', attachment_filename=session['fichero'] + ".csv", as_attachment=True)
     return render_template('moddict.html', pers = m.getPersonajes())
 
+@app.route('/Modificar-Diccionario-Peliculas/', methods=["GET", "POST"])   
+def moddictPelicula():
+    if('usuario' not in session or session['usuario'] not in tbd.getSesiones().keys()):
+        return redirect(url_for('inicio'))
+    g.usuario = session['usuario']
+    m = tbd.getObject(session['usuario'])
+    if (not m.hayPersonajes()):
+        return redirect(url_for('inicio'))
+    print(session['usuario'])
+    if request.method == "POST":
+        ajax = request.get_json()
+        if(ajax != None):
+            m.prepararRedPeliculas()
+            return json.dumps("True")
+        if("btn btn-newpers" in request.form):
+            return redirect(url_for('newpers'))
+        elif("btn btn-delpers" in request.form):
+            return redirect(url_for('delpers'))
+        elif("btn btn-joinpers" in request.form):
+            return redirect(url_for('joinpers'))
+        elif("btn btn-newrefpers" in request.form):
+            return redirect(url_for('newrefpers'))
+        elif("btn btn-delrefpers" in request.form):
+            return redirect(url_for('delrefpers'))
+        elif("btn btn-modid" in request.form):
+            return redirect(url_for('modidpers'))
+        elif("btn btn-expdict" in request.form):
+            filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".csv")
+            m.exportDict(filename)
+            return send_file(filename, mimetype='text/csv', attachment_filename=session['fichero'] + ".csv", as_attachment=True)
+    return render_template('moddictpelicula.html', pers = m.getPersonajes())
+
 @app.route('/Modificar-Diccionario/Anadir-Personaje/', methods=["GET", "POST"])    
 def newpers():
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
+    if (not m.hayPersonajes()):
+        return redirect(url_for('inicio'))
     if request.method == "POST":
         idperso = request.form['txt txt-idpers']
         perso = request.form['txt txt-nombrepers']
@@ -144,9 +204,11 @@ def newpers():
 @app.route('/Modificar-Diccionario/Eliminar-Personaje/', methods=["GET", "POST"])    
 def delpers():
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
+    if (not m.hayPersonajes()):
+        return redirect(url_for('inicio'))
     if request.method == "POST":
         ajax = request.get_json()
         if(ajax != None):
@@ -156,9 +218,11 @@ def delpers():
 @app.route('/Modificar-Diccionario/Juntar-Personajes/', methods=["GET", "POST"])    
 def joinpers():
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
+    if (not m.hayPersonajes()):
+        return redirect(url_for('inicio'))
     if request.method == "POST":
         ajax = request.get_json()
         if(ajax != None):
@@ -168,9 +232,11 @@ def joinpers():
 @app.route('/Modificar-Diccionario/Nueva-Referencia/', methods=["GET", "POST"])    
 def newrefpers():
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
+    if (not m.hayPersonajes()):
+        return redirect(url_for('inicio'))
     if request.method == "POST":
         idp = request.form['txt txt-idpers']
         ref = request.form['txt txt-refpers']
@@ -180,9 +246,11 @@ def newrefpers():
 @app.route('/Modificar-Diccionario/Eliminar-Referencia/', methods=["GET", "POST"])    
 def delrefpers():
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
+    if (not m.hayPersonajes()):
+        return redirect(url_for('inicio'))
     if request.method == "POST":
         ajax = request.get_json()
         if(ajax != None):
@@ -192,9 +260,11 @@ def delrefpers():
 @app.route('/Modificar-Diccionario/Cambiar-Identificador/', methods=["GET", "POST"])
 def modidpers():
     if('fichero' not in session ):
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
+    if (not m.hayPersonajes()):
+        return redirect(url_for('inicio'))
     if request.method == "POST":
         idact = request.form['txt txt-idact']
         newid = request.form['txt txt-newid']
@@ -204,9 +274,12 @@ def modidpers():
 @app.route('/Parametros/', methods=["GET", "POST"])
 def params():
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
+    if (not m.hayPersonajes()):
+        print(m.hayPersonajes())
+        return redirect(url_for('inicio'))
     if request.method == "POST":
         apar = request.form['txt txt-apar']
         dist = request.form['txt txt-dist']
@@ -217,12 +290,28 @@ def params():
         return redirect(url_for('red'))
     return render_template('params.html', pers = {k: v for k, v in sorted(m.getPersonajes().items(), key=lambda x: x[1].getNumApariciones(), reverse=True)})
 
+@app.route('/Parametros-Peliculas/', methods=["GET", "POST"])
+def paramsPeliculas():
+    if('usuario' not in session or session['usuario'] not in tbd.getSesiones().keys()):
+        return redirect(url_for('inicio'))
+    g.usuario = session['usuario']
+    m = tbd.getObject(session['usuario'])
+    if (not m.hayPersonajes()):
+        return redirect(url_for('inicio'))
+    if request.method == "POST":
+        apar = request.form['txt txt-apar']
+        m.obtenerEnlaces(int(apar))          
+        return redirect(url_for('redPeliculas'))
+    return render_template('paramsPeliculas.html', pers = {k: v for k, v in sorted(m.getPersonajes().items(), key=lambda x: x[1].getNumApariciones(), reverse=True)})
+
 @app.route('/Red/', methods=["GET", "POST"])
 def red():
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
+    if (not m.hayPersonajes()):
+        return redirect(url_for('inicio'))
     jsonred = m.visualizar()
     if request.method == "POST":
         if("btn btn-expgml" in request.form):
@@ -239,12 +328,38 @@ def red():
             return send_file(filename, mimetype='text/net', attachment_filename=session['fichero'] + ".net", as_attachment=True)
     return render_template('red.html', jsonred = jsonred, config = session['configVis'])
 
+@app.route('/Red-Peliculas/', methods=["GET", "POST"])
+def redPeliculas():
+    if('usuario' not in session or session['usuario'] not in tbd.getSesiones().keys()):
+        return redirect(url_for('inicio'))
+    g.usuario = session['usuario']
+    m = tbd.getObject(session['usuario'])
+    if (not m.hayPersonajes()):
+        return redirect(url_for('inicio'))
+    jsonred = m.visualizar()
+    if request.method == "POST":
+        if("btn btn-expgml" in request.form):
+            filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".gml")
+            m.exportGML(filename)
+            return send_file(filename, mimetype='text/gml', attachment_filename=session['fichero'] + ".gml", as_attachment=True)
+        elif("btn btn-expgexf" in request.form):
+            filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".gexf")
+            m.exportGEXF(filename)
+            return send_file(filename, mimetype='text/gexf', attachment_filename=session['fichero'] + ".gexf", as_attachment=True)
+        elif("btn btn-expnet" in request.form):
+            filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".net")
+            m.exportPajek(filename)
+            return send_file(filename, mimetype='text/net', attachment_filename=session['fichero'] + ".net", as_attachment=True)
+    return render_template('redPeliculas.html', jsonred = jsonred, config = session['configVis'])
+
 @app.route('/Informe/', methods=["GET", "POST"])
 def informe():
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
+    if (not m.hayPersonajes()):
+        return redirect(url_for('inicio'))
     if request.method == "POST":
 #        print(request.form)
         x = dict(request.form)
@@ -257,9 +372,11 @@ def informe():
 @app.route('/Informe/Visualizar/', methods=["GET", "POST"])
 def visinforme():
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
+    if (not m.hayPersonajes()):
+        return redirect(url_for('inicio'))
     return render_template('visinforme.html', informe = m.informe)
 
 @app.route('/Informe/Visualizar/<path:filename>')
@@ -287,5 +404,14 @@ def finSesion():
         tbd.delSesion(int(ajax))
         shutil.rmtree(os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario'])))
         session['fichero'] = "null"
+        session['usuario'] = "null"
+        return "true"
+
+@app.route('/Fin-Sesion-Pelicula', methods=["GET", "POST"])
+def finSesionPelicula():
+    if request.method == "POST":
+        ajax = request.get_json()
+        tbd.delSesion(int(ajax))
+        shutil.rmtree(os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario'])))
         session['usuario'] = "null"
         return "true"
