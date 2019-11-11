@@ -16,7 +16,7 @@
 		<div class="menu">
 			<ul>
 				<li><a href="{{ url_for('index') }}">{{ _('Inicio') }}</a></li>
-				<li><a href="https://github.com/lca0037/GII18.0U-Ububooknet">{{ _('Repositorio') }}</a></li>
+				<li><a href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank">{{ _('Repositorio') }}</a></li>
 				<li><a href="{{ url_for('about') }}" target="_blank">{{ _('Acerca De') }}</a></li>
 			</ul>
 		</div>
@@ -40,7 +40,7 @@
 				<input type="button" onclick="sendForm()" name="btn btn-newpers" value="{{ _('Añadir') }}">
 			</form>
 			<div id="form-mov">
-				<input type="button" name="btn btn-volver" onclick="window.location.href='{{ url_for('moddict') }}'" value="{{ _('Volver') }}">
+				<input type="button" name="btn btn-volver" onclick="atras()" value="{{ _('Volver') }}">
 			</div>
 		</div>
 		<div id="Personaje-Cabecera">
@@ -82,6 +82,12 @@
 	<script src="{{ url_for('static', filename='js/orden.js') }}" type="text/javascript"></script>
 	<script src="{{ url_for('static', filename='js/language.js') }}" type="text/javascript"></script>
 	<script type="text/javascript">
+		var validNavigation = false;
+		function atras() {
+			validNavigation = true;
+			window.location.href='{{ url_for('moddict') }}'
+		}
+		
 		function sendForm(){
 			var id = document.getElementById("idpers");
 			var nom = document.getElementById("nompers");
@@ -110,15 +116,17 @@
 		        			alert("{{ _('Por favor no introduzca ninguno de los siguientes caracteres como primer caracter:') }}" + " . , ( ) [ ] < > : ; ¿ ? ¡ ! = - _ — \' \" ")
 		        		}else{
 		        			validNavigation = true;
+							//document.getElementById("form-menu").submit();
 		        			alert("{{ _('Personaje introducido correctamente') }}")
-		        			document.getElementById("form-menu").submit();
+							document.getElementById("form-menu").submit();
+							//window.location.href='{{ url_for('moddict') }}'
 		        		}
 		        	}
 	        	}
         	}
 		}
 		//https://eureka.ykyuen.info/2011/02/22/jquery-javascript-capture-the-browser-or-tab-closed-event/
-		var validNavigation = false;
+		
 
 		function endSession() {
 			$.ajax({
@@ -135,46 +143,47 @@
 		}
 		 
 		function wireUpEvents() {
-		  /*
-		  * For a list of events that triggers onbeforeunload on IE
-		  * check http://msdn.microsoft.com/en-us/library/ms536907(VS.85).aspx
-		  */
-		  window.onbeforeunload = function(event) {
-		      if (!validNavigation) {
-		         endSession();
-		      }
-		  }
-		 
-		  // Attach the event keypress to exclude the F5 refresh
-		  $(document).bind('keydown', function(e) {
-		    if (e.keyCode == 116){
-		      validNavigation = true;
-		    }
-		  });
-		 
-		  // Attach the event click for all links in the page
-		  $("a").bind("click", function() {
-		    validNavigation = true;
-		  });
-		 
-		  // Attach the event submit for all forms in the page
-		  $("form").bind("submit", function() {
-		    validNavigation = true;
-		  });
-		 
-		  // Attach the event click for all inputs in the page
-		  $("input[type=submit]").bind("click", function() {
-		    validNavigation = true;
-		  });
+			  /*
+			  * For a list of events that triggers onbeforeunload on IE
+			  * check http://msdn.microsoft.com/en-us/library/ms536907(VS.85).aspx
+			  */
+			  window.onbeforeunload = function(event) {
+				  if (!validNavigation) {
+					 endSession();
+				  }
+			  }
+			 
+			  // Attach the event keypress to exclude the F5 refresh
+			  $(document).bind('keydown', function(e) {
+				if (e.keyCode == 116){
+				  validNavigation = true;
+				}
+			  });
 
-		  $("input[type=button]").bind("click", function() {
-		    validNavigation = true;
-	  	  });
-		}
-		 
-		// Wire up the events as soon as the DOM tree is ready
-		$(document).ready(function() {
-		  wireUpEvents();  
+			 
+			  // Attach the event click for all links in the page
+			  $("a").bind("click", function() {
+				validNavigation = true;
+			  });
+			 
+			  // Attach the event submit for all forms in the page
+			  $("form").bind("submit", function() {
+				validNavigation = true;
+			  });
+			 
+			  // Attach the event click for all inputs in the page
+			  $("input[type=submit]").bind("click", function() {
+				validNavigation = true;
+			  });
+
+			  $("input[type=button]").bind("click", function() {
+					validNavigation = true;
+			  });
+			}
+			 
+			// Wire up the events as soon as the DOM tree is ready
+			$(document).ready(function() {
+			  wireUpEvents();  
 		});
 	</script>
 </body>

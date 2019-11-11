@@ -106,7 +106,7 @@
 	          });
 			if(ventana=='params'){
 				validNavigation = true;
-				window.location.href='{{ url_for('params') }}'
+				window.location.href='{{ url_for('paramsPeliculas') }}'
 			}else{
 			    validNavigation = true;
 				window.location.href='{{ url_for('informe') }}'
@@ -120,7 +120,7 @@
 			$.ajax({
 		      type: "POST",
 		      contentType: "application/json;charset=utf-8",
-		      url: "/Fin-Sesion",
+		      url: "/Fin-Sesion-Pelicula",
 		      traditional: "true",
 		      data: JSON.stringify({{ g.usuario }}),
 		      dataType: "json",
