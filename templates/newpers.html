@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="{{ _('es') }}">
+<head>
+	<title>Ububooknet</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+	<header id="header">
+		<div class="logo">
+			<h1>Ububooknet</h1>
+		</div>
+		<div class="region"> 
+			<h2>{{ _('Añadir Personaje') }}</h2>
+		</div>
+		<div class="menu">
+			<ul>
+				<li><a href="{{ url_for('index') }}">{{ _('Inicio') }}</a></li>
+				<li><a href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank">{{ _('Repositorio') }}</a></li>
+				<li><a href="{{ url_for('about') }}" target="_blank">{{ _('Acerca De') }}</a></li>
+			</ul>
+		</div>
+		<div class="banderas">
+			<img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
+			<img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
+		</div>
+	</header>
+	<div id="workflow">
+		<div class="txt-work">
+			<a href="{{ url_for('index') }}">{{ _('CARGAR EPUB') }}</a> > <a href="{{ url_for('dictaut') }}">{{ _('DICCIONARIO de PERSONAJES') }}</a> > <a href="{{ url_for('moddict') }}">{{ _('MODIFICAR DICCIONARIO') }}</a> > {{ _('AÑADIR PERSONAJE') }}
+		</div>
+	</div>
+	<div id="content">
+		<div id="indice">
+			<form action="" id="form-menu" method="post">
+				<div class="txt1">{{ _('Introduzca la id del nuevo personaje') }}</div>
+				<input type="text" id="idpers" name="txt txt-idpers" placeholder="{{ _('ID Personaje') }}">
+				<div class="txt1">{{ _('Introduzca el nombre del nuevo personaje') }}</div>
+				<input type="text" id="nompers" name="txt txt-nombrepers" placeholder="{{ _('Nombre Personaje') }}">
+				<input type="button" onclick="sendForm()" name="btn btn-newpers" value="{{ _('Añadir') }}">
+			</form>
+			<div id="form-mov">
+				<input type="button" name="btn btn-volver" onclick="atras()" value="{{ _('Volver') }}">
+			</div>
+		</div>
+		<div id="Personaje-Cabecera">
+			<div class="IdPersonaje">
+				{{ _('ID Personaje') }}
+				<div class="arrow-up" onclick="ordenar('idrev')"></div>
+				<div class="arrow-down" onclick="ordenar('id')"></div>
+			</div>
+			<div class="NomP">{{ _('Referencias personaje') }}</div>
+			<div class="NumApar">
+				{{ _('Número Apariciones') }}
+				<div class="arrow-up" onclick="ordenar('aparev')"></div>
+				<div class="arrow-down" onclick="ordenar('apa')"></div>
+			</div>
+		</div>
+		<div id="Personajes">
+			{% for i in pers.keys() %}
+			<div class="Personaje" idp="{{ i }}" numapa="{{ pers[i].getNumApariciones()[0] }}">
+				<div class="IdPersonaje" idpers="{{ i }}">{{ i }}</div>
+				<div class="NomP">
+				{% for n in pers[i].getPersonaje().keys() %}
+					<p class="ref">{{ n }}</p>
+				{% endfor %}
+				</div>
+				{% if pers[i].getNumApariciones()[1] %}
+					<div class="NumApar" parse="true">{{ pers[i].getNumApariciones()[0] }}</div>
+				{% elif pers[i].getNumApariciones()[0] == 0 %}
+					<div class="NumApar" parse="false">N/A</div>
+				{% else%}
+					<div class="NumApar" parse="false">{{ pers[i].getNumApariciones()[0] }}</div>
+				{% endif %}
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	<footer></footer>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="{{ url_for('static', filename='js/orden.js') }}" type="text/javascript"></script>
+	<script src="{{ url_for('static', filename='js/language.js') }}" type="text/javascript"></script>
+	<script type="text/javascript">
+		var validNavigation = false;
+		function atras() {
+			validNavigation = true;
+			window.location.href='{{ url_for('moddict') }}'
+		}
+		
+		function sendForm(){
+			var id = document.getElementById("idpers");
+			var nom = document.getElementById("nompers");
+			id.value = id.value.trim()
+			nom.value = nom.value.trim()
+			var novalid = [".",",","(",")","[","]","<",">","'","\"",":",";","¿","?","¡","!","=","-","_","—"]
+			if(id.value.length == 0){
+				alert("{{ _('Introduzca una ID') }}")
+			}
+			else{
+				if(nom.value.length == 0){
+					alert("{{ _('Introduzca un nombre') }}")
+				} else {
+					var divpers = document.getElementsByClassName("IdPersonaje");
+					var incluido = false;
+		        	for(var i=0; divpers[i]; ++i){
+		        		if(divpers[i].getAttribute("idpers")==id.value){
+		        			incluido = true;
+		        			break;
+		        		}
+		        	}
+		        	if(incluido){
+		        		alert("{{ _('La id introducida ya existe') }}")
+		        	} else {
+		        		if(novalid.includes(nom.value.charAt(0))){
+		        			alert("{{ _('Por favor no introduzca ninguno de los siguientes caracteres como primer caracter:') }}" + " . , ( ) [ ] < > : ; ¿ ? ¡ ! = - _ — \' \" ")
+		        		}else{
+		        			validNavigation = true;
+							//document.getElementById("form-menu").submit();
+		        			alert("{{ _('Personaje introducido correctamente') }}")
+							document.getElementById("form-menu").submit();
+							//window.location.href='{{ url_for('moddict') }}'
+		        		}
+		        	}
+	        	}
+        	}
+		}
+		//https://eureka.ykyuen.info/2011/02/22/jquery-javascript-capture-the-browser-or-tab-closed-event/
+		
+
+		function endSession() {
+			$.ajax({
+		      type: "POST",
+		      contentType: "application/json;charset=utf-8",
+		      url: "/Fin-Sesion",
+		      traditional: "true",
+		      data: JSON.stringify({{ g.usuario }}),
+		      dataType: "json",
+		      success: function(response){
+          			location.reload();
+         		 }
+		    });
+		}
+		 
+		function wireUpEvents() {
+			  /*
+			  * For a list of events that triggers onbeforeunload on IE
+			  * check http://msdn.microsoft.com/en-us/library/ms536907(VS.85).aspx
+			  */
+			  window.onbeforeunload = function(event) {
+				  if (!validNavigation) {
+					 endSession();
+				  }
+			  }
+			 
+			  // Attach the event keypress to exclude the F5 refresh
+			  $(document).bind('keydown', function(e) {
+				if (e.keyCode == 116){
+				  validNavigation = true;
+				}
+			  });
+
+			 
+			  // Attach the event click for all links in the page
+			  $("a").bind("click", function() {
+				validNavigation = true;
+			  });
+			 
+			  // Attach the event submit for all forms in the page
+			  $("form").bind("submit", function() {
+				validNavigation = true;
+			  });
+			 
+			  // Attach the event click for all inputs in the page
+			  $("input[type=submit]").bind("click", function() {
+				validNavigation = true;
+			  });
+
+			  $("input[type=button]").bind("click", function() {
+					validNavigation = true;
+			  });
+			}
+			 
+			// Wire up the events as soon as the DOM tree is ready
+			$(document).ready(function() {
+			  wireUpEvents();  
+		});
+	</script>
+</body>
+</html>
