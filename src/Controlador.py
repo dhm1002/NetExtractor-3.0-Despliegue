@@ -364,12 +364,3 @@ def finSesion():
         session['fichero'] = "null"
         session['usuario'] = "null"
         return "true"
-
-@app.route('/Fin-Sesion-Pelicula', methods=["GET", "POST"])
-def finSesionPelicula():
-    if request.method == "POST":
-        ajax = request.get_json()
-        tbd.delSesion(int(ajax))
-        shutil.rmtree(os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario'])))
-        session['usuario'] = "null"
-        return "true"
