@@ -36,12 +36,6 @@
 				<div class="txt1">{{ _('Introduzca el número mínimo de apariciones en el libro') }}</div>
 				<input type="text" id="apar" name="txt txt-apar" size="40" placeholder="{{ _('Número mínimo de apariciones') }}">
 			</form>
-			<div id="cbx">
-				<div class="txt1">
-					<input type="checkbox" name="cbx cbx-capitulos">
-					<label for="cbx cbx-capitulos">{{ _('Tener en cuenta los capítulos') }}</label>
-				</div>
-			</div>
 			<div id="form-mov">
 				<input type="button" name="btn btn-volver" onclick="atras()" value="{{ _('Volver') }}">
 				<input type="button" onclick="sendForm()" name="btn btn-red" value="{{ _('Obtener red') }}">
@@ -89,7 +83,7 @@
 		var validNavigation = false;
 		function atras() {
 			validNavigation = true;
-			window.location.href='{{ url_for('moddictPelicula') }}'
+			window.location.href='{{ url_for('moddict') }}'
 		}
 		
 		function sendForm(){

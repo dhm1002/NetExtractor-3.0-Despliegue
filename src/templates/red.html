@@ -85,6 +85,9 @@
 	<script src="{{ url_for('static', filename='js/language.js') }}" type="text/javascript"></script>
 	<script type="text/javascript">
 		var validNavigation = false;
+		var cambiarPantalla = {{ cambiarPantalla | safe }};
+		console.log(cambiarPantalla);
+
 		function carga(){
 			var conf = {{ config|tojson|safe }};
 			vis(conf);
@@ -105,8 +108,13 @@
 	          dataType: "json"
 	          });
 			if(ventana=='params'){
-				validNavigation = true;
-				window.location.href='{{ url_for('params') }}'
+				if(cambiarPantalla==1){
+					validNavigation = true;
+					window.location.href='{{ url_for('params') }}'
+				}else{
+					validNavigation = true;
+					window.location.href='{{ url_for('paramsPeliculas') }}'
+				}
 			}else{
 			    validNavigation = true;
 				window.location.href='{{ url_for('informe') }}'

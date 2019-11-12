@@ -43,7 +43,15 @@ class Modelo:
         self.__G = None
         self.urlPelicula = ""
         self.diccionarioApariciones = dict()
-            
+        self.cambio = 0
+     
+        
+    def cambiarPantallas(self, boolean):
+        self.cambio = boolean
+    
+    def devolverCambio(self):
+        return self.cambio
+    
     def crearDict(self):
         """
         Método para crear un diccionario automaticamente
@@ -715,7 +723,11 @@ class Modelo:
         Return:
             excentricidad de la red
         """
-        return nx.eccentricity(self.__G)
+        diccionario = dict()
+        if(nx.is_connected(self.__G)):
+            return nx.eccentricity(self.__G)
+        diccionario['Grafo']="El grafo no está conectado"
+        return diccionario
     
     def diam(self):
         """
@@ -726,7 +738,9 @@ class Modelo:
         Return:
             diametro de la red
         """
-        return nx.diameter(self.__G)
+        if(nx.is_connected(self.__G)):
+            return nx.diameter(self.__G)
+        return "El grafo no está conectado"
         
     def rad(self):
         """
@@ -737,7 +751,9 @@ class Modelo:
         Return:
             radio de la red
         """
-        return nx.radius(self.__G)
+        if(nx.is_connected(self.__G)):
+            return nx.radius(self.__G)
+        return "El grafo no está conectado"
         
     def longMed(self):
         """
@@ -748,7 +764,9 @@ class Modelo:
         Return:
             distancia media de la red
         """
-        return nx.average_shortest_path_length(self.__G)
+        if(nx.is_connected(self.__G)):
+            return nx.average_shortest_path_length(self.__G)
+        return "El grafo no está conectado"
         
     def locClust(self):
         """
@@ -843,13 +861,18 @@ class Modelo:
         Return:
             centralidad de intermediacion random walker
         """
-        ranwal = nx.current_flow_betweenness_centrality(self.__G)
-        pesos = np.array(list(ranwal.values()))
-        pos=nx.kamada_kawai_layout(self.__G)
-        f = plt.figure(figsize=(12,12))
-        nx.draw(self.__G,pos,with_labels=True, node_size = pesos*10000, ax=f.add_subplot(111))
-        f.savefig(os.path.join(self.dir,'ranwal.png'), format="PNG")
-        return ranwal
+        if(nx.is_connected(self.__G)):
+            ranwal = nx.current_flow_betweenness_centrality(self.__G)
+            pesos = np.array(list(ranwal.values()))
+            pos=nx.kamada_kawai_layout(self.__G)
+            f = plt.figure(figsize=(12,12))
+            nx.draw(self.__G,pos,with_labels=True, node_size = pesos*10000, ax=f.add_subplot(111))
+            f.savefig(os.path.join(self.dir,'ranwal.png'), format="PNG")
+            return ranwal
+        else:
+            diccionario = dict()
+            diccionario['Grafo']="El grafo no está conectado"
+            return diccionario
         
     def centV(self):
         """
