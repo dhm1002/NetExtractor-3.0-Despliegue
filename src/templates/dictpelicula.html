@@ -34,6 +34,7 @@
 		<div id="indice">
 			<div id="form-mov">
 				<input type="button" name="btn btn-volver" onclick="atras()" value="{{ _('Volver') }}">
+				<input type="button" name="btn btn-sig" onclick="next()" value="{{ _('Siguiente') }}">
 			</div>
 		</div>
 		<div id="forms">
@@ -52,9 +53,20 @@
 	<script src="{{ url_for('static', filename='js/language.js') }}" type="text/javascript"></script>
 	<script type="text/javascript">
 		var validNavigation = false;
+		var perso = {{ perso | safe }}
 		function atras() {
 			validNavigation = true;
 			window.location.href='{{ url_for('inicio') }}'
+		}
+		
+		function next() {
+			if (perso == 1) {
+				validNavigation = true;
+				window.location.href='{{ url_for('moddict') }}'
+			}else {
+				//TRADUCCION
+				alert("{{ _('No se ha creado ningún diccionario') }}")
+			}
 		}
 		
 		function sendForm(){

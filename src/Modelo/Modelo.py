@@ -69,9 +69,9 @@ class Modelo:
         
     def hayPersonajes(self):
         if (len(self.personajes.items())>0):
-            return True
+            return 1
         else:
-            return False
+            return 0
         
     def obtenerPosPers(self):
         """

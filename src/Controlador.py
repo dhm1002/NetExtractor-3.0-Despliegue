@@ -32,8 +32,8 @@ def inicio():
 	
 @app.route('/Dicts-Pelicula/' , methods=["GET","POST"])
 def diccionarioPelicula():
+    m = mod.Modelo()
     if request.method == "POST":
-        m = mod.Modelo()
         if('usuario' not in session or session['usuario'] not in tbd.getSesiones().keys()):
             session['usuario'] = tbd.addSesion(m)
             dirName = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']))
@@ -52,8 +52,7 @@ def diccionarioPelicula():
         ficheroNombre = prov[0]
         session['fichero'] = ficheroNombre
         m.cambiarPantallas(0)
-        return redirect(url_for('moddict'))
-    return render_template('dictpelicula.html')
+    return render_template('dictpelicula.html', perso = m.hayPersonajes())
 	
 @app.route('/Sel-Epub/', methods=["GET","POST"])
 def index():
@@ -92,13 +91,12 @@ def dictaut():
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
         return redirect(url_for('inicio'))
     g.usuario = session['usuario']
+    m = tbd.getObject(session['usuario'])
     if request.method == "POST":
         if("btn btn-vacdit"  in request.form):
-            m = tbd.getObject(session['usuario'])
             m.cambiarPantallas(1)
             m.vaciarDiccionario()
         if("btn btn-creadict" in request.form):
-            m = tbd.getObject(session['usuario'])
             m.cambiarPantallas(1)
             m.crearDict()
             msg = gettext("Diccionario creado con éxito")
@@ -106,33 +104,33 @@ def dictaut():
             return redirect(url_for('impdict'))
         elif("btn btn-obtdict" in request.form):
             return redirect(url_for('obtdict'))
-    return render_template('dictaut.html', msg = msg)
+    return render_template('dictaut.html',perso = m.hayPersonajes(), msg = msg)
 	
 @app.route('/Dicts-Automaticos/Importar-Dict/', methods=["GET","POST"])
 def impdict():
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
         return redirect(url_for('inicio'))
     g.usuario = session['usuario']
+    m = tbd.getObject(session['usuario'])
     if request.method == "POST":
         fich = request.files["btn btn-selcsv"]
         fullpath = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), fich.filename)
         fich.save(fullpath)
-        m = tbd.getObject(session['usuario'])
         m.cambiarPantallas(1)
         m.importDict(fullpath)
-    return render_template('impdict.html')
+    return render_template('impdict.html', perso = m.hayPersonajes())
 	
 @app.route('/Dicts-Automaticos/Obtener-Dict/', methods=["GET","POST"])
 def obtdict():
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
         return redirect(url_for('inicio'))
     g.usuario = session['usuario']
+    m = tbd.getObject(session['usuario'])
     if request.method == "POST":
         url = request.form['txt txt-url']
-        m = tbd.getObject(session['usuario'])
         m.cambiarPantallas(1)
         m.scrapeWiki(url)
-    return render_template('obtdict.html')
+    return render_template('obtdict.html', perso = m.hayPersonajes())
 
 @app.route('/Modificar-Diccionario/', methods=["GET", "POST"])   
 def moddict():
@@ -140,7 +138,7 @@ def moddict():
         return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
-    if (not m.hayPersonajes()):
+    if (m.hayPersonajes() == 0):
         return redirect(url_for('inicio'))
     if request.method == "POST":
         ajax = request.get_json()
@@ -175,7 +173,7 @@ def newpers():
         return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
-    if (not m.hayPersonajes()):
+    if (m.hayPersonajes() == 0):
         return redirect(url_for('inicio'))
     if request.method == "POST":
         idperso = request.form['txt txt-idpers']
@@ -189,7 +187,7 @@ def delpers():
         return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
-    if (not m.hayPersonajes()):
+    if (m.hayPersonajes() == 0):
         return redirect(url_for('inicio'))
     if request.method == "POST":
         ajax = request.get_json()
@@ -203,7 +201,7 @@ def joinpers():
         return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
-    if (not m.hayPersonajes()):
+    if (m.hayPersonajes() == 0):
         return redirect(url_for('inicio'))
     if request.method == "POST":
         ajax = request.get_json()
@@ -217,7 +215,7 @@ def newrefpers():
         return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
-    if (not m.hayPersonajes()):
+    if (m.hayPersonajes() == 0):
         return redirect(url_for('inicio'))
     if request.method == "POST":
         idp = request.form['txt txt-idpers']
@@ -231,7 +229,7 @@ def delrefpers():
         return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
-    if (not m.hayPersonajes()):
+    if (m.hayPersonajes() == 0):
         return redirect(url_for('inicio'))
     if request.method == "POST":
         ajax = request.get_json()
@@ -245,7 +243,7 @@ def modidpers():
         return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
-    if (not m.hayPersonajes()):
+    if (m.hayPersonajes() == 0):
         return redirect(url_for('inicio'))
     if request.method == "POST":
         idact = request.form['txt txt-idact']
@@ -259,8 +257,7 @@ def params():
         return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
-    if (not m.hayPersonajes()):
-        print(m.hayPersonajes())
+    if (m.hayPersonajes() == 0):
         return redirect(url_for('inicio'))
     if request.method == "POST":
         apar = request.form['txt txt-apar']
@@ -278,7 +275,7 @@ def paramsPeliculas():
         return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
-    if (not m.hayPersonajes()):
+    if (m.hayPersonajes() == 0):
         return redirect(url_for('inicio'))
     if request.method == "POST":
         apar = request.form['txt txt-apar']
@@ -292,7 +289,7 @@ def red():
         return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
-    if (not m.hayPersonajes()):
+    if (m.hayPersonajes() == 0):
         return redirect(url_for('inicio'))
     jsonred = m.visualizar()
     if request.method == "POST":
@@ -316,7 +313,7 @@ def informe():
         return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
-    if (not m.hayPersonajes()):
+    if (m.hayPersonajes() == 0):
         return redirect(url_for('inicio'))
     if request.method == "POST":
 #        print(request.form)
@@ -333,7 +330,7 @@ def visinforme():
         return redirect(url_for('inicio'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
-    if (not m.hayPersonajes()):
+    if (m.hayPersonajes() == 0):
         return redirect(url_for('inicio'))
     return render_template('visinforme.html', informe = m.informe)
 

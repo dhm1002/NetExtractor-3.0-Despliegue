@@ -53,6 +53,7 @@
 	<script src="{{ url_for('static', filename='js/language.js') }}" type="text/javascript"></script>
 	<script type="text/javascript">
 		var validNavigation = false;
+		var perso = {{ perso | safe }};
 		
 		function atras() {
 			validNavigation = true;
@@ -60,8 +61,13 @@
 		}
 		
 		function next() {
-			validNavigation = true;
-			window.location.href='{{ url_for('moddict') }}'
+		//TRADUCCION
+			if (perso == 1) {
+				validNavigation = true;
+				window.location.href='{{ url_for('moddict') }}'
+			}else{
+				alert("{{ _('No se ha creado un diccionario') }}")
+			}
 		}
 		
 		function sendForm(){
@@ -74,7 +80,6 @@
 					//document.getElementById("form").submit();
 					alert("{{ _('Fichero introducido correctamente') }}")
 					document.getElementById("form").submit();
-					//window.location.href='{{ url_for('impdict2') }}'
 				} else {
 					alert("{{ _('Formato de archivo equivocado') }}")
 				}

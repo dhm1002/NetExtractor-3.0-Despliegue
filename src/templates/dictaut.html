@@ -50,7 +50,7 @@
 	<script src="{{ url_for('static', filename='js/language.js') }}" type="text/javascript"></script>
 	<script type="text/javascript">
 		var validNavigation = false;
-		var diccionarioCreado = false;
+		var perso = {{ perso | safe }}
 		
 		function importar() {
 			validNavigation = true;
@@ -58,7 +58,6 @@
 		}
 		
 		function crear() {
-			diccionarioCreado = true;
 			validNavigation = true;
 			//TRADUCCION
 			alert("{{ _('Diccionario creado correctamente') }}")
@@ -82,8 +81,13 @@
 			window.location.href='{{ url_for('index') }}'
 		}
 		function next() {
-			validNavigation = true;
-			window.location.href='{{ url_for('moddict') }}'
+		//TRADUCCION
+			if (perso == 1) {
+				validNavigation = true;
+				window.location.href='{{ url_for('moddict') }}'
+			} else {
+				alert("{{ _('No se ha creado ningún diccionario') }}")
+			}
 		}
 		
 		function endSession() {
