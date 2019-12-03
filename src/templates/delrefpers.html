@@ -4,77 +4,80 @@
 	<title>Ububooknet</title>
 	<meta charset="UTF-8">
 </head>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
 <body>
 	<header id="header">
-		<div class="logo">
-			<h1>Ububooknet</h1>
-		</div>
-		<div class="region"> 
-			<h2>{{ _('Eliminar Referencia De Personaje') }}</h2>
-		</div>
-		<div class="menu">
-			<ul>
-				<li><a href="{{ url_for('index') }}">{{ _('Inicio') }}</a></li>
-				<li><a href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank">{{ _('Repositorio') }}</a></li>
-				<li><a href="{{ url_for('about') }}" target="_blank">{{ _('Acerca De') }}</a></li>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-sticky-top">
+		  <a class="navbar-brand" href="#">NetExtractor</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav mr-auto">
+			  <li class="nav-item">
+				<a class="nav-link" href="{{ url_for('inicio') }}">{{ _('Inicio') }}</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank">{{ _('Repositorio') }}</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="{{ url_for('about') }}" target="_blank">{{ _('Acerca De') }}</a>
+			  </li>
 			</ul>
-		</div>
-		<div class="banderas">
-			<img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
-			<img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
-		</div>
+			<div class="banderas">
+				<img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
+				<img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
+			</div>
+		  </div>
+		</nav>
 	</header>
-	<div id="workflow">
-		<div class="txt-work">
-			<a href="{{ url_for('index') }}">{{ _('CARGAR EPUB') }}</a> > <a href="{{ url_for('dictaut') }}">{{ _('DICCIONARIO de PERSONAJES') }}</a> > <a href="{{ url_for('moddict') }}">{{ _('MODIFICAR DICCIONARIO') }}</a> > {{ _('ELIMINAR REFERENCIA PERSONAJE') }}
+	<div class="fixed-bottom" style="background-color:white">
+		<div id="indice">
+			<button type="button" class="btn btn-primary float-left btn-lg p-3 px-5" name="btn btn-volver" onclick="atras()">{{ _('Volver') }}</button>
 		</div>
 	</div>
+	<div id="indice" class="sticky-top float-left">
+		<form action="javascript:borra()" id="form-menu" method="post">
+			<h5>{{ _('Marque las referencias de <br />personajes a eliminar') }}</h5>
+			<input type="submit" name="btn btn-delpers" value="{{ _('Eliminar') }}">
+		</form>
+	</div>
 	<div id="content">
-		<div id="indice">
-			<form action="javascript:borra()" id="form-menu" method="post">
-				<div class="txt1">{{ _('Marque las referencias de personajes a eliminar') }}</div>
-				<input type="submit" name="btn btn-delpers" value="{{ _('Eliminar') }}">
-			</form>
-			<div id="form-mov">
-				<input type="button" name="btn btn-volver" onclick="atras()" value="{{ _('Volver') }}">
-			</div>
-		</div>
-		<div id="Personaje-Cabecera">
-			<div class="IdPersonaje">
-				{{ _('ID Personaje') }}
-				<div class="arrow-up" onclick="ordenar('idrev')"></div>
-				<div class="arrow-down" onclick="ordenar('id')"></div>
-			</div>
-			<div class="NomP">{{ _('Referencias personaje') }}</div>
-			<div class="NumApar">
-				{{ _('Número Apariciones') }}
-				<div class="arrow-up" onclick="ordenar('aparev')"></div>
-				<div class="arrow-down" onclick="ordenar('apa')"></div>
-			</div>
-		</div>
-		<div id="Personajes">
-			{% for i in pers.keys() %}
-			<div class="Personaje" idp="{{ i }}" numapa="{{ pers[i].getNumApariciones()[0] }}">
-				<div class="IdPersonaje">{{ i }}</div>
-				<div class="NomP">
+		<table class="table table-hover" style="margin-bottom: 3.75rem;margin-left:14rem">
+			<thead>
+				<tr class="table-primary">
+				<th scope="col">{{ _('ID Personaje') }}</th>
+				<th scope="col">{{ _('Referencias personaje') }}</th>
+				<th scope="col">{{ _('Número Apariciones') }}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for i in pers.keys() %}
+				<tr style="padding-bottom: 150rem;">
+				<div class="Personaje" idp="{{ i }}" numapa="{{ pers[i].getNumApariciones()[0] }}">
+					<div class="IdPersonaje">
+						<td>{{ i }}</td>
+					</div>
+				<td>
 				{% for n in pers[i].getPersonaje().keys() %}
-				<p class="ref">
-					<input type="checkbox" name="cbx cbx-delpers" title="{{ _('Marque para eliminar la referencia') }}" value="{{ n }}" idpers="{{ i }}">
-					{{ n }}
-				</p>
+				<input type="checkbox" name="cbx cbx-delpers" class="cbx-idpers" title="{{ _('Marque para eliminar referencia') }}" value="{{ n }}" idpers="{{ i }}">
+				{{ n }}<br />
 				{% endfor %}
-				</div>
-				{% if pers[i].getNumApariciones()[1] %}
-					<div class="NumApar" parse="true">{{ pers[i].getNumApariciones()[0] }}</div>
+				</td>
+				{% if pers[i].getNumApariciones()[1]%}
+					<div class="NumApar" parse="true">
+					<td>{{ pers[i].getNumApariciones()[0] }}</td>
 				{% elif pers[i].getNumApariciones()[0] == 0 %}
-					<div class="NumApar" parse="false">N/A</div>
-				{% else%}
-					<div class="NumApar" parse="false">{{ pers[i].getNumApariciones()[0] }}</div>
+					<div class="NumApar" parse="false">
+					<td>N/A</td>
+				{% else %}
+					<div class="NumApar" parse="false">
+					<td>{{ pers[i].getNumApariciones()[0] }}</td>
 				{% endif %}
-			</div>
-			{% endfor %}
-		</div>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 	</div>
 	<footer></footer>
 </body>

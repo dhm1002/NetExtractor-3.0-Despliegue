@@ -3,40 +3,54 @@
 <head>
 	<title>NetExtractor</title>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
 </head>
-<body>
+<body background="{{ url_for('static', filename='img/pfff.jpg') }}">
 	<header id="header">
-		<div class="logo">
-			<h1>NetExtractor</h1>
-		</div>
-		<div class="region"> 
-			<h2>{{ _('Inicio') }}</h2>
-		</div>
-		<div class="menu">
-			<ul>
-				<li><a href="#">{{ _('Inicio') }}</a></li>
-				<li><a href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank">{{ _('Repositorio') }}</a></li>
-				<li><a href="{{ url_for('about') }}" target="_blank">{{ _('Acerca De') }}</a></li>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-sticky-top">
+		  <a class="navbar-brand" href="#">NetExtractor</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav mr-auto">
+			  <li class="nav-item">
+				<a class="nav-link" href="{{ url_for('inicio') }}">{{ _('Inicio') }}</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank">{{ _('Repositorio') }}</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="{{ url_for('about') }}" target="_blank">{{ _('Acerca De') }}</a>
+			  </li>
 			</ul>
-		</div>
-		<div class="banderas">
-			<img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
-			<img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
-		</div>
+			<div class="banderas">
+				<img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
+				<img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
+			</div>
+		  </div>
+		</nav>
 	</header>
-	<div id="workflow">
-		<div class="txt-work">
-			<a href="#">{{ _('CARGAR EPUB') }}</a> > {{ _('DICCIONARIO de PERSONAJES') }} > {{ _('MODIFICAR DICCIONARIO') }} > {{ _('PARÁMETROS ADICIONALES') }} > {{ _('RED') }} > {{ _('INFORME') }}
+	<div class="container-fluid">
+		<div class="card text-white bg-warning mb-3 float-right mb-0" style="max-width: 20rem; bottom: 0; position: fixed; z-index: 1000; right: 0;">
+		  <div class="card-header">Advertencia Traducir</div>
+		  <div class="card-body">
+			<h4 class="card-title">Botones de navegación Traducir</h4>
+			<p class="card-text">Se recomienda no utilizar los botones de navegación del navegador, en su lugar utilice los que tiene la propia aplicación. Traducir</p>
+		  </div>
 		</div>
-	</div>
-	<div id="content">
-		<div id="form-content">
-			<form id="form" action="" method="post" enctype=multipart/form-data>
-				<input type="button" name="btn btn-select" onclick="epub()" value="{{ _('epub') }}">
-				<input type="button" name="btn btn-sel" onclick="pelicula()" value="{{ _('pelicula') }}">
-			</form>
-			<p>{{error}}</p>
+		<div id="content" class="d-flex align-items-stretch min-vh-100">
+			<div id="form-content" class="d-flex align-items-center w-100">
+				<form class="m-auto" id="form" action="" method="post" enctype=multipart/form-data>
+					<div class="col-12 text-center">
+						<input type="button" class="btn btn-primary btn-lg p-2 px-5 m-5 btn-block" name="btn btn-select" onclick="epub()" value="{{ _('epub') }}">
+					</div>
+					<div class="col-12 text-center">
+						<input type="button" class="btn btn-primary btn-lg p-2 px-5 m-5 btn-block" style="margin-bottom: 14.5rem !important;" name="btn btn-sel" onclick="pelicula()" value="{{ _('pelicula') }}">
+					</div>
+				</form>
+				<p>{{error}}</p>
+			</div>
 		</div>
 	</div>
 	<footer></footer>

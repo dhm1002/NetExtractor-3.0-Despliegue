@@ -3,46 +3,47 @@
 <head>
 	<title>Ububooknet</title>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
 </head>
 <body>
 	<header id="header">
-		<div class="logo">
-			<h1>Ububooknet</h1>
-		</div>
-		<div class="region"> 
-			<h2>{{ _('Importar Diccionario') }}</h2>
-		</div>
-		<div class="menu">
-			<ul>
-				<li><a href="{{ url_for('index') }}">{{ _('Inicio') }}</a></li>
-				<li><a href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank">{{ _('Repositorio') }}</a></li>
-				<li><a href="{{ url_for('about') }}" target="_blank">{{ _('Acerca De') }}</a></li>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-sticky-top">
+		  <a class="navbar-brand" href="#">NetExtractor</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav mr-auto">
+			  <li class="nav-item">
+				<a class="nav-link" href="{{ url_for('inicio') }}">{{ _('Inicio') }}</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank">{{ _('Repositorio') }}</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="{{ url_for('about') }}" target="_blank">{{ _('Acerca De') }}</a>
+			  </li>
 			</ul>
-		</div>
-		<div class="banderas">
-			<img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
-			<img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
-		</div>
+			<div class="banderas">
+				<img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
+				<img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
+			</div>
+		  </div>
+		</nav>
 	</header>
-	<div id="workflow">
-		<div class="txt-work">
-			<a href="{{ url_for('index') }}">{{ _('CARGAR EPUB') }}</a> > <a href="{{ url_for('dictaut') }}">{{ _('DICCIONARIO de PERSONAJES') }}</a> > {{ _('IMPORTAR DICCIONARIO') }}
+	<div class="fixed-bottom" style="background-color:white">
+		<div id="indice">
+			<button type="button" class="btn btn-primary float-left btn-lg p-3 px-5" name="btn btn-volver" onclick="atras()">{{ _('Volver') }}</button>
+			<button type="button" class="btn btn-primary float-right btn-lg p-3 px-5" name="btn btn-sig" onclick="next()">{{ _('Siguiente') }}</button>
 		</div>
 	</div>
-	<div id="content">
-		<div id="indice">
-			<div id="form-mov">
-				<input type="button" name="btn btn-volver" onclick="atras()" value="{{ _('Volver') }}">
-				<input type="button" name="btn btn-sig" onclick="next()" value="{{ _('Siguiente') }}">
-			</div>
-		</div>
-		<div id="forms">
-			<div id="form-content">
-				<form id="form" action="" method="post" enctype=multipart/form-data>
-					<div id="txt1">{{ _('Introduzca la ruta al fichero csv') }}</div>
+	<div class="container-fluid">
+		<div id="content" class="d-flex align-items-stretch min-vh-100">
+			<div id="form-content" class="d-flex align-items-center w-100">
+				<form id="form" class="m-auto" action="" method="post" enctype=multipart/form-data>
+					<h5>{{ _('Introduzca la ruta al fichero csv') }}</h5>
 					<input type="file" id="csv" name="btn btn-selcsv" value="{{ _('Seleccionar archivo') }}" accept=".csv">
-					<input type="button" onclick="sendForm()" name="btn btn-cargarcsv" value="{{ _('Cargar') }}">
+					<input type="button" class="btn btn-primary p-2 btn-block" style="margin-bottom: 25rem !important;" onclick="sendForm()" name="btn btn-cargarcsv" value="{{ _('Cargar') }}">
 				</form>
 			</div>
 		</div>

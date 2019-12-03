@@ -3,48 +3,52 @@
 <head>
 	<title>Ububooknet</title>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
 </head>
-<input type="file" id="upload" style="visibility:hidden" />
 <body>
 	<header id="header">
-		<div class="logo">
-			<h1>Ububooknet</h1>
-		</div>
-		<div class="region"> 
-			<h2>{{ _('Red') }}</h2>
-		</div>
-		<div class="menu">
-			<ul>
-				<li><a href="{{ url_for('index') }}">{{ _('Inicio') }}</a></li>
-				<li><a href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank">{{ _('Repositorio') }}</a></li>
-				<li><a href="{{ url_for('about') }}" target="_blank">{{ _('Acerca De') }}</a></li>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		  <a class="navbar-brand" href="#">NetExtractor</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav mr-auto">
+			  <li class="nav-item">
+				<a class="nav-link" href="{{ url_for('inicio') }}">{{ _('Inicio') }}</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank">{{ _('Repositorio') }}</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="{{ url_for('about') }}" target="_blank">{{ _('Acerca De') }}</a>
+			  </li>
 			</ul>
-		</div>
-		<div class="banderas">
-			<img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
-			<img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
-		</div>
-	</header>
-	<div id="workflow">
-		<div class="txt-work">
-			<a href="{{ url_for('index') }}">{{ _('CARGAR EPUB') }}</a> > <a href="{{ url_for('dictaut') }}">{{ _('DICCIONARIO de PERSONAJES') }}</a> > <a href="{{ url_for('moddict') }}">{{ _('MODIFICAR DICCIONARIO') }}</a> > <a href="{{ url_for('params') }}">{{ _('PARÁMETROS ADICIONALES') }}</a> > <a href="#">{{ _('RED') }}</a> > {{ _('INFORME') }}
+			<div class="banderas">
+				<img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
+				<img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
+			</div>
+		  </div>
+		</nav>
+	</header>	
+	<div class="fixed-bottom" style="background-color:white">
+		<div id="indice">
+			<button type="button" class="btn btn-primary float-left btn-lg p-3 px-5" name="btn btn-volver" onclick="guardaconfig('params')">{{ _('Volver') }}</button>
+			<button type="button" class="btn btn-primary float-right btn-lg p-3 px-5" name="btn btn-volver" onclick="guardaconfig('informe')">{{ _('Generar Informe') }}</button>
 		</div>
 	</div>
-	<div id="content">
-		<div id="indice">
-			<form action="" id="form-menu" method="post">
-				<input type="submit" name="btn btn-expgml" value="{{ _('Exportar GML') }}">
-				<input type="submit" name="btn btn-expgexf" value="{{ _('Exportar GEXF') }}">
-				<input type="submit" name="btn btn-expnet" value="{{ _('Exportar NET') }}">
-			</form>
-			<div id="form-mov">
-				<input type="button" name="btn btn-volver" value="{{ _('Volver') }}" onclick="guardaconfig('params')">
-				<input type="button" name="btn btn-informe" value="{{ _('Ver Informe') }}" onclick="guardaconfig('informe')">
+	<div id="indice">
+		<form action="" id="form-menu" method="post">
+			<div class="btn-group btn-block" role="group" aria-label="Basic example">
+				<button type="submit" class="btn btn-secondary" name="btn btn-expgml">{{ _('Exportar GML') }}</button>
+				<button type="submit" class="btn btn-secondary" name="btn btn-expgexf">{{ _('Exportar GEXF') }}</button>
+				<button type="submit" class="btn btn-secondary" name="btn btn-expnet">{{ _('Exportar NET') }}</button>
 			</div>
-		</div>
-		<div class="parent_div">
-			<div class="child_div1">
+		</form>
+	</div>
+	<div id="content">
+		<div class="parent_div sticky-top" style="margin-left:0rem;">
+			<div class="child_div1 sticky-top" style="margin-bottom:15rem; margin-top:6.8rem;">
 				<div class="canvas_container">
 					<canvas id="canvas"></canvas>
 				</div>
@@ -52,7 +56,7 @@
 			<div class="child_div2">
 				<div class="controls_container"></div>
 				<div class="child_div2_child_mid"></div>
-				<div class="infotext_container">
+				<div class="infotext_container" style="margin-bottom: 5rem;">
 					<div id="content"></div>
 					<p class='sidebar-text'>
 					    <b>This is a tool</b> for experimenting with network layouts, powered by the <a href="https://github.com/d3/d3-force">d3-force</a> API.
@@ -72,6 +76,7 @@
 			</div>
 		</div>
 	</div>
+	<input type="file" id="upload" style="visibility:hidden" />
 	<!-- Javascript -->
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

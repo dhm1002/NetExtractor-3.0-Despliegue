@@ -7,5 +7,5 @@ import unittest
 #runner = unittest.TextTestRunner()
 #result = runner.run(unittest.makeSuite(testUnitarios.testUnitarios))
 
-Controlador.app.run(threaded=True)
+Controlador.app.run(threaded=True, debug=True)
 

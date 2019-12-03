@@ -4,44 +4,58 @@
 	<title>Ububooknet</title>
 	<meta charset="UTF-8">
 </head>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
 <body>
 	<header id="header">
-		<div class="logo">
-			<h1>Ububooknet</h1>
-		</div>
-		<div class="region"> 
-			<h2>{{ _('Diccionarios Automáticos') }}</h2>
-		</div>
-		<div class="menu">
-			<ul>
-				<li><a href="{{ url_for('index') }}">{{ _('Inicio') }}</a></li>
-				<li><a href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank">{{ _('Repositorio') }}</a></li>
-				<li><a href="{{ url_for('about') }}" target="_blank">{{ _('Acerca De') }}</a></li>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-sticky-top">
+		  <a class="navbar-brand" href="#">NetExtractor</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav mr-auto">
+			  <li class="nav-item">
+				<a class="nav-link" href="{{ url_for('inicio') }}">{{ _('Inicio') }}</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank">{{ _('Repositorio') }}</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="{{ url_for('about') }}" target="_blank">{{ _('Acerca De') }}</a>
+			  </li>
 			</ul>
-		</div>
-		<div class="banderas">
-			<img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
-			<img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
-		</div>
+			<div class="banderas">
+				<img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
+				<img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
+			</div>
+		  </div>
+		</nav>
 	</header>
-	<div id="workflow">
-		<div class="txt-work">
-			<a href="{{ url_for('index') }}">{{ _('CARGAR EPUB') }}</a> > <a href="#">{{ _('DICCIONARIO de PERSONAJES') }}</a> > {{ _('MODIFICAR DICCIONARIO') }} > {{ _('PARÁMETROS ADICIONALES') }} > {{ _('RED') }} > {{ _('INFORME') }}
+	
+	<div class="container-fluid">
+		<div id="content" class="d-flex align-items-stretch min-vh-100">
+			<div id="form-content" class="d-flex align-items-center w-100">
+				<form class="m-auto" id="form" action="" method="post" enctype=multipart/form-data>
+					<div class="col-12 text-center">
+						<input type="submit" class="btn btn-primary btn-lg p-2 px-5 m-5 btn-block" name="btn btn-creadict" onclick="crear()" value="{{ _('Crear Diccionario') }}">
+					</div>
+					<div class="col-12 text-center">
+						<input type="button" class="btn btn-primary btn-lg p-2 px-5 m-5 btn-block" name="btn btn-impdict" onclick="importar()" value="{{ _('Importar Diccionario') }}">
+					</div>
+					<div class="col-12 text-center">
+						<input type="button" class="btn btn-primary btn-lg p-2 px-5 m-5 btn-block" name="btn btn-obtdict" onclick="obtener()" value="{{ _('Obtener Diccionario') }}">
+					</div>
+					<div class="col-12 text-center">
+						<input type="submit" class="btn btn-primary btn-lg p-2 px-5 m-5 btn-block" style="margin-bottom: 14.5rem !important;" name="btn btn-vacdict" onclick="borrar()" value="{{ _('Vaciar Diccionario') }}">
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
-	<div id="content">
+	<div class="fixed-bottom" style="background-color:white">
 		<div id="indice">
-			<form action="" id="form-menu" method="post">
-				<input type="submit" name="btn btn-creadict" onclick="crear()" value="{{ _('Crear Diccionario') }}">
-				<input type="button" name="btn btn-impdict" onclick="importar()" value="{{ _('Importar Diccionario') }}">
-				<input type="button" name="btn btn-obtdict" onclick="obtener()" value="{{ _('Obtener Diccionario') }}">
-				<input type="submit" name="btn btn-vacdit" onclick="borrar()" value="{{ _('Vaciar Diccionario') }}">
-			</form>
-			<div id="form-mov">
-				<input type="button" class="volv" name="btn btn-volver" onclick="atras()" value="{{ _('Volver') }}">
-				<input type="button" class="sig" name="btn btn-sig" onclick="next()" value="{{ _('Siguiente') }}">
-			</div>
+			<button type="button" class="btn btn-primary float-left btn-lg p-3 px-5" name="btn btn-volver" onclick="atras()">{{ _('Volver') }}</button>
+			<button type="button" class="btn btn-primary float-right btn-lg p-3 px-5" name="btn btn-sig" onclick="next()">{{ _('Siguiente') }}</button>
 		</div>
 	</div>
 	<footer></footer>
@@ -50,6 +64,7 @@
 	<script src="{{ url_for('static', filename='js/language.js') }}" type="text/javascript"></script>
 	<script type="text/javascript">
 		var validNavigation = false;
+		var prueba = 0;
 		var perso = {{ perso | safe }}
 		
 		function importar() {
