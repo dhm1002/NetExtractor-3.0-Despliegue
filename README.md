@@ -34,7 +34,7 @@ Después simplemente nos moveremos a la carpeta donde tengamos el proyecto y eje
 
 Ahora ya tendremos corriendo nuestra aplicación, que se comprueba si en nuestra consola de comandos aparece lo siguiente:
 
-![Figura 1]("ReadMe Images"/iniciado.PNG)
+![Figura 1](ReadMeImages/iniciado.PNG)
 
 Finalmente simplemente debemos ir al navegador web que más nos guste e introducir la dirección que aparece en la imagen, es decir https://127.0.0.1:5000 y ya tendríamos nuestra aplicación funcionando en modo local.
 
@@ -76,6 +76,6 @@ Then we will simply move to the folder where we have the project and execute the
 
 Now we will have our application running, which checks if the following appears in our command console:
 
-! [Figure 1] ("ReadMe Images" / started.PNG)
+![Figure 1](ReadMeImages/iniciado.PNG)
 
 Finally we simply have to go to the web browser that we like the most and enter the address that appears in the image, that is https://127.0.0.1:5000 and we would already have our application running locally.
