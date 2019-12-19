@@ -8,7 +8,7 @@
 <body>
 	<header id="header">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-sticky-top">
-		  <a class="navbar-brand" href="#">NetExtractor</a>
+		  <a class="navbar-brand" href="#"><h2>NetExtractor</h2></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		  </button>
@@ -47,94 +47,94 @@
 					<div class="col-4">
 					<input type="checkbox" id="selectallbasics"><label for="selectallbasics"><h5>{{ _('Medidas básicas') }}</h5></label><br/>
 					<input type="checkbox" id="cbx-nnod" name="cbx cbx-nnod" class="case" value="1">
-					<label for="cbx-nnod">{{ _('Obtener Número Nodos') }}</label>
+					<label for="cbx-nnod">{{ _('Número Nodos') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-nenl" name="cbx cbx-nenl" class="case" value="2">
-					<label for="cbx-nenl">{{ _('Obtener Número Enlaces') }}</label>
+					<label for="cbx-nenl">{{ _('Número Enlaces') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-nint" name="cbx cbx-nint" class="case" value="3">
-					<label for="cbx-nint">{{ _('Obtener Número Interacciones') }}</label>
+					<label for="cbx-nint">{{ _('Número Interacciones') }}</label>
 					<br/>
 					<br/>
 					<input type="checkbox" id="selectallgrado"><label for="selectallgrado"><h5>{{ _('Medidas de grado') }}</h5></label><br/>
 					<input type="checkbox" id="cbx-gradosin" name="cbx cbx-gradosin" class="casegrado" value="1">
-					<label for="cbx-gradosin">{{ _('Obtener Grado Sin Peso') }}</label>
+					<label for="cbx-gradosin">{{ _('Grado Nodos Sin Peso') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-gradocon" name="cbx cbx-gradocon" class="casegrado" value="2">
-					<label for="cbx-gradocon">{{ _('Obtener Grado Con Peso') }}</label>
+					<label for="cbx-gradocon">{{ _('Grado Nodos Con Peso') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-distsin" name="cbx cbx-distsin" class="casegrado" value="3">
-					<label for="cbx-distsin">{{ _('Obtener Distribución Sin Peso') }}</label>
+					<label for="cbx-distsin">{{ _('Distribución Grado Sin Peso') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-distcon" name="cbx cbx-distcon" class="casegrado" value="4">
-					<label for="cbx-distcon">{{ _('Obtener Distribución Con Peso') }}</label>
+					<label for="cbx-distcon">{{ _('Distribución Grado Con Peso') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-dens" name="cbx cbx-dens" class="casegrado" value="5">
-					<label for="cbx-dens">{{ _('Obtener Densidad') }}</label>
+					<label for="cbx-dens">{{ _('Densidad') }}</label>
 					<br/>
 					<br/>
 					</div>
 					<div class="col-4">
 					<input type="checkbox" id="selectalldistancia"><label for="selectalldistancia"><h5>{{ _('Medidas de Distancia') }}</h5></label><br/>
 					<input type="checkbox" id="cbx-concomp" name="cbx cbx-concomp" class="casedistancia" value="1">
-					<label for="cbx-concomp">{{ _('Obtener Componentes Conectados') }}</label>
+					<label for="cbx-concomp">{{ _('Componentes Conectados') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-exc" name="cbx cbx-exc" class="casedistancia" value="2">
-					<label for="cbx-exc">{{ _('Obtener Excentricidad') }}</label>
+					<label for="cbx-exc">{{ _('Excentricidad') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-dia" name="cbx cbx-dia" class="casedistancia" value="3">
-					<label for="cbx-dia">{{ _('Obtener Diámetro') }}</label>
+					<label for="cbx-dia">{{ _('Diámetro') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-rad" name="cbx cbx-rad" class="casedistancia" value="4">
-					<label for="cbx-rad">{{ _('Obtener Radio') }}</label>
+					<label for="cbx-rad">{{ _('Radio') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-longmed" name="cbx cbx-longmed" class="casedistancia" value="5">
-					<label for="cbx-longmed">{{ _('Obtener Distancia Media') }}</label>
+					<label for="cbx-longmed">{{ _('Distancia Media') }}</label>
 					<br/>
 					<br/>
 					<input type="checkbox" id="selectallcluster"><label for="selectallcluster"><h5>{{ _('Medidas de Clustering') }}</h5></label><br/>
 					<input type="checkbox" id="cbx-locclust" name="cbx cbx-locclust" class="casecluster" value="1">
-					<label for="cbx-locclust">{{ _('Obtener Coeficiente de Clustering Local') }}</label>
+					<label for="cbx-locclust">{{ _('Coeficiente de Clustering Local') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-clust" name="cbx cbx-clust" class="casecluster" value="2">
-					<label for="cbx-clust">{{ _('Obtener Coeficiente de Clustering Local Medio') }}</label>
+					<label for="cbx-clust">{{ _('Coeficiente de Clustering Local Medio') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-trans" name="cbx cbx-trans" class="casecluster" value="3">
-					<label for="cbx-trans">{{ _('Obtener Transitividad') }}</label>
+					<label for="cbx-trans">{{ _('Transitividad') }}</label>
 					<br/>
 					<br/>
 				</div>
 				<div class="col-4">
 					<input type="checkbox" id="selectallcentro"><label for="selectallcentro"><h5>{{ _('Medidas de Centralidad') }}</h5></label><br/>
 					<input type="checkbox" id="cbx-centg" name="cbx cbx-centg" class="casecentro" value="1">
-					<label for="cbx-centg">{{ _('Obtener Centralidad de Grado') }}</label>
+					<label for="cbx-centg">{{ _('Centralidad Grado') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-centc" name="cbx cbx-centc" class="casecentro" value="2">
-					<label for="cbx-centc">{{ _('Obtener Centralidad de Cercanía') }}</label>
+					<label for="cbx-centc">{{ _('Centralidad Cercanía') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-centi" name="cbx cbx-centi" class="casecentro" value="3">
-					<label for="cbx-centi">{{ _('Obtener Centralidad de Intermediación') }}</label>
+					<label for="cbx-centi">{{ _('Centralidad Intermediación') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-ranwal" name="cbx cbx-ranwal" class="casecentro" value="4">
-					<label for="cbx-ranwal">{{ _('Obtener Intermediación de Camino Aleatorio') }}</label>
+					<label for="cbx-ranwal">{{ _('Intermediación Camino Aleatorio') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-centv" name="cbx cbx-centv" class="casecentro" value="5">
-					<label for="cbx-centv">{{ _('Obtener Centralidad de Valor Propio') }}</label>
+					<label for="cbx-centv">{{ _('Centralidad Valor Propio') }}</label>
 					<br/>
 					<input type="checkbox" id="cbx-para" name="cbx cbx-para" class="casecentro" value="6">
-					<label for="cbx-para">{{ _('Obtener Pagerank') }}</label>
+					<label for="cbx-para">{{ _('Pagerank') }}</label>
 					<br/>
 					<br/>
 					<h5>{{ _('Grupos y comunidades') }}</h5>
 					<input type="checkbox" id="cbx-kcliperc" name="cbx cbx-kcliperc">
-					<label for="cbx-kcliperc">{{ _('Obtener K-clique comunidades') }}</label>
+					<label for="cbx-kcliperc">{{ _('Comunidades K-clique') }}</label>
 					<br/>
 					<p>{{ _('Valor k del K-clique para comunidades') }}: (Por defecto será 2) </p>
 					<input type="number" min=2 name="valkcliqper" id="valkcliqper" value="2">
 					<br/>
 					<br/>
 					<input type="checkbox" id="cbx-girnew" name="cbx cbx-girnew">
-					<label for="cbx-girnew">{{ _('Obtener Girvan-Newman') }}</label>
+					<label for="cbx-girnew">{{ _('Comunidades Girvan-Newman') }}</label>
 					<br/>
 					<br/>
 					<h5>{{ _('Detección de roles') }}</h5>

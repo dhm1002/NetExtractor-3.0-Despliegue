@@ -39,6 +39,7 @@ class Modelo:
         self.__texto = list()
         #comprobar longitud
         self.personajes= dict()
+        self.prueba=dict()
         self.__fincaps = list()
         self.__G = None
         self.urlPelicula = ""

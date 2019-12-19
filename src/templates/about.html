@@ -8,7 +8,7 @@
 <body>
 	<header id="header">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
-		  <a class="navbar-brand" href="#">NetExtractor</a>
+		  <a class="navbar-brand" href="#"><h2>NetExtractor</h2></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		  </button>
@@ -31,19 +31,34 @@
 		  </div>
 		</nav>
 	</header>
+	<div class="float-left" style="margin-left:5rem; margin-top:5rem;">
+		<img src="{{ url_for('static', filename='img/poli.jpg') }}" width="300" height="300" id="politecnica">
+	</div>
+	<div class="float-right" style="margin-right:5rem; margin-top:5rem;">
+		<img src="{{ url_for('static', filename='img/ubuescudo.png') }}" width="300" height="300" id="politecnica">
+	</div>
 	<div id="content">
-		<div id="about">
-			<div class="apartadocentrado">{{_('Acerca de')}} Ububooknet</div>
-			<br/>
-			<div class="txt1justificado">
-				<p>{{_('Ububooknet es una herramienta que permite generar de forma automática la red de interacciones de personajes en novelas y analizar las redes obtenidas para capturar sus métricas más relevantes.')}}</p>
-				<p>{{_('Esta herramienta ha sido desarrollada por Luis Miguel Cabrejas Arce y tutorizada por D. José Manuel Galán Ordax y D. Luis Rodrigo Izquierdo Millán.')}}</p>
+		<div id="about" style="margin-left:30rem; margin-right:30rem;margin-bottom:5rem;">
+			<div style="text-align: center;">
+				<img src="{{ url_for('static', filename='img/logo.png') }}" width="600" height="300" id="politecnica">
 			</div>
-			<br/><br/>
-			<div class="apartadocentrado">{{_('Créditos')}}</div>
 			<br/>
-			<div class="txt1justificado">
+			<div class="text-justify">
+				<p><h3>{{_('¿Qué es NetExtractor?')}}</h3></p>
+				<p><h5>{{_('NetExtractor es una herramienta desarrollada en la Universidad de Burgos que permite generar de forma automática la red de interacciones de personajes en novelas o películas y analizar las redes obtenidas para capturar sus métricas más relevantes de una forma sencilla.')}}</h5></p>
+				<br />
+				<p><h3>{{_('¿Quién integra el proyecto?')}}</h3></p>
+				<p><h5>{{_('El proyecto de NetExtractor fue iniciado por el alumno del grado de Ingeniería Informática Luis Miguel Cabrejas, tutorizado por D. Jose Manuel Galán -info de jose manuel- y D. Luis Rodrigo Izquierdo -info de luis-; y ha sido continuado por el alumno de Ingeniería Informática Jorge Navarro, tutorizado por D. Jose Manuel Galán y Dña. Virginia Ahedo -info de virginia-.')}}</h5></p>
+				<br />
+				<p><h3>{{_('Agradecimientos')}}</h3></p>
+				<p><h5>{{_('A los alumnos del grado de Ingeniería Informática Alicia Olivares y Yi Peng por su colaboración en la extracción de características de la red para la generación del informe en el apartado de "Detección de roles".')}}</h5></p>
+				<br />
+			</div>
+			<div class="apartadocentrado"><h3>{{_('¿Qué herramientas se han empleado?')}}</h3></div>
+			<br/>
+			<div class="text-justify">
 				<ul>
+					<h5>
 					<li><a href="http://flask.pocoo.org/">Flask</a></li>
 					<li><a href="https://pythonhosted.org/Flask-Babel/">Flask Babel</a></li>
 					<li><a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">Beautiful Soup</a></li>
@@ -55,6 +70,7 @@
 					<li><a href="https://github.com/html5lib/html5lib-python">html5lib</a></li>
 					<li><a href="https://www.scipy.org/">scipy</a></li>
 					<li><a href="https://github.com/benmaier/network_styling_with_d3">network_styling_with_d3</a></li>
+					</h5>
 				</ul>
 			</div>
 		</div>

@@ -27,6 +27,10 @@ def before_request():
     g.locale = get_locale()
 
 @app.route('/' , methods=["GET","POST"])
+def home():
+    return render_template('home.html')
+
+@app.route('/Inicio/' , methods=["GET","POST"])
 def inicio():
     return render_template('seleccion.html')
 	
@@ -93,8 +97,7 @@ def dictaut():
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
     if request.method == "POST":
-        if("btn btn-vacdit"  in request.form):
-            m.cambiarPantallas(1)
+        if("btn btn-vacdict"  in request.form):
             m.vaciarDiccionario()
         if("btn btn-creadict" in request.form):
             m.cambiarPantallas(1)

@@ -8,7 +8,7 @@
 <body>
 	<header id="header">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-sticky-top">
-		  <a class="navbar-brand" href="#">NetExtractor</a>
+		  <a class="navbar-brand" href="#"><h2>NetExtractor</h2></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		  </button>
@@ -36,11 +36,11 @@
 			<button type="button" class="btn btn-primary float-left btn-lg p-3 px-5" name="btn btn-volver" onclick="atras()">{{ _('Volver') }}</button>
 		</div>
 	</div>
-	<div id="indice" class="sticky-top float-left">
+	<div id="indice" class="sticky-top float-left" style="margin-left:1rem;">
 		<form action="" id="form-menu" method="post">
-			<div class="txt1">{{ _('Introduzca la id actual del personaje') }}</div>
+			<div class="txt1"><h5>{{ _('Introduzca la id actual <br /> del personaje') }}</h5></div>
 			<input type="text" id="idpers" name="txt txt-idact" size="25" placeholder="{{ _('Id Actual') }}">
-			<div class="txt1">{{ _('Introduzca la nueva id') }}</div>
+			<div class="txt1"><h5>{{ _('Introduzca la nueva id') }}</h5></div>
 			<input type="text" id="newid" name="txt txt-newid" size="25"placeholder="{{ _('Nueva Id') }}"><br />
 			<input type="button" class="btn btn-secondary" style="margin-top: 0.5rem" onclick="sendForm()" name="btn btn-cambiarid" value="{{ _('Cambiar') }}">
 		</form>

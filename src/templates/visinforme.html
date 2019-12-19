@@ -19,7 +19,7 @@
 <body>
 	<header id="header">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-sticky-top">
-		  <a class="navbar-brand" href="#">NetExtractor</a>
+		  <a class="navbar-brand" href="#"><h2>NetExtractor</h2></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		  </button>
@@ -42,34 +42,107 @@
 		  </div>
 		</nav>
 	</header>
-	<div class="fixed-bottom">
+	<div class="fixed-bottom" style="background-color:white">
 		<div id="indicex">
 			<button type="button" class="btn btn-primary float-left btn-lg p-3 px-5" name="btn btn-volver" onclick="atras()">{{ _('Volver') }}</button>
+			<a href="#navegacion" class="btn btn-primary float-right btn-lg p-3 px-5">{{ _('Menú de Navegación') }}</a>
 		</div>
 	</div>
-	<div id="indice" class="sticky-top float-left" style="background-color:whitesmoke;">
+	<div id="indice" class="float-left col-2" style="background-color:whitesmoke;">
 		<form action="" id="form-menu" method="post">
-			<h3>{{_('Menú de Navegación')}}</h3>
+			<a name="navegacion"><h3 style="text-align: center;">{{_('Menú de Navegación')}}</h3></a>
 			{% if "cbx cbx-nnod" in informe.keys() or "cbx cbx-nenl" in informe.keys() or "cbx cbx-nint" in informe.keys() %}
-			<a href="#medidasbasicas" class="btn btn-primary btn-block"><h4>{{_('Medidas básicas')}}</h4></a>
+			<a href="#medidasbasicas" class="btn btn-primary btn-block">{{_('Medidas básicas')}}</a>
+			{%endif%}
+			{% if "cbx cbx-nnod" in informe.keys() %}
+			<a href="#numnodos" class="btn btn-secondary btn-block">{{_('Número Nodos')}}</a>
+			{%endif%}
+			{%if "cbx cbx-nenl" in informe.keys()%}
+			<a href="#numenlaces" class="btn btn-secondary btn-block">{{_('Número Enlaces')}}</a>
+			{%endif%}
+			{%if "cbx cbx-nint" in informe.keys() %}
+			<a href="#numinter" class="btn btn-secondary btn-block">{{_('Número Interacciones')}}</a>
 			{%endif%}
 			{% if "cbx cbx-gradosin" in informe.keys() or "cbx cbx-gradocon" in informe.keys() or "cbx cbx-distsin" in informe.keys() or "cbx cbx-distcon" in informe.keys() or "cbx cbx-dens" in informe.keys() %}
-			<a href="#medidasdegrado" class="btn btn-primary btn-block"><h4>{{_('Medidas de grado')}}</h4></a>
+			<a href="#medidasdegrado" class="btn btn-primary btn-block">{{_('Medidas de grado')}}</a>
+			{%endif%}
+			{% if "cbx cbx-gradosin" in informe.keys() %}
+			<a href="#gsinpeso" class="btn btn-secondary btn-block">{{_('Grado Nodos Sin Peso')}}</a>
+			{%endif%}
+			{%if "cbx cbx-gradocon" in informe.keys() %}
+			<a href="#gconpeso" class="btn btn-secondary btn-block">{{_('Grado Nodos Con Peso')}}</a>
+			{%endif%}
+			{%if "cbx cbx-distsin" in informe.keys() %}
+			<a href="#dsinpeso" class="btn btn-secondary btn-block">{{_('Distribución Grado Sin Peso')}}</a>
+			{%endif%}
+			{%if "cbx cbx-distcon" in informe.keys() %}
+			<a href="#dconpeso" class="btn btn-secondary btn-block">{{_('Distribución Grado Con Peso')}}</a>
+			{%endif%}
+			{%if "cbx cbx-dens" in informe.keys() %}
+			<a href="#densidad" class="btn btn-secondary btn-block">{{_('Densidad')}}</a>
 			{%endif%}
 			{% if "cbx cbx-concomp" in informe.keys() or "cbx cbx-exc" in informe.keys() or "cbx cbx-dia" in informe.keys() or "cbx cbx-rad" in informe.keys() or "cbx cbx-longmed" in informe.keys() %}
-			<a href="#medidasdedistancia" class="btn btn-primary btn-block"><h4>{{_('Medidas de Distancia')}}</h4></a>
+			<a href="#medidasdedistancia" class="btn btn-primary btn-block">{{_('Medidas de Distancia')}}</a>
+			{%endif%}
+			{% if "cbx cbx-concomp" in informe.keys() %}
+			<a href="#cc" class="btn btn-secondary btn-block">{{_('Componentes Conectados')}}</a>
+			{%endif%}
+			{%if "cbx cbx-exc" in informe.keys() %}
+			<a href="#excen" class="btn btn-secondary btn-block">{{_('Excentricidad')}}</a>
+			{%endif%}
+			{%if "cbx cbx-dia" in informe.keys() %}
+			<a href="#diametro" class="btn btn-secondary btn-block">{{_('Diametro')}}</a>
+			{%endif%}
+			{%if "cbx cbx-rad" in informe.keys() %}
+			<a href="#radio" class="btn btn-secondary btn-block">{{_('Radio')}}</a>
+			{%endif%}
+			{%if "cbx cbx-longmed" in informe.keys() %}
+			<a href="#distmed" class="btn btn-secondary btn-block">{{_('Distancia Media')}}</a>
 			{%endif%}
 			{% if "cbx cbx-locclust" in informe.keys() or "cbx cbx-clust" in informe.keys() or "cbx cbx-trans" in informe.keys() %}
-			<a href="#medidasdeclustering" class="btn btn-primary btn-block"><h4>{{_('Medidas de Clustering')}}</h4></a>
+			<a href="#medidasdeclustering" class="btn btn-primary btn-block">{{_('Medidas de Clustering')}}</a>
+			{%endif%}
+			{% if "cbx cbx-locclust" in informe.keys() %}
+			<a href="#ccl" class="btn btn-secondary btn-block">{{_('Coeficiente de Clustering Local')}}</a>
+			{%endif%}
+			{%if "cbx cbx-clust" in informe.keys() %}
+			<a href="#cclm" class="btn btn-secondary btn-block">{{_('Coeficiente de Clustering Local Medio')}}</a>
+			{%endif%}
+			{%if "cbx cbx-trans" in informe.keys() %}
+			<a href="#transitividad" class="btn btn-secondary btn-block">{{_('Transitividad')}}</a>
 			{%endif%}
 			{% if "cbx cbx-centg" in informe.keys() or "cbx cbx-centc" in informe.keys() or "cbx cbx-centi" in informe.keys() or "cbx cbx-ranwal" in informe.keys() or "cbx cbx-centv" in informe.keys() or "cbx cbx-para" in informe.keys()%}
-			<a href="#medidasdecentralidad" class="btn btn-primary btn-block"><h4>{{_('Medidas de Centralidad')}}</h4></a>
+			<a href="#medidasdecentralidad" class="btn btn-primary btn-block">{{_('Medidas de Centralidad')}}</a>
+			{%endif%}
+			{% if "cbx cbx-centg" in informe.keys() %}
+			<a href="#cg" class="btn btn-secondary btn-block">{{_('Centralidad Grado')}}</a>
+			{%endif%}
+			{%if "cbx cbx-centc" in informe.keys() %}
+			<a href="#ccer" class="btn btn-secondary btn-block">{{_('Centralidad Cercanía')}}</a>
+			{%endif%}
+			{%if "cbx cbx-centi" in informe.keys() %}
+			<a href="#cinter" class="btn btn-secondary btn-block">{{_('Centralidad Intermediación')}}</a>
+			{%endif%}
+			{%if "cbx cbx-ranwal" in informe.keys() %}
+			<a href="#ica" class="btn btn-secondary btn-block">{{_('Intermediación Camino Aleatorio')}}</a>
+			{%endif%}
+			{%if "cbx cbx-centv" in informe.keys() %}
+			<a href="#cvp" class="btn btn-secondary btn-block">{{_('Centralidad Valor Propio')}}</a>
+			{%endif%}
+			{%if "cbx cbx-para" in informe.keys() %}
+			<a href="#pagerank" class="btn btn-secondary btn-block">{{_('Pagerank')}}></a>
 			{%endif%}
 			{% if "cbx cbx-kcliperc" in informe.keys() or "cbx cbx-girnew" in informe.keys() %}
-			<a href="#gruposycomunidades" class="btn btn-primary btn-block"><h4>{{_('Grupos y Comunidades')}}</h4></a>
+			<a href="#gruposycomunidades" class="btn btn-primary btn-block">{{_('Grupos y Comunidades')}}</a>
+			{%endif%}
+			{% if "cbx cbx-kcliperc" in informe.keys() %}
+			<a href="#kcc" class="btn btn-secondary btn-block">{{_('Comunidades K-clique')}}</a>
+			{%endif%}
+			{%if "cbx cbx-girnew" in informe.keys() %}
+			<a href="#gnew" class="btn btn-secondary btn-block">{{_('Comunidades Girvan-Newman')}}</a>
 			{%endif%}
 			{% if "cbx cbx-roles" in informe.keys() %}
-			<a href="#deteccionderoles" class="btn btn-primary btn-block"><h4>{{_('Detección de roles')}}</h4></a>
+			<a href="#deteccionderoles" class="btn btn-primary btn-block">{{_('Detección de roles')}}</a>
 			{%endif%}
 		</form>
 	</div>
@@ -80,17 +153,17 @@
 			<a name="medidasbasicas"><h3>{{_('Medidas básicas')}}</h3></a>
 			{% endif %}
 			{% if "cbx cbx-nnod" in informe.keys() %}
-				<p><h5>{{_('Número Nodos')}}:</h5></p>
+				<a name="numnodos"><p><h5>{{_('Número Nodos')}}:</h5></p></a>
 				<p>El número de nodos se va a corresponder con el número de personajes que existen.<br/>
 				En el caso de esta red <b>{{informe["cbx cbx-nnod"]}}</b>.</p>
 			{% endif %}
 			{% if "cbx cbx-nenl" in informe.keys() %}
-				<p><h5>{{_('Número Enlaces')}}:</h5></p>
+				<a name="numenlaces"><p><h5>{{_('Número Enlaces')}}:</h5></p></a>
 				<p>El número de enlaces se corresponde con el número de uniones total entre nodos que hay.<br/>
 				En el caso de esta red <b>{{informe["cbx cbx-nenl"]}}</b>.</p>
 			{% endif %}
 			{% if "cbx cbx-nint" in informe.keys() %}
-				<p><h5>{{_('Número Interacciones')}}:</h5></p>
+				<a name="numinter"><p><h5>{{_('Número Interacciones')}}:</h5></p></a>
 				<p><b>{{informe["cbx cbx-nint"]}}</b>.</p><br/>
 			{% endif %}
 			{% if "cbx cbx-gradosin" in informe.keys() or "cbx cbx-gradocon" in informe.keys() or "cbx cbx-distsin" in informe.keys() or "cbx cbx-distcon" in informe.keys() or "cbx cbx-dens" in informe.keys() %}
@@ -99,7 +172,7 @@
 				Con el grado de todos los nodos podemos obtener la distribución de grado P(k), que es la fracción de nodos que tienen grado k.</p>
 			{%endif%}
 			{% if "cbx cbx-gradosin" in informe.keys() %}
-				<p><h5>{{_('Grado Nodos Sin Peso')}}:</h5> </p>
+				<a name="gsinpeso"><p><h5>{{_('Grado Nodos Sin Peso')}}:</h5> </p> </a>
 				<table class="table table-hover">
 					<thead>
 						<tr class="table-primary">
@@ -119,7 +192,7 @@
 				<br/>
 			{% endif %}
 			{% if "cbx cbx-gradocon" in informe.keys() %}
-				<p><h5>{{_('Grado Nodos Con Peso')}}:</h5> </p>
+				<a name="gconpeso"><p><h5>{{_('Grado Nodos Con Peso')}}:</h5> </p> </a>
 				<table class="table table-hover">
 					<thead>
 						<tr class="table-primary">
@@ -139,7 +212,7 @@
 				<br/>
 			{% endif %}
 			{% if "cbx cbx-distsin" in informe.keys() %}
-				<p><h5>{{_('Distribución Grado Sin Peso')}}:</h5> </p>
+				<a name="dsinpeso"><p><h5>{{_('Distribución Grado Sin Peso')}}:</h5> </p></a>
 				<table class="table table-hover">
 					<thead>
 						<tr class="table-primary">
@@ -162,7 +235,7 @@
 				<br/>
 			{% endif %}
 			{% if "cbx cbx-distcon" in informe.keys() %}
-				<p><h5>{{_('Distribución Grado Con Peso')}}:</h5> </p>
+				<a name="dconpeso"><p><h5>{{_('Distribución Grado Con Peso')}}:</h5> </p></a>
 				<table class="table table-hover">
 					<thead>
 						<tr class="table-primary">
@@ -185,7 +258,7 @@
 				<br/>
 			{% endif %}
 			{% if "cbx cbx-dens" in informe.keys() %}
-				<p><h5>{{_('Densidad')}}:</h5></p>
+				<a name="densidad"><p><h5>{{_('Densidad')}}:</h5></p></a>
 				<p>La densidad de la red es la relación entre el número de enlaces y el número posible de enlaces. Se dice que una red es poco densa en caso de que el número de enlaces L es del mismo orden que el número de nodos N. Si por el contrario L >> N se considera que la red es densa.<br/>
 				En el caso de esta red la densidad es: <b>{{informe["cbx cbx-dens"]}}</b>.</p><br/>
 			{% endif %}
@@ -193,7 +266,7 @@
 			<a name="medidasdedistancia"><h3>{{_('Medidas de Distancia')}}</h3></a>
 			{%endif%}
 			{% if "cbx cbx-concomp" in informe.keys() %}
-				<p><h5>{{_('Componentes Conectados')}}:</h5> </p>
+				<a name="cc"><p><h5>{{_('Componentes Conectados')}}:</h5> </p></a>
 				<table class="table table-hover">
 					<thead>
 						<tr class="table-primary">
@@ -215,7 +288,7 @@
 				<br/>
 			{% endif %}
 			{% if "cbx cbx-exc" in informe.keys() %}
-				<p><h5>{{_('Excentricidad')}}:</h5> </p>
+				<a name="excen"><p><h5>{{_('Excentricidad')}}:</h5> </p></a>
 				<p>Se le llama excentricidad a la mayor distancia geodésica que tiene un nodo con respecto al resto de nodos de la red.</p>
 				<table class="table table-hover">
 					<thead>
@@ -236,24 +309,24 @@
 				<br/>
 			{% endif %}
 			{% if "cbx cbx-dia" in informe.keys() %}
-				<p><h5>{{_('Diametro')}}:</h5></p>
+				<a name="diametro"><p><h5>{{_('Diametro')}}:</h5></p></a>
 				<p>El diámetro es la excentricidad máxima entre todos los nodos de la red. Los nodos con excentricidad máxima se denominan nodos periféricos. El diámetro nos proporciona el número de pasos máximos necesarios para ir de cualquier nodo a cualquier otro de la red y es una de las principales medidas de conectividad global de una red.<br/>
 				En el caso de esta red <b>{{informe["cbx cbx-dia"]}}</b>.</p><br/>
 			{% endif %}
 			{% if "cbx cbx-rad" in informe.keys() %}
-				<p><h5>{{_('Radio')}}:</h5></p>
+				<a name="radio"><p><h5>{{_('Radio')}}:</h5></p></a>
 				<p>El radio es la excentricidad mínima entre todos los nodos de la red. Los nodos con excentricidad mínima forman el centro. Dos veces el radio de la red siempre es mayor o igual que el diámetro de la red.<br/>
 				En el caso de esta red <b>{{informe["cbx cbx-rad"]}}</b>.</p>
 			{% endif %}
 			{% if "cbx cbx-longmed" in informe.keys() %}
-				<p><h5>{{_('Distancia Media')}}:</h5></p>
+				<a name="distmed"><p><h5>{{_('Distancia Media')}}:</h5></p></a>
 				<p><b>{{informe["cbx cbx-longmed"]}}</b>.</p><br/>
 			{% endif %}
 			{% if "cbx cbx-locclust" in informe.keys() or "cbx cbx-clust" in informe.keys() or "cbx cbx-trans" in informe.keys() %}
 			<a name="medidasdeclustering"><h3>{{_('Medidas de Clustering')}}</h3></a>
 			{% endif %}
 			{% if "cbx cbx-locclust" in informe.keys() %}
-				<p><h5>{{_('Clustering Local')}}:</h5> </p>
+				<a name="ccl"><p><h5>{{_('Clustering Local')}}:</h5> </p></a>
 				<table class="table table-hover">
 					<thead>
 						<tr class="table-primary">
@@ -272,10 +345,10 @@
 				</table>
 			{% endif %}
 			{% if "cbx cbx-clust" in informe.keys() %}
-				<p><h5>{{_('Clustering Global')}}:</h5> {{informe["cbx cbx-clust"]}}</p>
+				<a name="cclm"><p><h5>{{_('Clustering Global')}}:</h5> {{informe["cbx cbx-clust"]}}</p></a>
 			{% endif %}
 			{% if "cbx cbx-trans" in informe.keys() %}
-				<p><h5>{{_('Transitividad')}}:</h5></p>
+				<a name="transitividad"><p><h5>{{_('Transitividad')}}:</h5></p></a>
 				<p>La transitividad mide el número de triadas abiertas que son triángulos en la red.<br/>
 					En el caso de esta red <b>{{informe["cbx cbx-trans"]}}</b>.</p><br/>
 			{% endif %}
@@ -283,7 +356,7 @@
 			<a name="medidasdecentralidad"><h3>{{_('Medidas de Centralidad')}}</h3></a>
 			{%endif%}
 			{% if "cbx cbx-centg" in informe.keys() %}
-				<p><h5>{{_('Centralidad Grado')}}:</h5> </p>
+				<a name="cg"><p><h5>{{_('Centralidad Grado')}}:</h5> </p></a>
 				<p>La centralidad de grado es una medida local que parte de la hipótesis de que los nodos con más grado son los más importantes de la red.</p>
 				<table class="table table-hover">
 					<thead>
@@ -307,7 +380,7 @@
 				<br/>
 			{% endif %}
 			{% if "cbx cbx-centc" in informe.keys() %}
-				<p><h5>{{_('Centralidad Cercanía')}}:</h5> </p>
+				<a name="ccer"><p><h5>{{_('Centralidad Cercanía')}}:</h5> </p></a>
 				<p>La centralidad de cercanía parte de la hipótesis de que los nodos que están más cerca de otros nodos son los más importantes.</p>
 				<table class="table table-hover">
 					<thead>
@@ -329,7 +402,7 @@
 				<br/>
 			{% endif %}
 			{% if "cbx cbx-centi" in informe.keys() %}
-				<p><h5>{{_('Centralidad Intermediación')}}:</h5> </p>
+				<a name="cinter"><p><h5>{{_('Centralidad Intermediación')}}:</h5> </p></a>
 				<p>La centralidad de intermediación asume que los nodos que conectan nodos son los nodos importantes.</p>
 				<table class="table table-hover">
 					<thead>
@@ -353,7 +426,7 @@
 				<br/>
 			{% endif %}
 			{% if "cbx cbx-ranwal" in informe.keys() %}
-				<p><h5>{{_('Centralidad Intermediación Camino Aleatorio')}}:</h5> </p>
+				<a name="ica"><p><h5>{{_('Centralidad Intermediación Camino Aleatorio')}}:</h5> </p></a>
 				<table class="table table-hover">
 					<thead>
 						<tr class="table-primary">
@@ -376,7 +449,7 @@
 				<br/>
 			{% endif %}
 			{% if "cbx cbx-centv" in informe.keys() %}
-				<p><h5>{{_('Centralidad Valor Propio')}}:</h5> </p>
+				<a name="cvp"><p><h5>{{_('Centralidad Valor Propio')}}:</h5> </p></a>
 				<p>Esta medida de centralidad se basa en la hipótesis de que la importancia de un nodo crece si tiene vínculos que también son importantes.</p>
 				<table class="table table-hover">
 					<thead>
@@ -400,7 +473,7 @@
 				<br/>
 			{% endif %}
 			{% if "cbx cbx-para" in informe.keys() %}
-				<p><h5>{{_('Pagerank')}}:</h5> </p>
+				<a name="pagerank"><p><h5>{{_('Pagerank')}}:</h5> </p></a>
 				<p>Pagerank es un algoritmo que parte de la centralidad de valor propio.</p>
 				<table class="table table-hover">
 					<thead>
@@ -426,7 +499,9 @@
 			{% if "cbx cbx-kcliperc" in informe.keys() or "cbx cbx-girnew" in informe.keys() %}
 			{%set prueba=0%}
 				<a name="gruposycomunidades"><h3>{{_('Grupos y comunidades')}}</h3></a>
-				<p><h5>{{_('Comunidades K-clique')}}:</h5> </p>
+			{% endif %}
+				{% if "cbx cbx-kcliperc" in informe.keys()%}
+				<a name="kcc"><p><h5>{{_('Comunidades K-clique')}}:</h5> </p></a>
 				<table class="table table-hover">
 					<thead>
 						<tr class="table-primary">
@@ -452,9 +527,9 @@
 				<img src="{{ url_for('download_file', filename='kcliperc.png') }}" width="700" height="500" class="zoomA">
 				</div>
 				<br/>
-			{% endif %}
+			{%endif%}
 			{% if "cbx cbx-girnew" in informe.keys() %}
-				<p><h5>{{_('Comunidades Girvan-Newman')}}:</h5> </p>
+				<a name="gnew"><p><h5>{{_('Comunidades Girvan-Newman')}}:</h5> </p></a>
 				<p>El algoritmo de Girvan -Newman detecta comunidades eliminando progresivamente los enlaces de la red original. Los componentes conectados de la red que queda son las comunidades.</p>
 				<table class="table table-hover">
 					<thead>
