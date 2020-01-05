@@ -1,3 +1,4 @@
+![Figura 0](ReadMeImages/NetExtractor2.png)
 # Bienvenido a NetExtractor
 
 NetExtractor es un proyecto realizado por la Universidad de Burgos que consiste en una aplicación empleada para generar de forma automática la red de interacciones de personajes en guiones de películas y novelas con el fin de analizar las redes obtenidas para capturar sus métricas más relevantes.
