@@ -18,29 +18,29 @@
 </head>
 <body>
 	<header id="header">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-sticky-top">
-		  <a class="navbar-brand" href="#"><h2>NetExtractor</h2></a>
-		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		  </button>
-		  <div class="collapse navbar-collapse" id="navbarColor01">
-			<ul class="navbar-nav mr-auto">
-			  <li class="nav-item">
-				<a class="nav-link" href="{{ url_for('inicio') }}">{{ _('Inicio') }}</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank">{{ _('Repositorio') }}</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" href="{{ url_for('about') }}" target="_blank">{{ _('Acerca De') }}</a>
-			  </li>
-			</ul>
-			<div class="banderas">
-				<img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
-				<img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-sticky-top">
+			<a class="navbar-brand" href="#"><h2><img src="{{ url_for('static', filename='img/NetExtractor2.png') }}" width="200" height="100" id="politecnica"></h2></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarColor01">
+			  <ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+				  <a class="nav-link" href="{{ url_for('inicio') }}"><h5>{{ _('Inicio') }}</h5></a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank"><h5>{{ _('Repositorio') }}</h5></a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="{{ url_for('about') }}" target="_blank"><h5>{{ _('Acerca De') }}</h5></a>
+				</li>
+			  </ul>
+			  <div class="banderas">
+				  <img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
+				  <img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
+			  </div>
 			</div>
-		  </div>
-		</nav>
+		  </nav>
 	</header>
 	<div class="fixed-bottom" style="background-color:white">
 		<div id="indicex">
@@ -48,7 +48,7 @@
 			<a href="#navegacion" class="btn btn-primary float-right btn-lg p-3 px-5">{{ _('Menú de Navegación') }}</a>
 		</div>
 	</div>
-	<div id="indice" class="float-left col-2" style="background-color:whitesmoke;">
+	<div id="indice" class="float-left col-2">
 		<form action="" id="form-menu" method="post">
 			<a name="navegacion"><h3 style="text-align: center;">{{_('Menú de Navegación')}}</h3></a>
 			{% if "cbx cbx-nnod" in informe.keys() or "cbx cbx-nenl" in informe.keys() or "cbx cbx-nint" in informe.keys() %}
@@ -132,7 +132,7 @@
 			{%if "cbx cbx-para" in informe.keys() %}
 			<a href="#pagerank" class="btn btn-secondary btn-block">{{_('Pagerank')}}></a>
 			{%endif%}
-			{% if "cbx cbx-kcliperc" in informe.keys() or "cbx cbx-girnew" in informe.keys() %}
+			{% if "cbx cbx-kcliperc" in informe.keys() or "cbx cbx-girnew" in informe.keys() or "cbx cbx-greedy" in informe.keys() %}
 			<a href="#gruposycomunidades" class="btn btn-primary btn-block">{{_('Grupos y Comunidades')}}</a>
 			{%endif%}
 			{% if "cbx cbx-kcliperc" in informe.keys() %}
@@ -140,6 +140,9 @@
 			{%endif%}
 			{%if "cbx cbx-girnew" in informe.keys() %}
 			<a href="#gnew" class="btn btn-secondary btn-block">{{_('Comunidades Girvan-Newman')}}</a>
+			{%endif%}
+			{%if "cbx cbx-greedy" in informe.keys() %}
+			<a href="#greedy" class="btn btn-secondary btn-block">{{_('Comunidades Clauset-Newman-Moore')}}</a>
 			{%endif%}
 			{% if "cbx cbx-roles" in informe.keys() %}
 			<a href="#deteccionderoles" class="btn btn-primary btn-block">{{_('Detección de roles')}}</a>
@@ -496,7 +499,7 @@
 				</div>
 				<br/>
 			{% endif %}			
-			{% if "cbx cbx-kcliperc" in informe.keys() or "cbx cbx-girnew" in informe.keys() %}
+			{% if "cbx cbx-kcliperc" in informe.keys() or "cbx cbx-girnew" in informe.keys() or "cbx cbx-greedy" in informe.keys() %}
 			{%set prueba=0%}
 				<a name="gruposycomunidades"><h3>{{_('Grupos y comunidades')}}</h3></a>
 			{% endif %}
@@ -551,6 +554,33 @@
 				</table>
 				<div style="margin-left:20rem;">
 				<img src="{{ url_for('download_file', filename='girnew.png') }}" width="700" height="500" class="zoomA">
+				</div>
+
+				<br/>
+			{% endif %}
+			{% if "cbx cbx-greedy" in informe.keys() %}
+				<a name="greedy"><p><h5>{{_('Comunidades Clauset-Newman-Moore')}}:</h5> </p></a>
+				<p>Algoritmo empleado para encontrar comunidades usando la maximización de la modularidad de Clauset-Newman-Moore.</p>
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-primary">
+							<th scope="col">{{_('Comunidad')}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for x in informe["cbx cbx-greedy"] %}
+							<tr>
+								<td>
+									{% for i in x %}
+										{{ i }} | 
+									{% endfor %}
+								</td>
+							</tr>
+						{%endfor%}
+					</tbody>
+				</table>
+				<div style="margin-left:20rem;">
+				<img src="{{ url_for('download_file', filename='greedyCom.png') }}" width="700" height="500" class="zoomA">
 				</div>
 
 				<br/>

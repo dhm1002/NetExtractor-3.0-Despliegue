@@ -7,29 +7,29 @@
 </head>
 <body>
 	<header id="header" class="sticky-top">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
-		  <a class="navbar-brand" href="#"><h2>NetExtractor</h2></a>
-		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		  </button>
-		  <div class="collapse navbar-collapse" id="navbarColor01">
-			<ul class="navbar-nav mr-auto">
-			  <li class="nav-item">
-				<a class="nav-link" href="{{ url_for('inicio') }}">{{ _('Inicio') }}</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank">{{ _('Repositorio') }}</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" href="{{ url_for('about') }}" target="_blank">{{ _('Acerca De') }}</a>
-			  </li>
-			</ul>
-			<div class="banderas">
-				<img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
-				<img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-sticky-top">
+			<a class="navbar-brand" href="#"><h2><img src="{{ url_for('static', filename='img/NetExtractor2.png') }}" width="200" height="100" id="politecnica"></h2></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarColor01">
+			  <ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+				  <a class="nav-link" href="{{ url_for('inicio') }}"><h5>{{ _('Inicio') }}</h5></a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="https://github.com/lca0037/GII18.0U-Ububooknet" target="_blank"><h5>{{ _('Repositorio') }}</h5></a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="{{ url_for('about') }}" target="_blank"><h5>{{ _('Acerca De') }}</h5></a>
+				</li>
+			  </ul>
+			  <div class="banderas">
+				  <img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
+				  <img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
+			  </div>
 			</div>
-		  </div>
-		</nav>
+		  </nav>
 	</header>
 	<div class="fixed-bottom" style="background-color:white">
 		<div id="indice">

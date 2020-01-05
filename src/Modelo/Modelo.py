@@ -576,7 +576,7 @@ class Modelo:
             solicitud: lista con las metricas
             direc: directorio donde guardar imagenes
         """
-        switch = {'cbx cbx-nnod': self.nNodos, 'cbx cbx-nenl': self.nEnl, 'cbx cbx-nint': self.nInt, 'cbx cbx-gradosin': self.gSin, 'cbx cbx-gradocon': self.gCon, 'cbx cbx-distsin': self.dSin, 'cbx cbx-distcon': self.dCon, 'cbx cbx-dens': self.dens, 'cbx cbx-concomp': self.conComp, 'cbx cbx-exc': self.exc, 'cbx cbx-dia': self.diam, 'cbx cbx-rad': self.rad, 'cbx cbx-longmed': self.longMed, 'cbx cbx-locclust': self.locClust, 'cbx cbx-clust': self.clust, 'cbx cbx-trans': self.trans, 'cbx cbx-centg': self.centG, 'cbx cbx-centc': self.centC, 'cbx cbx-centi': self.centI, 'cbx cbx-ranwal': self.ranWal, 'cbx cbx-centv': self.centV,'cbx cbx-para': self.paRa, 'cbx cbx-kcliperc': self.kCliPerc, 'cbx cbx-girnew': self.girNew, 'cbx cbx-roles': self.roles}
+        switch = {'cbx cbx-nnod': self.nNodos, 'cbx cbx-nenl': self.nEnl, 'cbx cbx-nint': self.nInt, 'cbx cbx-gradosin': self.gSin, 'cbx cbx-gradocon': self.gCon, 'cbx cbx-distsin': self.dSin, 'cbx cbx-distcon': self.dCon, 'cbx cbx-dens': self.dens, 'cbx cbx-concomp': self.conComp, 'cbx cbx-exc': self.exc, 'cbx cbx-dia': self.diam, 'cbx cbx-rad': self.rad, 'cbx cbx-longmed': self.longMed, 'cbx cbx-locclust': self.locClust, 'cbx cbx-clust': self.clust, 'cbx cbx-trans': self.trans, 'cbx cbx-centg': self.centG, 'cbx cbx-centc': self.centC, 'cbx cbx-centi': self.centI, 'cbx cbx-ranwal': self.ranWal, 'cbx cbx-centv': self.centV,'cbx cbx-para': self.paRa, 'cbx cbx-kcliperc': self.kCliPerc, 'cbx cbx-girnew': self.girNew, 'cbx cbx-greedy': self.greedyComunidad, 'cbx cbx-roles': self.roles}
         valkcliqper =  solicitud['valkcliqper']
         del solicitud['valkcliqper']
         self.informe = dict()
@@ -908,7 +908,25 @@ class Modelo:
         nx.draw(self.__G,pos,with_labels=True, node_size = pesos*10000, ax=f.add_subplot(111))
         f.savefig(os.path.join(self.dir,'para.png'), format="PNG")
         return pr
-        
+
+    def greedyComunidad(self):
+        """
+        Método que devuelve las comunidades con el algoritmo greedy de Clauset-Newman-Moore
+
+        Return:
+            comunidades de Clauset-Newman-Moore
+        """
+        l = list()
+        pos=nx.kamada_kawai_layout(self.__G)
+        f = plt.figure(figsize=(12,12))
+        nx.draw(self.__G,pos,with_labels=True)
+        for x in nx.algorithms.community.greedy_modularity_communities(self.__G):
+            l.append(x)
+            col = '#'+secrets.token_hex(3)
+            nx.draw_networkx_nodes(self.__G,pos,nodelist=list(x),node_color=col)
+        f.savefig(os.path.join(self.dir, 'greedyCom.png'), format="PNG")
+        return l
+
     def kCliPerc(self, k):
         """
         Método que devuelve las comunidades de k-clique
