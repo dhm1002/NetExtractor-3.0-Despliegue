@@ -7,7 +7,7 @@ Las redes van a ser obtenidas mediante la introducción de dichos guiones en la 
 
 Una vez que se hayan introducido los requisitos anteriormente mencionados, podremos crear los diccionarios de personajes los cuales podemos modificar, borrar personajes, cambiarlos o combinarlos en caso de que así se requiera. Cuando se genere la red, tendremos un menú de selección de las características deseadas para extraer de la red que, una vez seleccionadas, podrán ser visualizadas en el informe generado.
 
-De forma general esto sería lo que hace la aplicación, aun así, en este repositorio tenemos toda la información acerca del proyecto, en la carpeta "doc" tendremos toda la documentación necesaria así como los manuales de uso de la aplicación. Además la aplicación posee una wiki en la cual podremos consultar también documentación. Link de la wiki: https://www.wikinetextractor.herokuapp.com.
+De forma general esto sería lo que hace la aplicación, aun así, en este repositorio tenemos toda la información acerca del proyecto, en la carpeta "doc" tendremos toda la documentación necesaria así como los manuales de uso de la aplicación. Además la aplicación posee una wiki en la cual podremos consultar también documentación. Link de la wiki: https://wikinetextractor.herokuapp.com.
 
 ## Instalación en local:
 
@@ -49,7 +49,7 @@ Networks will be obtained through the introduction of the movie scripts from the
 
 Once the requirements have been introduced, we can create the character dictionaries which can be modify, delete characters, change them or combine them if required. When the network is generated, we will have a menu to select the desired characteristics to extract from the network that, once selected, can be displayed in the generated report.
 
-In general, this would be what the application does, even so, in this repository we have all the information about the project, in the "doc" folder we will have all the necessary documentation as well as the application usage manuals. In addition the application has a wiki in which we can also consult documentation. Wiki link: https://www.wikinetextractor.herokuapp.com.
+In general, this would be what the application does, even so, in this repository we have all the information about the project, in the "doc" folder we will have all the necessary documentation as well as the application usage manuals. In addition the application has a wiki in which we can also consult documentation. Wiki link: https://wikinetextractor.herokuapp.com.
 
 ## Local Instalation:
 
