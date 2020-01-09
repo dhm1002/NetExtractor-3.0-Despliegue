@@ -38,6 +38,10 @@ Ahora ya tendremos corriendo nuestra aplicación, que se comprueba si en nuestra
 ![Figura 1](ReadMeImages/iniciado.PNG)
 
 Finalmente simplemente debemos ir al navegador web que más nos guste e introducir la dirección que aparece en la imagen, es decir https://127.0.0.1:5000 y ya tendríamos nuestra aplicación funcionando en modo local.
+## Aplicación desplegada:
+
+La aplicación está abierta y desplegada en https://www.heroku.com un sitio web para poder desplegar aplicaciones web de forma gratuita.
+Para poder acceder a la aplicación se debe acceder al siguiente link: https://netextractor.herokuapp.com.
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -51,7 +55,7 @@ Once the requirements have been introduced, we can create the character dictiona
 
 In general, this would be what the application does, even so, in this repository we have all the information about the project, in the "doc" folder we will have all the necessary documentation as well as the application usage manuals. In addition the application has a wiki in which we can also consult documentation. Wiki link: https://wikinetextractor.herokuapp.com.
 
-## Local Instalation:
+## Local instalation:
 
 For the installation of all the necessary components for the deployment of the application locally, we only have to install the necessary components that we will use which will be the following:
 
@@ -80,3 +84,8 @@ Now we will have our application running, which checks if the following appears 
 ![Figure 1](ReadMeImages/iniciado.PNG)
 
 Finally we simply have to go to the web browser that we like the most and enter the address that appears in the image, that is https://127.0.0.1:5000 and we would already have our application running locally.
+
+## Deployed application:
+
+The application is open and deployed in https://www.heroku.com a website to be able to deploy web applications for free.
+To access the application you must access the following link: https://netextractor.herokuapp.com.
