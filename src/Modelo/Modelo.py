@@ -18,6 +18,7 @@ from threading import Thread
 import os
 import secrets
 from flask_babel import gettext
+from community import community_louvain
 
 
 class Modelo:
@@ -42,6 +43,7 @@ class Modelo:
         self.prueba=dict()
         self.__fincaps = list()
         self.__G = None
+        self.__Gnoatt = None
         self.urlPelicula = ""
         self.diccionarioApariciones = dict()
         self.cambio = 0
@@ -136,6 +138,58 @@ class Modelo:
                 self.personajes[i].sumNumApariciones(len(listapar))
         return self.diccionarioApariciones
 
+    def normalize(self,s):
+        replacements = (
+            ("á", "a"),
+            ("é", "e"),
+            ("í", "i"),
+            ("ó", "o"),
+            ("ú", "u"),
+            ("#", ""),
+            (" ", "%20")
+            
+        )
+        for a, b in replacements:
+            s = s.replace(a, b).replace(a.upper(), b.upper())
+        return s
+
+    def separaNombres(self, nombre):
+        name = nombre.split(maxsplit=1)
+        if len(name) == 1:
+            firstname = name[0]
+            lastname = name[0]
+        else:
+            firstname = name[0]
+            lastname = name[1]
+        return self.normalize(firstname), self.normalize(lastname)
+
+    def scrapeEtniaSexo(self, nombre):
+        """
+        Método para obtener un diccionario de personajes haciendo web scraping
+    
+        Args:
+            url: url donde hacer web scraping
+        """
+        firstname, lastname = self.separaNombres(nombre)
+        url = 'http://abel.lis.illinois.edu/cgi-bin/ethnea/search.py?Fname='+firstname+'&Lname='+lastname+'&format=json'
+        web = urllib.request.urlopen(url)
+        html = BeautifulSoup(web.read(), "html.parser")
+        jsonCosas = str(html)
+        ethnia = eval(jsonCosas)['Ethnea']
+        sexo = eval(jsonCosas)['Genni']
+        first = eval(jsonCosas)['First']
+        last = eval(jsonCosas)['Last']
+        return ethnia,sexo
+
+    def obtenerEthnea(self):
+        etnia = None
+        sexo = None
+        for i in self.personajes.keys():
+            etnia, sexo = self.scrapeEtniaSexo(i)
+            self.personajes[i].setEtnia(etnia)
+            self.personajes[i].setSexo(sexo)
+            self.personajes[i].crearDictSE()
+
     def getDictParsear(self):
         """
         Función que genera una lista de nombres para obtener su posición en el texto
@@ -171,6 +225,14 @@ class Modelo:
             
         """
         self.personajes = dict()
+
+    def cambiarEtnia(self, etnia, pers):
+        self.personajes[pers].setEtnia(etnia)
+        self.personajes[pers].crearDictSE()
+
+    def cambiarSexo(self, sexo, pers):
+        self.personajes[pers].setSexo(sexo)
+        self.personajes[pers].crearDictSE()
 
     def anadirPersonaje(self, idpers, pers):
         """
@@ -418,6 +480,8 @@ class Modelo:
                                                 break
                         if(peso>0):
                             self.__G.add_edge(persk[i],persk[j],weight=peso)
+        self.__Gnoatt = self.__G.copy()
+        self.anadirAtributos()
     
     def elementosComunes(lista, lista1):
         return list(set(lista).intersection(lista1))
@@ -434,7 +498,15 @@ class Modelo:
                             #listaprueba.append((key,key1,len(lista)))
                             peso = len(lista)
                             self.__G.add_edge(key,key1,weight=int(peso))
+        self.__Gnoatt = self.__G.copy()
+        self.anadirAtributos()
     
+    def anadirAtributos(self):
+        dictionary = dict()
+        for i in self.__G.nodes:
+            dictionary[i]=self.personajes[i].getDiccionario()
+        nx.set_node_attributes(self.__G,dictionary)
+
     def visualizar(self):
         """
         Método para mandar a d3 la información para visualizar la red
@@ -442,7 +514,7 @@ class Modelo:
         Args:
             
         """
-        return json.dumps(nx.json_graph.node_link_data(self.__G))
+        return json.dumps(nx.json_graph.node_link_data(self.__Gnoatt))
 
     def scrapeWiki(self,url):
         """
@@ -473,8 +545,9 @@ class Modelo:
             pn = pn.strip()
             if (not 'EXT.' in pn and not 'INT.' in pn and not '.' in pn and not ':' in pn and not ';' in pn and not '"' in pn and not '!' in pn and not '?' in pn and not '-' in pn and not ',' in pn and len(pn)<30 and not 'Genres' in pn and not 'Writers' in pn and not '_' in pn):
                 if (not pn in lista):
-                    lista.append(pn)
-                    self.anadirPersonaje(pn,pn)
+                    if(not pn == ''):
+                        lista.append(pn)
+                        self.anadirPersonaje(pn,pn)
         return lista		
 	
     def importDict(self, fichero):
@@ -576,14 +649,19 @@ class Modelo:
             solicitud: lista con las metricas
             direc: directorio donde guardar imagenes
         """
-        switch = {'cbx cbx-nnod': self.nNodos, 'cbx cbx-nenl': self.nEnl, 'cbx cbx-nint': self.nInt, 'cbx cbx-gradosin': self.gSin, 'cbx cbx-gradocon': self.gCon, 'cbx cbx-distsin': self.dSin, 'cbx cbx-distcon': self.dCon, 'cbx cbx-dens': self.dens, 'cbx cbx-concomp': self.conComp, 'cbx cbx-exc': self.exc, 'cbx cbx-dia': self.diam, 'cbx cbx-rad': self.rad, 'cbx cbx-longmed': self.longMed, 'cbx cbx-locclust': self.locClust, 'cbx cbx-clust': self.clust, 'cbx cbx-trans': self.trans, 'cbx cbx-centg': self.centG, 'cbx cbx-centc': self.centC, 'cbx cbx-centi': self.centI, 'cbx cbx-ranwal': self.ranWal, 'cbx cbx-centv': self.centV,'cbx cbx-para': self.paRa, 'cbx cbx-kcliperc': self.kCliPerc, 'cbx cbx-girnew': self.girNew, 'cbx cbx-greedy': self.greedyComunidad, 'cbx cbx-roles': self.roles}
+        switch = {'cbx cbx-nnod': self.nNodos, 'cbx cbx-nenl': self.nEnl, 'cbx cbx-nint': self.nInt, 'cbx cbx-gradosin': self.gSin, 'cbx cbx-gradocon': self.gCon, 'cbx cbx-distsin': self.dSin, 'cbx cbx-distcon': self.dCon, 'cbx cbx-dens': self.dens, 'cbx cbx-concomp': self.conComp, 'cbx cbx-exc': self.exc, 'cbx cbx-dia': self.diam, 'cbx cbx-rad': self.rad, 'cbx cbx-longmed': self.longMed, 'cbx cbx-locclust': self.locClust, 'cbx cbx-clust': self.clust, 'cbx cbx-trans': self.trans, 'cbx cbx-centg': self.centG, 'cbx cbx-centc': self.centC, 'cbx cbx-centi': self.centI, 'cbx cbx-ranwal': self.ranWal, 'cbx cbx-centv': self.centV,'cbx cbx-para': self.paRa, 'cbx cbx-kcliperc': self.kCliPerc, 'cbx cbx-girnew': self.girNew, 'cbx cbx-greedy': self.greedyComunidad, 'cbx cbx-louvain': self.louvain, 'cbx cbx-roleskcliq': self.roleskclique, 'cbx cbx-rolesgirvan': self.rolesGirvan, 'cbx cbx-rolesgreedy': self.rolesGreedy, 'cbx cbx-roleslouvain': self.rolesLouvain}
         valkcliqper =  solicitud['valkcliqper']
+        valkcliqperrol = solicitud['valkcliqperrol']
         del solicitud['valkcliqper']
+        del solicitud['valkcliqperrol']
         self.informe = dict()
         self.dir = direc
+        cont = 0
         for s in solicitud.keys():
             if('cbx cbx-kcliperc' == s):
                 self.informe[s] = switch[s](valkcliqper)
+            elif('cbx cbx-roleskcliq' == s):
+                self.informe[s] = switch[s](valkcliqperrol)
             else:
                 self.informe[s] = switch[s]()
         
@@ -596,6 +674,7 @@ class Modelo:
         Return:
             Numero de nodos
         """
+        print('numero nodos')
         return nx.number_of_nodes(self.__G)
         
     def nEnl(self):
@@ -607,6 +686,7 @@ class Modelo:
         Return:
             Numero de enlaces
         """
+        print('numero enlaces')
         return nx.number_of_edges(self.__G)
         
     def nInt(self):
@@ -618,6 +698,7 @@ class Modelo:
         Return:
             Numero de interacciones
         """
+        print('numero interacciones')
         return self.__G.size(weight='weight')
     
     def gSin(self):
@@ -629,6 +710,7 @@ class Modelo:
         Return:
             Grado sin el peso
         """
+        print('grado sin peso')
         return nx.degree(self.__G)
         
     def gCon(self):
@@ -640,6 +722,7 @@ class Modelo:
         Return:
             Grado con el peso
         """
+        print('grado con peso')
         return nx.degree(self.__G,weight='weight')
         
     def dSin(self):
@@ -651,6 +734,7 @@ class Modelo:
         Return:
             Distribucion de grado sin el peso
         """
+        print('distribucion sin peso')
         degree_sequence = sorted([d for n, d in self.__G.degree()], reverse=True)  # degree sequence
         degreeCount = collections.Counter(degree_sequence)
         deg, cnt = zip(*degreeCount.items())
@@ -675,6 +759,7 @@ class Modelo:
         Return:
             Distribucion de grado con el peso
         """
+        print('distribucion con peso')
         degree_sequence = sorted([d for n, d in self.__G.degree(weight='weight')], reverse=True)
         degreeCount = collections.Counter(degree_sequence)
         deg, cnt = zip(*degreeCount.items())
@@ -699,6 +784,7 @@ class Modelo:
         Return:
             Densidad de la red
         """
+        print('densidad')
         return nx.density(self.__G)
         
     def conComp(self):
@@ -710,6 +796,7 @@ class Modelo:
         Return:
             lista de cada componente conectado
         """
+        print('componentes conectados')
         l = list()
         for x in nx.connected_components(self.__G):
             l.append(x)
@@ -724,6 +811,7 @@ class Modelo:
         Return:
             excentricidad de la red
         """
+        print('excentricidad')
         diccionario = dict()
         if(nx.is_connected(self.__G)):
             return nx.eccentricity(self.__G)
@@ -739,6 +827,7 @@ class Modelo:
         Return:
             diametro de la red
         """
+        print('diametro')
         if(nx.is_connected(self.__G)):
             return nx.diameter(self.__G)
         return "El grafo no está conectado"
@@ -752,6 +841,7 @@ class Modelo:
         Return:
             radio de la red
         """
+        print('radio')
         if(nx.is_connected(self.__G)):
             return nx.radius(self.__G)
         return "El grafo no está conectado"
@@ -765,6 +855,7 @@ class Modelo:
         Return:
             distancia media de la red
         """
+        print('distancia media')
         if(nx.is_connected(self.__G)):
             return nx.average_shortest_path_length(self.__G)
         return "El grafo no está conectado"
@@ -778,6 +869,7 @@ class Modelo:
         Return:
             clustering de cada nodo
         """
+        print('clustering de cada nodo')
         return nx.clustering(self.__G)
         
     def clust(self):
@@ -789,6 +881,7 @@ class Modelo:
         Return:
             clustering global
         """
+        print('clustering global')
         return nx.average_clustering(self.__G)
         
     def trans(self):
@@ -800,6 +893,7 @@ class Modelo:
         Return:
             transitividad de la red
         """
+        print('transitividad')
         return nx.transitivity(self.__G)
         
     def centG(self):
@@ -811,6 +905,7 @@ class Modelo:
         Return:
             centralidad de grado
         """
+        print('centralidad de grado')
         centg = nx.degree_centrality(self.__G)
         pesos = np.array(list(centg.values()))
         pos=nx.kamada_kawai_layout(self.__G)
@@ -828,6 +923,7 @@ class Modelo:
         Return:
             centralidad de cercania
         """
+        print('centralidad de cercanía')
         centc = nx.closeness_centrality(self.__G)
         pesos = np.array(list(centc.values()))
         pos=nx.kamada_kawai_layout(self.__G)
@@ -845,6 +941,7 @@ class Modelo:
         Return:
             centralidad de intermediacion
         """
+        print('centralidad de intermediación')
         centi = nx.betweenness_centrality(self.__G)
         pesos = np.array(list(centi.values()))
         pos=nx.kamada_kawai_layout(self.__G)
@@ -862,6 +959,7 @@ class Modelo:
         Return:
             centralidad de intermediacion random walker
         """
+        print('random walk')
         if(nx.is_connected(self.__G)):
             ranwal = nx.current_flow_betweenness_centrality(self.__G)
             pesos = np.array(list(ranwal.values()))
@@ -884,6 +982,7 @@ class Modelo:
         Return:
             centralidad de valor propio
         """
+        print('Valor propio')
         centv = nx.eigenvector_centrality(self.__G)
         pesos = np.array(list(centv.values()))
         pos=nx.kamada_kawai_layout(self.__G)
@@ -901,6 +1000,7 @@ class Modelo:
         Return:
             centralidad de pagerank
         """
+        print('PageRank')
         pr = nx.pagerank_numpy(self.__G,alpha=0.85)
         pesos = np.array(list(pr.values()))
         pos=nx.kamada_kawai_layout(self.__G)
@@ -909,6 +1009,45 @@ class Modelo:
         f.savefig(os.path.join(self.dir,'para.png'), format="PNG")
         return pr
 
+    def ordenarFrozen(self, partition):
+        lista = list(partition.keys())
+        lista2 = lista.copy()
+        particiones = list()
+        valores = list()
+        for x in lista:
+            valor = partition.get(x)
+            lista2.remove(x)
+            lista3=list()
+            lista3.append(x)
+            for y in lista2:
+                if not partition.get(x) in valores:
+                    if partition.get(y) == valor:
+                        lista3.append(y)
+                    frozen = frozenset(lista3)
+            if not len(frozen) == 0:
+                particiones.append(frozen)
+            frozen = []
+            valores.append(valor)
+        return particiones
+        
+
+
+    def louvain(self):
+        print('Com louvain')
+        l = list()
+        pos=nx.kamada_kawai_layout(self.__G)
+        f = plt.figure(figsize=(12,12))
+        nx.draw(self.__G,pos,with_labels=True)
+        partition = community_louvain.best_partition(self.__G)
+        particiones = self.ordenarFrozen(partition)
+        for x in particiones:
+            l.append(x)
+            col = '#'+secrets.token_hex(3)
+            nx.draw_networkx_nodes(self.__G,pos,nodelist=list(x),node_color=col)
+        f.savefig(os.path.join(self.dir, 'louvain.png'), format="PNG")
+        return l
+
+
     def greedyComunidad(self):
         """
         Método que devuelve las comunidades con el algoritmo greedy de Clauset-Newman-Moore
@@ -916,6 +1055,7 @@ class Modelo:
         Return:
             comunidades de Clauset-Newman-Moore
         """
+        print('com greedy')
         l = list()
         pos=nx.kamada_kawai_layout(self.__G)
         f = plt.figure(figsize=(12,12))
@@ -936,6 +1076,7 @@ class Modelo:
         Return:
             comunidades de k-clique
         """
+        print('com kcliq')
         l = list()
         pos=nx.kamada_kawai_layout(self.__G)
         f = plt.figure(figsize=(12,12))
@@ -956,6 +1097,7 @@ class Modelo:
         Return:
             comunidades de girvan-newman
         """
+        print('com girvan')
         l = list()
         resul,mod,npart = self.girvan_newman(self.__G.copy())
         pos=nx.kamada_kawai_layout(self.__G)
@@ -968,7 +1110,7 @@ class Modelo:
         f.savefig(os.path.join(self.dir,'girnew.png'), format="PNG")
         return l
         
-    def roles(self):
+    def roles(self,resul,nombre):
         """
         Método para detectar roles en comunidades de girvan-newman
         
@@ -977,9 +1119,13 @@ class Modelo:
         Return:
             roles en comunidades de girvan-newman
         """
-        z = self.obtenerZ(self.__G)
-        p = self.obtenerP(self.__G)
+        z = self.obtenerZ(self.__G,resul)
+        print('z obtenida')
+        p = self.obtenerP(self.__G, resul)
+        print('p obtenida')
         pesos = self.__G.degree(weight='weight')
+        zlist = list()
+        plist = list()
         hubp = list()
         hubc = list()
         hubk = list()
@@ -994,27 +1140,130 @@ class Modelo:
             pesoaux.append(aux)
             nodo = list()
             nodo.append(k)
+            zlist.append(z[k])
+            plist.append(p[k])
+            print('calculando a que rol pertenece...')
             if z[k] >= 2.5:
                 if(p[k] < 0.32):
                     hubp.append(k)
+                    print('pertenece a hubp')
                 elif(p[k] < 0.75):
                     hubc.append(k)
+                    print('pertenece a hubc')
                 else:
                     hubk.append(k)
+                    print('pertenece a hubk')
             else:
                 if(p[k] > -0.02 and p[k] < 0.02):
                     nhubu.append(k)
+                    print('pertenece a nhubu')
                 elif(p[k] < 0.625):
                     nhubp.append(k)
+                    print('pertenece a nhubp')
                 elif(p[k] < 0.8):
                     nhubc.append(k)
+                    print('pertenece a nhubc')
                 else:
                     nhubk.append(k)
+                    print('pertenece a nhubk')
         roles = {'hubp':hubp,'hubc':hubc,'hubk':hubk,'nhubu':nhubu,'nhubp':nhubp,'nhubc':nhubc,'nhubk':nhubk}
+        print('Obteniendo figura...')
+        f = plt.figure(figsize=(10,10))
+        plt.xlabel("Participation coefficient (P)",fontsize=15)
+        plt.ylabel("Within-module degree (Z)",fontsize=15)
+
+        y_min=-2 #valor mínimo del eje de la Y
+        y_max=8 #valor máximo del eje de la Y
+
+        limit_hub=2.5
+
+        alpha=0.3
+
+        plt.xlim(0, 1)
+        plt.ylim(y_min,y_max)
+
+
+
+        regiones_roles=[(y_min, limit_hub, 0, 0.05, 'black'),
+                        (y_min, limit_hub, 0.05, 0.62, 'red'),
+                        (y_min, limit_hub, 0.62, 0.8, 'green'),
+                        (y_min, limit_hub, 0.8, 1, 'blue'),
+                        (limit_hub, y_max, 0, 0.3, 'yellow'),
+                        (limit_hub, y_max, 0.3, 0.75, 'purple'),
+                        (limit_hub, y_max, 0.75, 1, 'grey')]
+
+        for n_rol, (ymin, ymax, xmin, xmax, color) in enumerate(regiones_roles,1):
+            
+            plt.axhspan(ymin, ymax, xmin, xmax, facecolor=color, alpha=alpha, zorder=0)
+            plt.text((xmax-xmin)/2+xmin,(ymax-ymin)/2+ymin,"R"+str(n_rol),
+                    horizontalalignment='center',verticalalignment='center',fontsize=18, zorder=10)
+            
+        plt.scatter(plist,zlist, color='red', zorder=5)   
+            
+        f.savefig(os.path.join(self.dir,nombre), format="PNG")
+        print('figura obtenida')
         return roles
 
-        
-    def obtenerZ(self, grafo):
+    def rolesLouvain(self):
+        print('roles louvain')
+        dictroles = dict()
+        partition = community_louvain.best_partition(self.__G)
+        print('particiones obtenidas')
+        particiones = self.ordenarFrozen(partition)
+        resul = self.devuelveComunidadesSeparadas(particiones, self.__G.copy())
+        print('comunidades separadas obtenidas')
+        dictroles = self.roles(resul,'roleslouvain.png')
+        print('roles obtenidos')
+        return dictroles
+    
+    def rolesGreedy(self):
+        print('roles greedy')
+        dictroles = dict()
+        particiones = list(nx.algorithms.community.greedy_modularity_communities(self.__G))
+        print('particiones obtenidas')
+        resul = self.devuelveComunidadesSeparadas(particiones, self.__G.copy())
+        print('comunidades separadas obtenidas')
+        dictroles = self.roles(resul,'rolesgreedy.png')
+        print('roles obtenidos')
+        return dictroles
+    
+    def roleskclique(self, k):
+        print('roles kcliq')
+        dictroles = dict()
+        particiones = list(nx.algorithms.community.k_clique_communities(self.__G, int(k)))
+        print('particiones obtenidas')
+        resul = self.devuelveComunidadesSeparadas(particiones, self.__G.copy())
+        print('comunidades separadas obtenidas')
+        dictroles = self.roles(resul,'roleskcliq.png')
+        print('roles obtenidos')
+        return dictroles
+    
+    def rolesGirvan(self):
+        print('roles girvan')
+        dictroles = dict()
+        resul,mod,npart = self.girvan_newman(self.__G.copy())
+        dictroles = self.roles(resul,'rolesgirvan.png')
+        print('roles obtenidos')
+        return dictroles
+
+    def devuelveComunidadesSeparadas(self, resultado, grafo):
+        lista = list()
+        resul = grafo.copy()
+        contador = len(resultado)
+        for i in range(0,contador):
+            for j in resultado[i]:
+                lista.append(j)
+        for x in lista:
+            for a in range(0,contador):
+                if x in resultado[a]:
+                    cont = a
+            for y in lista:
+                if not y in resultado[cont]:
+                    if resul.has_edge(x,y):
+                        resul.remove_edge(x,y)
+        return resul
+
+    def obtenerZ(self, grafo, resul):
         """
         Método para calcular el grado de la comunidad de cada nodo
         
@@ -1024,7 +1273,7 @@ class Modelo:
             grado de la comunidad de cada nodo
         """
         zi = dict()
-        resul,mod,npart = self.girvan_newman(grafo.copy())
+
         for c in nx.connected_components(resul):
             subgrafo = grafo.subgraph(c)
             pesos = subgrafo.degree()
@@ -1045,7 +1294,7 @@ class Modelo:
                     zi[peso[0]] = (peso[1]-medksi)/desvksi
         return zi
     
-    def obtenerP(self, grafo):
+    def obtenerP(self, grafo, resul):
         """
         Método para calcular el coeficiente de participacion de cada nodo
         
@@ -1059,7 +1308,6 @@ class Modelo:
         for peso in pesos:
             ki = peso[1]
             piaux = 0
-            resul,mod,npart = self.girvan_newman(grafo.copy())
             for c in nx.connected_components(resul):
                 c.add(peso[0])
                 sub = grafo.subgraph(c)
