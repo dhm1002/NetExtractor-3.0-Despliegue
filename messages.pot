@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-01-21 11:01+0100\n"
+"POT-Creation-Date: 2020-01-27 10:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,24 +25,24 @@ msgstr ""
 msgid "Diccionario creado con éxito"
 msgstr ""
 
-#: src/Modelo/Modelo.py:741
+#: src/Modelo/Modelo.py:744
 msgid "Histograma de grado"
 msgstr ""
 
-#: src/Modelo/Modelo.py:742 src/Modelo/Modelo.py:767
+#: src/Modelo/Modelo.py:745 src/Modelo/Modelo.py:770
 msgid "N nodos"
 msgstr ""
 
-#: src/Modelo/Modelo.py:743 src/templates/visinforme.html:239
+#: src/Modelo/Modelo.py:746 src/templates/visinforme.html:239
 #: src/templates/visinforme.html:262
 msgid "Grado"
 msgstr ""
 
-#: src/Modelo/Modelo.py:766
+#: src/Modelo/Modelo.py:769
 msgid "Histograma de Interacciones"
 msgstr ""
 
-#: src/Modelo/Modelo.py:768
+#: src/Modelo/Modelo.py:771
 msgid "Interacciones"
 msgstr ""
 
@@ -149,8 +149,8 @@ msgstr ""
 #: src/templates/about.html:57
 msgid ""
 "A los alumnos del grado de Ingeniería Informática Alicia Olivares y Yi "
-"Peng por su colaboración en la extracción de características de la red "
-"para la generación del informe en el apartado de \"Detección de roles\"."
+"Peng Ji por su colaboración en la extracción de características de la red"
+" para la generación del informe en el apartado de \"Detección de roles\"."
 msgstr ""
 
 #: src/templates/about.html:60
@@ -169,7 +169,7 @@ msgstr ""
 #: src/templates/dictaut.html:60 src/templates/dictpelicula.html:50
 #: src/templates/impdict.html:39 src/templates/index.html:50
 #: src/templates/informe.html:39 src/templates/joinpers.html:39
-#: src/templates/moddict.html:64 src/templates/modetnia.html:49
+#: src/templates/moddict.html:70 src/templates/modetnia.html:49
 #: src/templates/modidpers.html:39 src/templates/modsexo.html:54
 #: src/templates/newpers.html:49 src/templates/newrefpers.html:39
 #: src/templates/obtdict.html:39 src/templates/params.html:39
@@ -183,7 +183,7 @@ msgid "Marque para Borrar"
 msgstr ""
 
 #: src/templates/delpers.html:55 src/templates/delrefpers.html:52
-#: src/templates/joinpers.html:53 src/templates/moddict.html:71
+#: src/templates/joinpers.html:53 src/templates/moddict.html:77
 #: src/templates/modetnia.html:40 src/templates/modetnia.html:57
 #: src/templates/modidpers.html:55 src/templates/modsexo.html:40
 #: src/templates/modsexo.html:62 src/templates/newpers.html:40
@@ -193,7 +193,7 @@ msgid "ID Personaje"
 msgstr ""
 
 #: src/templates/delpers.html:56 src/templates/delrefpers.html:53
-#: src/templates/joinpers.html:54 src/templates/moddict.html:72
+#: src/templates/joinpers.html:54 src/templates/moddict.html:78
 #: src/templates/modetnia.html:58 src/templates/modidpers.html:56
 #: src/templates/modsexo.html:63 src/templates/newpers.html:58
 #: src/templates/newrefpers.html:56 src/templates/params.html:63
@@ -202,7 +202,7 @@ msgid "Referencias personaje"
 msgstr ""
 
 #: src/templates/delpers.html:57 src/templates/delrefpers.html:54
-#: src/templates/joinpers.html:55 src/templates/moddict.html:73
+#: src/templates/joinpers.html:55 src/templates/moddict.html:79
 #: src/templates/modetnia.html:59 src/templates/modidpers.html:57
 #: src/templates/modsexo.html:64 src/templates/newpers.html:59
 #: src/templates/newrefpers.html:57 src/templates/params.html:64
@@ -211,7 +211,7 @@ msgid "Número Apariciones"
 msgstr ""
 
 #: src/templates/delpers.html:58 src/templates/delrefpers.html:55
-#: src/templates/joinpers.html:56 src/templates/moddict.html:74
+#: src/templates/joinpers.html:56 src/templates/moddict.html:80
 #: src/templates/modetnia.html:60 src/templates/modidpers.html:58
 #: src/templates/modsexo.html:65 src/templates/newpers.html:60
 #: src/templates/newrefpers.html:58 src/templates/params.html:65
@@ -220,7 +220,7 @@ msgid "Etnia"
 msgstr ""
 
 #: src/templates/delpers.html:59 src/templates/delrefpers.html:56
-#: src/templates/joinpers.html:57 src/templates/moddict.html:75
+#: src/templates/joinpers.html:57 src/templates/moddict.html:81
 #: src/templates/modetnia.html:61 src/templates/modidpers.html:59
 #: src/templates/modsexo.html:66 src/templates/newpers.html:61
 #: src/templates/newrefpers.html:59 src/templates/params.html:66
@@ -265,7 +265,7 @@ msgid "Vaciar Diccionario"
 msgstr ""
 
 #: src/templates/dictaut.html:61 src/templates/dictpelicula.html:51
-#: src/templates/impdict.html:40 src/templates/moddict.html:65
+#: src/templates/impdict.html:40 src/templates/moddict.html:71
 #: src/templates/obtdict.html:40
 msgid "Siguiente"
 msgstr ""
@@ -613,51 +613,59 @@ msgstr ""
 msgid "Los personajes seleccionados han sido juntados con éxito"
 msgstr ""
 
-#: src/templates/moddict.html:41
-msgid "Añadir Personaje"
-msgstr ""
-
-#: src/templates/moddict.html:42
-msgid "Eliminar Personaje"
-msgstr ""
-
-#: src/templates/moddict.html:43
-msgid "Juntar Personajes"
-msgstr ""
-
-#: src/templates/moddict.html:44
-msgid "Añadir Referencia"
+#: src/templates/moddict.html:38
+msgid "Este proceso puede llevar varios minutos..."
 msgstr ""
 
 #: src/templates/moddict.html:45
-msgid "Eliminar Referencia"
+msgid "Añadir Personaje"
 msgstr ""
 
 #: src/templates/moddict.html:46
-msgid "Modificar Id Personaje"
+msgid "Eliminar Personaje"
 msgstr ""
 
 #: src/templates/moddict.html:47
-msgid "Modificar Etnia Personaje"
+msgid "Juntar Personajes"
 msgstr ""
 
 #: src/templates/moddict.html:48
-msgid "Modificar Sexo Personaje"
+msgid "Añadir Referencia"
 msgstr ""
 
 #: src/templates/moddict.html:49
+msgid "Eliminar Referencia"
+msgstr ""
+
+#: src/templates/moddict.html:50
+msgid "Modificar Id Personaje"
+msgstr ""
+
+#: src/templates/moddict.html:51
+msgid "Modificar Etnia Personaje"
+msgstr ""
+
+#: src/templates/moddict.html:52
+msgid "Modificar Sexo Personaje"
+msgstr ""
+
+#: src/templates/moddict.html:53
 msgid "Exportar Diccionario"
 msgstr ""
 
-#: src/templates/moddict.html:58
+#: src/templates/moddict.html:62
 msgid "Obtener Posiciones"
 msgstr ""
 
-#: src/templates/moddict.html:65
+#: src/templates/moddict.html:64
+msgid "Obtener Etnia y Sexo (Opcional: esta opción puede tomar varios minutos.)"
+msgstr ""
+
+#: src/templates/moddict.html:71
 msgid "Este proceso puede llevar unos minutos"
 msgstr ""
 
-#: src/templates/moddict.html:132
+#: src/templates/moddict.html:144
 msgid ""
 "Primero se van a buscar las posiciones de los personajes, esto puede "
 "tardar unos minutos."
@@ -1010,12 +1018,8 @@ msgstr ""
 msgid "Hubs Conectores (R6)"
 msgstr ""
 
-#: src/templates/visinforme.html:660
-msgid "Hubs Kinless (R7"
-msgstr ""
-
-#: src/templates/visinforme.html:710 src/templates/visinforme.html:760
-#: src/templates/visinforme.html:810
+#: src/templates/visinforme.html:660 src/templates/visinforme.html:710
+#: src/templates/visinforme.html:760 src/templates/visinforme.html:810
 msgid "Hubs Kinless (R7)"
 msgstr ""
 
