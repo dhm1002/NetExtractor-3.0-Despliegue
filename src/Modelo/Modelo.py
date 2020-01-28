@@ -119,13 +119,14 @@ class Modelo:
         for i in self.personajes.keys():
             self.personajes[i].lennombres = dict()
             pers = self.personajes[i].getPersonaje()
+            self.personajes[i].resNumApariciones(self.personajes[i].getNumApariciones()[0])
             for n in pers.keys():
                 listapar = list()
                 contador = 0
                 for perso in html.find_all("b"):
                     pn = perso.contents[0]
                     pn = pn.strip()
-                    if ('EXT.' in pn or 'INT.' in pn):
+                    if ('EXT.' in pn or 'INT.' in pn or 'EXT ' in pn or 'INT ' in pn):
                         contador = contador + 1
                     elif(pn == i):
                         if (not contador == 0):
@@ -543,7 +544,7 @@ class Modelo:
         for pers in html.find_all("b"):
             pn = pers.contents[0]
             pn = pn.strip()
-            if (not 'EXT.' in pn and not 'INT.' in pn and not '.' in pn and not ':' in pn and not ';' in pn and not '"' in pn and not '!' in pn and not '?' in pn and not '-' in pn and not ',' in pn and len(pn)<30 and not 'Genres' in pn and not 'Writers' in pn and not '_' in pn):
+            if (not 'EXT.' in pn and not 'INT.' in pn and not 'INT ' in pn and not 'EXT ' in pn and not '.' in pn and not ':' in pn and not ';' in pn and not '"' in pn and not '!' in pn and not '?' in pn and not '-' in pn and not ',' in pn and len(pn)<30 and not 'Genres' in pn and not 'Writers' in pn and not '_' in pn):
                 if (not pn in lista):
                     if(not pn == ''):
                         lista.append(pn)
