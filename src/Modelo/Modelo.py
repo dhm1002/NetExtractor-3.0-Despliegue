@@ -113,13 +113,16 @@ class Modelo:
     def obtenerNumApariciones(self):
         #diccionarioAp = dict()
         listapar = list()
+        prueba = list()
         contador = 0
         web = urllib.request.urlopen(self.urlPelicula)
         html = BeautifulSoup(web.read(), "html.parser")
+        self.diccionarioApariciones = dict()
         for i in self.personajes.keys():
             self.personajes[i].lennombres = dict()
             pers = self.personajes[i].getPersonaje()
             self.personajes[i].resNumApariciones(self.personajes[i].getNumApariciones()[0])
+            aux = 0
             for n in pers.keys():
                 listapar = list()
                 contador = 0
@@ -128,12 +131,20 @@ class Modelo:
                     pn = pn.strip()
                     if ('EXT.' in pn or 'INT.' in pn or 'EXT ' in pn or 'INT ' in pn):
                         contador = contador + 1
-                    elif(pn == i):
+                    elif(pn == n):
                         if (not contador == 0):
                             if (not contador in listapar):
                                 listapar.append(contador)
                         #self.personajes[l].lennombres[n]=len(listapar)
-                        self.diccionarioApariciones[i] = listapar
+                        if(aux == 0):
+                            self.diccionarioApariciones[i] = listapar
+                            aux+=1
+                        else:
+                            prueba = self.diccionarioApariciones.get(i)
+                            for x in listapar:
+                                if(not x in prueba):
+                                    prueba.append(x)
+                            self.diccionarioApariciones[i] = prueba
                         #diccionarioAp[l] = len(listapar)
                 self.personajes[i].lennombres[n] = len(listapar)
                 self.personajes[i].sumNumApariciones(len(listapar))
@@ -258,6 +269,8 @@ class Modelo:
         Args:
             idPersonaje: id del personaje a eliminar
         """
+        if(idPersonaje in self.diccionarioApariciones):
+            del self.diccionarioApariciones[idPersonaje]
         if(idPersonaje in self.personajes):
             del self.personajes[idPersonaje]
 
@@ -279,6 +292,17 @@ class Modelo:
             idPersonaje1: id del primer personaje a juntar
             idPersonaje2: id del primer personaje a juntar
         """
+        lista = list()
+        lista2 = list()
+        lista3 = list()
+        if(idPersonaje2 in self.diccionarioApariciones):
+            lista = self.diccionarioApariciones[idPersonaje2]
+        if(idPersonaje1 in self.diccionarioApariciones):
+            lista2 = self.diccionarioApariciones[idPersonaje1]
+            for i in lista:
+                lista2.append(i)
+            lista3 = sorted(list(set(lista2)))
+            self.diccionarioApariciones[idPersonaje1] = lista3
         if(idPersonaje1 in self.personajes and idPersonaje2 in self.personajes):
             pers1 = self.personajes[idPersonaje1].getPersonaje()
             pers2 = self.personajes[idPersonaje2].getPersonaje()
@@ -491,14 +515,18 @@ class Modelo:
         self.__G = nx.Graph()
         lista = list()
         for key in self.diccionarioApariciones:
-            for key1 in self.diccionarioApariciones:
-                if (not key == key1):
-                    lista = Modelo.elementosComunes(self.diccionarioApariciones.get(key), self.diccionarioApariciones.get(key1))
-                    if (not len(lista) == 0):
-                        if (len(lista) >= apar):
+            if(self.personajes[key].getNumApariciones()[0]>=apar):
+                for key1 in self.diccionarioApariciones:
+                    if (not key == key1):
+                        lista = Modelo.elementosComunes(self.diccionarioApariciones.get(key), self.diccionarioApariciones.get(key1))
+
+                        if (not len(lista) == 0):
                             #listaprueba.append((key,key1,len(lista)))
                             peso = len(lista)
                             self.__G.add_edge(key,key1,weight=int(peso))
+            else:
+                if(self.__G.has_node(key)):
+                    self.__G.remove_node(key)
         self.__Gnoatt = self.__G.copy()
         self.anadirAtributos()
     
