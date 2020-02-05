@@ -46,7 +46,6 @@
 	<div class="fixed-bottom" style="background-color:white">
 		<div id="indice">
 			<button type="button" class="btn btn-primary float-left btn-lg p-3 px-5" name="btn btn-volver" onclick="atras()">{{ _('Volver') }}</button>
-			<button type="button" class="btn btn-primary float-right btn-lg p-3 px-5" name="btn btn-sig" onclick="next()">{{ _('Siguiente') }}</button>
 		</div>
 	</div>
 	<footer></footer>
@@ -62,16 +61,6 @@
 			window.location.href='{{ url_for('inicio') }}'
 		}
 		
-		function next() {
-			if (perso == 1) {
-				validNavigation = true;
-				window.location.href='{{ url_for('moddict') }}'
-			}else {
-				//TRADUCCION
-				alert("{{ _('No se ha creado ningún diccionario') }}")
-			}
-		}
-		
 		function sendForm(){
 			var x = document.getElementById("url");
 			x.value = x.value.trim()
@@ -81,6 +70,7 @@
 				if(x.value.includes("imsdb")){
 					validNavigation = true;
 					//document.getElementById("form").submit();
+					
 					document.getElementById("form").submit();
 					alert("{{ _('Personajes que aparecen en la página introducidos. Para avanzar pulsa siguiente.') }}")
 				} else {

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2020-01-30 12:15+0100\n"
-"PO-Revision-Date: 2020-01-30 12:16+0100\n"
+"PO-Revision-Date: 2020-02-03 13:25+0100\n"
 "Last-Translator: \n"
 "Language: en_GB\n"
 "Language-Team: \n"
@@ -171,7 +171,7 @@ msgstr "What tools have been used?"
 
 #: src/templates/delpers.html:38
 msgid "Marque los personajes a eliminar."
-msgstr "Check the characters to delete"
+msgstr "Check the characters to delete."
 
 #: src/templates/delpers.html:39 src/templates/delrefpers.html:44
 msgid "Eliminar"
@@ -250,7 +250,7 @@ msgstr "Selected characters were deleted"
 
 #: src/templates/delrefpers.html:43
 msgid "Marque las referencias de personajes a eliminar."
-msgstr "Check the characters references to delete"
+msgstr "Check the characters references to delete."
 
 #: src/templates/delrefpers.html:67
 msgid "Marque para eliminar referencia"

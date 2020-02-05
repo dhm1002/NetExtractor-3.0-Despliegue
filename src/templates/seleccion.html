@@ -49,6 +49,11 @@
 					<div class="col-12 text-center">
 						<input type="button" class="btn btn-primary btn-lg p-2 px-5 m-5 btn-block" style="margin-bottom: 14.5rem !important;" name="btn btn-sel" onclick="pelicula()" value="{{ _('pelicula') }}">
 					</div>
+					<!--
+					<div class="col-12 text-center">
+						<input type="button" class="btn btn-primary btn-lg p-2 px-5 m-5 btn-block" style="margin-bottom: 10rem !important;" name="btn btn-sel" onclick="prueba()" value="{{ _('Prueba aplicación') }}">
+					</div>
+					-->
 				</form>
 				<p>{{error}}</p>
 			</div>
@@ -70,6 +75,12 @@
 		function epub(){
 			validNavigation = true;
 			window.location.href='{{ url_for('index') }}'
+		}
+
+		function prueba(){
+			alert("{{ _('Se va a proceder a usar el diccionario de prueba de la aplicación. Disfrute de su prueba. ') }}");
+			validNavigation = true;
+			window.location.href='{{ url_for('prueba') }}'
 		}
 		
 		//https://eureka.ykyuen.info/2011/02/22/jquery-javascript-capture-the-browser-or-tab-closed-event/

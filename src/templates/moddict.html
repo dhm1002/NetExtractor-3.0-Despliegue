@@ -122,12 +122,15 @@
 		var validNavigation = false;
 
 		function atras() {
-			if (cambiarPantalla){
+			if (cambiarPantalla==1){
 				validNavigation = true;
 				window.location.href='{{ url_for('dictaut') }}'
-			}else{
+			}else if(cambiarPantalla==0){
 				validNavigation = true;
 				window.location.href='{{ url_for('diccionarioPelicula') }}'
+			}else{
+				validNavigation = true;
+				window.location.href='{{ url_for('prueba') }}'
 			}
 		}
 		

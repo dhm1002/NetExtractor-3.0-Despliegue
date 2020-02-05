@@ -4,6 +4,8 @@ from src.Lexers import CreaDict as cd
 from src.Lexers import PosPersonajes as pp
 from src.LecturaFicheros import Lectorcsv
 from src.LecturaFicheros import LecturaEpub
+from src.Guiones import CrearDiccionario as cdguion
+from src.PredictorEtniaSexo import EthneaGenni as eg
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -12,11 +14,13 @@ import numpy as np
 import networkx as nx
 import urllib
 import json
+import random
 from bs4 import BeautifulSoup
 import zipfile
 from threading import Thread
 import os
 import secrets
+import time
 from flask_babel import gettext
 from community import community_louvain
 
@@ -36,11 +40,11 @@ class Modelo:
         Args:
             Constructor de la clase
         """ 
+        self.prueba = 0
         self.__csv = Lectorcsv.Lectorcsv(self)
         self.__texto = list()
         #comprobar longitud
         self.personajes= dict()
-        self.prueba=dict()
         self.__fincaps = list()
         self.__G = None
         self.__Gnoatt = None
@@ -49,8 +53,8 @@ class Modelo:
         self.cambio = 0
      
         
-    def cambiarPantallas(self, boolean):
-        self.cambio = boolean
+    def cambiarPantallas(self, cambiopantalla):
+        self.cambio = cambiopantalla
     
     def devolverCambio(self):
         return self.cambio
@@ -70,6 +74,24 @@ class Modelo:
         d.start()
         d.join()
         
+    def scrapeWikiPelicula(self,url):
+        """
+        Método para obtener un diccionario de personajes haciendo web scraping
+    
+        Args:
+            url: url donde hacer web scraping
+        """
+        self.prueba = 0
+        self.urlPelicula = url
+        crearDiccionario = cdguion.CrearDiccionario(self)
+        crearDiccionario.obtenerPersPelicula(self.urlPelicula)
+
+    def creardictprueba(self):
+        lista = ['Jorge Navarro', 'Jose Manuel Galán', 'Virginia Ahedo', 'Luis Miguel Cabrejas', 'Raúl Rodríguez', 'Paula Remiro', 'Julia Zapata', 'Roger Williams', 'Louis Allard', 'Pepe Sanz', 'Emiliano Ronaldo']
+        self.prueba = 1
+        for i in lista:
+            self.anadirPersonaje(i,i)
+    
     def hayPersonajes(self):
         if (len(self.personajes.items())>0):
             return 1
@@ -114,7 +136,7 @@ class Modelo:
         #diccionarioAp = dict()
 
         listapar = list()
-        prueba = list()
+        temp = list()
         contador = 0
         web = urllib.request.urlopen(self.urlPelicula)
         html = BeautifulSoup(web.read(), "html.parser")
@@ -138,72 +160,41 @@ class Modelo:
                             if (not contador == 0):
                                 if (not contador in listapar):
                                     listapar.append(contador)
-                            #self.personajes[l].lennombres[n]=len(listapar)
-                            if(aux == 0):
-                                self.diccionarioApariciones[i] = listapar
-                                aux+=1
-                            else:
-                                prueba = self.diccionarioApariciones.get(i)
-                                for x in listapar:
-                                    if(not x in prueba):
-                                        prueba.append(x)
-                                self.diccionarioApariciones[i] = prueba
+                                #self.personajes[l].lennombres[n]=len(listapar)
+                                if(aux == 0):
+                                    self.diccionarioApariciones[i] = listapar
+                                    aux+=1
+                                else:
+                                    temp = self.diccionarioApariciones.get(i)
+                                    for x in listapar:
+                                        if(not x in temp):
+                                            temp.append(x)
+                                    self.diccionarioApariciones[i] = temp
                             #diccionarioAp[l] = len(listapar)
                 self.personajes[i].lennombres[n] = len(listapar)
                 self.personajes[i].sumNumApariciones(len(listapar))
         return self.diccionarioApariciones
 
-    def normalize(self,s):
-        replacements = (
-            ("á", "a"),
-            ("é", "e"),
-            ("í", "i"),
-            ("ó", "o"),
-            ("ú", "u"),
-            ("#", ""),
-            (" ", "%20")
-            
-        )
-        for a, b in replacements:
-            s = s.replace(a, b).replace(a.upper(), b.upper())
-        return s
-
-    def separaNombres(self, nombre):
-        name = nombre.split(maxsplit=1)
-        if len(name) == 1:
-            firstname = name[0]
-            lastname = name[0]
-        else:
-            firstname = name[0]
-            lastname = name[1]
-        return self.normalize(firstname), self.normalize(lastname)
-
-    def scrapeEtniaSexo(self, nombre):
-        """
-        Método para obtener un diccionario de personajes haciendo web scraping
-    
-        Args:
-            url: url donde hacer web scraping
-        """
-        firstname, lastname = self.separaNombres(nombre)
-        url = 'http://abel.lis.illinois.edu/cgi-bin/ethnea/search.py?Fname='+firstname+'&Lname='+lastname+'&format=json'
-        web = urllib.request.urlopen(url)
-        html = BeautifulSoup(web.read(), "html.parser")
-        jsonCosas = str(html)
-        ethnia = eval(jsonCosas)['Ethnea']
-        sexo = eval(jsonCosas)['Genni']
-        first = eval(jsonCosas)['First']
-        last = eval(jsonCosas)['Last']
-        return ethnia,sexo
+    def obtenerPosPrueba(self):
+        for i in self.personajes.keys():
+            self.personajes[i].lennombres = dict()
+            pers = self.personajes[i].getPersonaje()
+            self.personajes[i].resNumApariciones(self.personajes[i].getNumApariciones()[0])
+            for n in pers.keys():
+                apar = random.randint(1,100)
+                self.personajes[i].lennombres[n] = apar
+                self.personajes[i].sumNumApariciones(apar)
 
     def obtenerEthnea(self):
         etnia = None
         sexo = None
+        ethneagenni = eg.EthneaGenni()
         for i in self.personajes.keys():
-            etnia, sexo = self.scrapeEtniaSexo(i)
+            etnia, sexo = ethneagenni.obtenerEtniaSexo(i)
             self.personajes[i].setEtnia(etnia)
             self.personajes[i].setSexo(sexo)
             self.personajes[i].crearDictSE()
+            time.sleep(1)
 
     def getDictParsear(self):
         """
@@ -418,7 +409,10 @@ class Modelo:
         Args:
             
         """
-        d = Thread(target=self.obtenerNumApariciones)
+        if(self.prueba == 0): 
+            d = Thread(target=self.obtenerNumApariciones)
+        else:
+            d = Thread(target=self.obtenerPosPrueba)
         d.start()
         d.join()
         self.juntarPosiciones()
@@ -514,6 +508,12 @@ class Modelo:
     def elementosComunes(lista, lista1):
         return list(set(lista).intersection(lista1))
 
+    def obtenerRed(self,apar):
+        if(self.cambio == 0):
+            self.obtenerEnlaces(apar)
+        else:
+            self.obtenerenlacesPrueba(apar)
+
     def obtenerEnlaces(self, apar):
         self.__G = nx.Graph()
         lista = list()
@@ -535,6 +535,28 @@ class Modelo:
             else:
                 if(self.__G.has_node(key)):
                     self.__G.remove_node(key)
+        self.__Gnoatt = self.__G.copy()
+        self.anadirAtributos()
+
+    def obtenerenlacesPrueba(self, apar):
+        self.__G = nx.Graph()
+        pers = list(self.personajes.keys())
+        for i in pers:
+            aux = 0
+            if(self.personajes[i].getNumApariciones()[0]>=apar):
+                for j in pers:
+                    if(not i == j):
+                        prob = random.randint(1,11)
+                        if(prob<=4):
+                            print(i,j)
+                            peso = random.randint(1,11)
+                            self.__G.add_edge(i,j,weight=peso)
+                            aux = 1
+                if(aux == 0):
+                    self.__G.add_node(i)
+            else:
+                if(self.__G.has_node(i)):
+                    self.__G.remove_node(i)
         self.__Gnoatt = self.__G.copy()
         self.anadirAtributos()
     
@@ -564,31 +586,7 @@ class Modelo:
         html = BeautifulSoup(web.read(), "html.parser")
         for pers in html.find_all("a", {"class": "category-page__member-link"}):
             pn = pers.get('title')
-            self.anadirPersonaje(pn,pn)
-            
-    def scrapeWikiPelicula(self,url):
-        """
-        Método para obtener un diccionario de personajes haciendo web scraping
-    
-        Args:
-            url: url donde hacer web scraping
-        """
-        self.urlPelicula = url
-        lista = list()
-        web = urllib.request.urlopen(url)
-        html = BeautifulSoup(web.read(), "html.parser")
-        for pers in html.find_all("b"):
-            if(not len(pers) == 0):
-                print(pers)
-                pn = pers.contents[0]
-                pn = str(pn)
-                pn = pn.strip()
-                if (not '<' in pn and not '>' in pn and not 'EXT.' in pn and not 'INT.' in pn and not 'INT ' in pn and not 'EXT ' in pn and not '.' in pn and not ':' in pn and not ';' in pn and not '"' in pn and not '!' in pn and not '?' in pn and not '-' in pn and not ',' in pn and len(pn)<30 and not 'Genres' in pn and not 'Writers' in pn and not '_' in pn):
-                    if (not pn in lista):
-                        if(not pn == ''):
-                            lista.append(pn)
-                            self.anadirPersonaje(pn,pn)
-        return lista		
+            self.anadirPersonaje(pn,pn)		
 	
     def importDict(self, fichero):
         """
