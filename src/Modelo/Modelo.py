@@ -40,7 +40,6 @@ class Modelo:
         Args:
             Constructor de la clase
         """ 
-        self.prueba = 0
         self.__csv = Lectorcsv.Lectorcsv(self)
         self.__texto = list()
         #comprobar longitud
@@ -51,10 +50,14 @@ class Modelo:
         self.urlPelicula = ""
         self.diccionarioApariciones = dict()
         self.cambio = 0
+        self.formato = 0
      
         
     def cambiarPantallas(self, cambiopantalla):
         self.cambio = cambiopantalla
+
+    def getFormato(self):
+        return self.formato
     
     def devolverCambio(self):
         return self.cambio
@@ -81,16 +84,10 @@ class Modelo:
         Args:
             url: url donde hacer web scraping
         """
-        self.prueba = 0
         self.urlPelicula = url
         crearDiccionario = cdguion.CrearDiccionario(self)
-        crearDiccionario.obtenerPersPelicula(self.urlPelicula)
-
-    def creardictprueba(self):
-        lista = ['Jorge Navarro', 'Jose Manuel Galán', 'Virginia Ahedo', 'Luis Miguel Cabrejas', 'Raúl Rodríguez', 'Paula Remiro', 'Julia Zapata', 'Roger Williams', 'Louis Allard', 'Pepe Sanz', 'Emiliano Ronaldo']
-        self.prueba = 1
-        for i in lista:
-            self.anadirPersonaje(i,i)
+        self.formato = crearDiccionario.obtenerPersPelicula(self.urlPelicula)
+        return self.formato
     
     def hayPersonajes(self):
         if (len(self.personajes.items())>0):
@@ -175,16 +172,6 @@ class Modelo:
                 self.personajes[i].sumNumApariciones(len(listapar))
         return self.diccionarioApariciones
 
-    def obtenerPosPrueba(self):
-        for i in self.personajes.keys():
-            self.personajes[i].lennombres = dict()
-            pers = self.personajes[i].getPersonaje()
-            self.personajes[i].resNumApariciones(self.personajes[i].getNumApariciones()[0])
-            for n in pers.keys():
-                apar = random.randint(1,100)
-                self.personajes[i].lennombres[n] = apar
-                self.personajes[i].sumNumApariciones(apar)
-
     def obtenerEthnea(self):
         etnia = None
         sexo = None
@@ -239,6 +226,9 @@ class Modelo:
     def cambiarSexo(self, sexo, pers):
         self.personajes[pers].setSexo(sexo)
         self.personajes[pers].crearDictSE()
+
+    def borrarDictPersonajes(self):
+        self.personajes = dict()
 
     def anadirPersonaje(self, idpers, pers):
         """
@@ -409,10 +399,7 @@ class Modelo:
         Args:
             
         """
-        if(self.prueba == 0): 
-            d = Thread(target=self.obtenerNumApariciones)
-        else:
-            d = Thread(target=self.obtenerPosPrueba)
+        d = Thread(target=self.obtenerNumApariciones)
         d.start()
         d.join()
         self.juntarPosiciones()
@@ -508,13 +495,7 @@ class Modelo:
     def elementosComunes(lista, lista1):
         return list(set(lista).intersection(lista1))
 
-    def obtenerRed(self,apar):
-        if(self.cambio == 0):
-            self.obtenerEnlaces(apar)
-        else:
-            self.obtenerenlacesPrueba(apar)
-
-    def obtenerEnlaces(self, apar):
+    def obtenerRed(self, apar):
         self.__G = nx.Graph()
         lista = list()
         aux = 0
@@ -535,28 +516,6 @@ class Modelo:
             else:
                 if(self.__G.has_node(key)):
                     self.__G.remove_node(key)
-        self.__Gnoatt = self.__G.copy()
-        self.anadirAtributos()
-
-    def obtenerenlacesPrueba(self, apar):
-        self.__G = nx.Graph()
-        pers = list(self.personajes.keys())
-        for i in pers:
-            aux = 0
-            if(self.personajes[i].getNumApariciones()[0]>=apar):
-                for j in pers:
-                    if(not i == j):
-                        prob = random.randint(1,11)
-                        if(prob<=4):
-                            print(i,j)
-                            peso = random.randint(1,11)
-                            self.__G.add_edge(i,j,weight=peso)
-                            aux = 1
-                if(aux == 0):
-                    self.__G.add_node(i)
-            else:
-                if(self.__G.has_node(i)):
-                    self.__G.remove_node(i)
         self.__Gnoatt = self.__G.copy()
         self.anadirAtributos()
     
@@ -1137,14 +1096,15 @@ class Modelo:
         """
         print('com girvan')
         l = list()
-        resul,mod,npart = self.girvan_newman(self.__G.copy())
+        d = nx.algorithms.community.girvan_newman(self.__G)
+        lista = list(tuple(sorted(c) for c in next(d)))
         pos=nx.kamada_kawai_layout(self.__G)
         f = plt.figure(figsize=(12,12))
         nx.draw(self.__G,pos,with_labels=True)
-        for c in nx.connected_components(resul):
-            l.append(c)
+        for x in lista:
+            l.append(x)
             col = '#'+secrets.token_hex(3)
-            nx.draw_networkx_nodes(self.__G,pos,nodelist=list(c),node_color=col)
+            nx.draw_networkx_nodes(self.__G,pos,nodelist=list(x),node_color=col)
         f.savefig(os.path.join(self.dir,'girnew.png'), format="PNG")
         return l
         
@@ -1280,7 +1240,10 @@ class Modelo:
     def rolesGirvan(self):
         print('roles girvan')
         dictroles = dict()
-        resul,mod,npart = self.girvan_newman(self.__G.copy())
+        d = nx.algorithms.community.girvan_newman(self.__G)
+        particiones = list(tuple(sorted(c) for c in next(d)))
+        print('particiones obtenidas')
+        resul = self.devuelveComunidadesSeparadas(particiones, self.__G.copy())
         dictroles = self.roles(resul,'rolesgirvan.png')
         print('roles obtenidos')
         return dictroles
@@ -1359,7 +1322,8 @@ class Modelo:
             else:
                 lista.append(peso[0])
         return pi, lista
-    
+    '''
+    DEMASIADO COSTE COMPUTACIONAL
     def modularidad(self,grafo, particion):
         """
         Método para calcular la modularidad
@@ -1408,6 +1372,7 @@ class Modelo:
         mejormod = modu
         mejor = grafo.copy()
         while(nx.number_of_edges(grafo)>0):
+            print("Calculando...")
             btwn = list(nx.edge_betweenness_centrality(grafo).items())
             mini = -1
             for i in btwn:
@@ -1430,3 +1395,4 @@ class Modelo:
                     mejormod=modu
                     mejor = grafo.copy()
         return mejor,mod,npart
+        '''

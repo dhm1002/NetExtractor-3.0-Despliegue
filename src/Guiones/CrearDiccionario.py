@@ -15,11 +15,11 @@ class CrearDiccionario:
     
     def obtenerPersPelicula(self, url):
         lista = list()
+        formato = 0
         web = urllib.request.urlopen(url)
         html = BeautifulSoup(web.read(), "html.parser")
         for pers in html.find_all("b"):
             if(not len(pers) == 0):
-                print(pers)
                 pn = pers.contents[0]
                 pn = str(pn)
                 pn = pn.strip()
@@ -28,4 +28,11 @@ class CrearDiccionario:
                         if(not pn == ''):
                             lista.append(pn)
                             self.mod.anadirPersonaje(pn,pn)
-    
+                
+                if ('EXT. ' in pn or 'INT. ' in pn or 'INT ' in pn or 'EXT ' in pn):
+                    formato = 1
+        if (formato == 0):
+            self.mod.borrarDictPersonajes()
+        if (len(lista)==0):
+            formato = 0
+        return formato

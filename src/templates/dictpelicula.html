@@ -56,11 +56,13 @@
 	<script type="text/javascript">
 		var validNavigation = false;
 		var perso = {{ perso | safe }}
+		var formato = {{ formato | safe }}
+		
 		function atras() {
 			validNavigation = true;
 			window.location.href='{{ url_for('inicio') }}'
 		}
-		
+
 		function sendForm(){
 			var x = document.getElementById("url");
 			x.value = x.value.trim()
@@ -72,7 +74,7 @@
 					//document.getElementById("form").submit();
 					
 					document.getElementById("form").submit();
-					alert("{{ _('Personajes que aparecen en la página introducidos. Para avanzar pulsa siguiente.') }}")
+					
 				} else {
 					alert("{{ _('Introduzca una url perteneciente a https://www.imsdb.com/scripts/*') }}")
 				}

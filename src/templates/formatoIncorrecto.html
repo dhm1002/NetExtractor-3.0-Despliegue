@@ -24,7 +24,7 @@
 					<a class="nav-link" href="{{ url_for('about') }}" target="_blank"><h5>{{ _('Acerca De') }}</h5></a>
 				  </li>
 				  <li class="nav-item">
-					  <a class="nav-link" href="https://wikinetextractor.wikidot.com" target="_blank"><h5>{{ _('Wiki') }}</h5></a>
+					  <a class="nav-link" href="http://wikinetextractor.wikidot.com/user-guide#toc5" target="_blank"><h5>{{ _('Wiki') }}</h5></a>
 				  </li>
 				</ul>
 					<img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
@@ -32,28 +32,28 @@
 			  </div>
 		  </nav>
 	</header>
-	<div class="d-flex flex-row bd-highlight mb-3" style="margin-top:5rem;">
-		<div class="p-2 bd-highligh"></div>
-		<div class="text-center p-2 bd-highligh">
-		<div style="text-align: justify;">
-			<div style="text-align: center;">
-				<img src="{{ url_for('static', filename='img/NetExtractor (1).png') }}" width="500" height="250" id="politecnica">
+	<div style="margin-top:5rem;">
+	<div class="row">
+		<div class="col">  
+		</div>
+		<div class="col-6">
+			<div style="text-align: center;"><h3>{{_('El formato introducido es incorrecto.')}}</h3><br/></div>
+			<h5>{{ _('Asegúrese de que el formato sigue las especificaciones indicadas en la wiki de la aplicación. Usted puede acceder a estas especificaciones simplemente clicando el siguiente enlace:')}} <a href="http://wikinetextractor.wikidot.com/user-guide#toc5" target="_blank">{{ _('Formatos de guion') }}</a>.</h5><br/>
+			<h5>{{ _('Probablemente el guion introducido no tiene un formate de escena válido, las escenas de los guiones deben contener "EXT" o "INT" en negrita para ser consideradas como tal.') }}</h5><br/>
+			<h5>{{ _('Disculpe las molestias.')}}</h5><br/>
+			<br/>
+			<div>
+				<div id="indice" class="col-12 text-center">
+					<button type="button" class="btn btn-primary btn-lg p-3 px-5" name="btn btn-volver" onclick="atras()">{{ _('Introducir nuevo guion') }}</button>
+				</div>
 			</div>
-			<h5>Usted ha seleccionade la opción de "Prueba de aplicación", qué mejor forma hay de entender el funcionamiento de una aplicación que probándola tú mismo, con esta versión de prueba usted dispone de un diccionario creado por defecto el cual podrá modificar a su gusto, crear la red, el informe y visualizar todas las opciones igual que lo haría si hubiera introducido algún fichero.</h5><br/>
-			<h5>Si tiene alguna duda acerca de esta versión, puede consultar la wiki de la aplicación haciendo clic en "Wiki" en la parte superior de la pantalla.</h5><br/>
-			<h5>{{ _('Disfrute de su prueba')}}</h5>
 		</div>
+		<div class="col">
+		  
 		</div>
-		<div class="p-2 bd-highligh"></div>
+	  </div>
 	</div>
-	<div class="fixed-bottom" style="background-color:white">
-		<div id="indice">
-			<button type="button" class="btn btn-primary float-left btn-lg p-3 px-5" name="btn btn-volver" onclick="atras()">{{ _('Volver') }}</button>
-			<form id="form" class="m-auto" action="" method="post" enctype=multipart/form-data>
-				<button type="button" class="btn btn-primary float-right btn-lg p-3 px-5" name="btn btn-sig" onclick="empezar()">{{ _('¡Empezar!') }}</button>
-			</form>
-		</div>
-	</div>
+	
 	<footer></footer>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -63,11 +63,7 @@
 		var validNavigation = false; 
 		function atras() {
 			validNavigation = true;
-			window.location.href='{{ url_for('inicio') }}'
-		}
-		function empezar(){
-			validNavigation = true;
-			document.getElementById("form").submit();	
+			window.location.href='{{ url_for('diccionarioPelicula') }}'
 		}
 
 		//https://eureka.ykyuen.info/2011/02/22/jquery-javascript-capture-the-browser-or-tab-closed-event/
