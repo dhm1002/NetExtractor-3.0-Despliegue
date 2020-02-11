@@ -6,20 +6,22 @@ import unittest
 from src.Modelo import Modelo
 from src.Lexers import PosPersonajes as pp
 from src.LecturaFicheros import LecturaEpub as lec
+from src.Guiones import CrearDiccionario as cdguion
+from src.PredictorEtniaSexo import EthneaGenni as eg
 
 #print(sys.path)
 m = Modelo.Modelo()
+ethnea = eg.EthneaGenni()
 poslex = pp.PosPersonajes(m)
 
 class TestUnitarios(unittest.TestCase):
     '''
     Clase para realizar test unitarios
-    DESACTUALIZADA
     '''
     
     def __init__(self,*args, **kwargs):
         super(TestUnitarios, self).__init__(*args, **kwargs)
-        m.obtTextoEpub(r"C:\Users\luism\Desktop\Ubu\TFG\Repositorio\GII18.0U-Ububooknet\tst\epubPruebas.epub")
+        m.obtTextoEpub(r"E:\Users\Jorge\Desktop\Universidad\TFG\Versiones\NetExtractor\tst\epubPruebas.epub")
         m.vaciarDiccionario()
         m.crearDict()
     
@@ -156,7 +158,51 @@ class TestUnitarios(unittest.TestCase):
         m.importDict('tst/dictexportado.csv')
         res = {'Pedro Ro':['Pedro Ro', 'Pedro', 'Pedro Rodríguez', 'Pedro R'], 'María':['María'], 'Jose':['Jose', 'Josema'], 'Pedrope':['Pedrope', 'Pedro Pérez'], 'Ana':['Ana'], 'relleno':['relleno']}
         self.comprobarPersonajes(res)
+    
+    def test_15_cambiarEtnia(self):
+        m.crearDict()
+        m.cambiarEtnia('HISPANIC','Josema')
+        pers = m.getPersonajes()
+        for x in pers.keys():
+            if (x == 'Josema'):
+                self.assertEqual(pers[x].getEtnia(),'HISPANIC')
+        m.vaciarDiccionario()
+
+    def test_16_cambiarSexo(self):
+        m.crearDict()
+        m.cambiarSexo('M','Josema')
+        pers = m.getPersonajes()
+        for x in pers.keys():
+            if (x == 'Josema'):
+                self.assertEqual(pers[x].getSexo(),'M')
+        m.vaciarDiccionario()
         
-        
+    def test_17_formatoPeliculasBien(self):
+        formato = m.scrapeWikiPelicula('https://www.imsdb.com/scripts/Joker.html')
+        self.assertEqual(formato, 1)
+        m.vaciarDiccionario()
+    
+    def test_18_formatoPeliculasMal(self):
+        formato = m.scrapeWikiPelicula('https://www.imsdb.com/scripts/Alien.html')
+        self.assertEqual(formato, 0)
+        m.vaciarDiccionario()
+    
+    def test_19_probarNormalizar(self):
+        cadena = 'orión'
+        cadenaAux = ethnea.normalize(cadena)
+        self.assertEqual(cadenaAux, 'orion')
+
+    def test_20_separaNombres(self):
+        nombre = 'Pepe González'
+        name, apellido = ethnea.separaNombres(nombre)
+        self.assertEqual(name, 'Pepe')
+        self.assertEqual(apellido, 'Gonzalez')
+    
+    def test_21_separaNombresMasDeUnApellido(self):
+        nombre = 'Pepe González Navarro'
+        name, apellido = ethnea.separaNombres(nombre)
+        self.assertEqual(name, 'Pepe')
+        self.assertEqual(apellido, 'Gonzalez+Navarro')
+
 if __name__ == '__main__':
     unittest.main()
