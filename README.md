@@ -47,8 +47,11 @@ Para poder acceder a la aplicación se debe acceder al siguiente link: https://n
 
 Para explicar el uso de la aplicación se han creado dos vídeos, uno con una ejecución sencilla de la película del Joker, para ver de forma general lo que hace la aplicación; y otro que explica de forma detallada cada una de las opciones que se pueden tener dentro de la aplicación, con el fin, de que el usuario pueda entender de manera más precisa el funcionamiento de NetExtractor.
 
-- Video de la ejecución rápida: https://www.youtube.com/watch?v=-4pfwa-tp_s&feature=youtu.be
-- Video de una ejecución detallada: https://www.youtube.com/watch?v=WL-U85159nM&feature=youtu.be
+- Video de la ejecución rápida:<br/>
+[![Ejecución sencilla](http://img.youtube.com/vi/-4pfwa-tp_s/0.jpg)](https://www.youtube.com/watch?v=-4pfwa-tp_s&feature=youtu.be)
+
+- Video de una ejecución detallada:<br/>
+[![Ejecución detallada](http://img.youtube.com/vi/WL-U85159nM/0.jpg)](https://www.youtube.com/watch?v=WL-U85159nM&feature=youtu.be)
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
