@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="{{ _('es') }}">
+<head>
+	<title>NetExtractor</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+	<style>
+		.zoomA {
+			width: 600px;
+			height: auto;
+			transition-duration: 1s;
+			transition-timing-function: ease;
+		}
+		.zoomA:hover {
+			transform: scale(1.8);
+		}
+	</style>
+</head>
+<body>
+	<header id="header">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-sticky-top">
+			<a class="navbar-brand" href="{{ url_for('home') }}"><h2><img src="{{ url_for('static', filename='img/NetExtractor2.png') }}" width="200" height="100" id="politecnica"></h2></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+			<div class="collapse navbar-collapse" id="navbarColor01">
+			  <ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+				  <a class="nav-link" href="{{ url_for('inicio') }}"><h5>{{ _('Inicio') }}</h5></a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="https://github.com/adb1004/NetExtractor-2.0" target="_blank"><h5>{{ _('Repositorio') }}</h5></a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="{{ url_for('about') }}" target="_blank"><h5>{{ _('Acerca De') }}</h5></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="http://wikinetextractor.wikidot.com/user-guide#toc25" target="_blank"><h5>{{ _('Wiki') }}</h5></a>
+				</li>
+			  </ul>
+				  <img src="{{ url_for('static', filename='img/esp.png') }}" id="esp" onclick="idioma('es','{{ g.locale }}')">
+				  <img src="{{ url_for('static', filename='img/uk.png') }}" id="uk" onclick="idioma('en','{{ g.locale }}')">
+			</div>
+		  </nav>
+	</header>
+	<div class="fixed-bottom" style="background-color:white">
+		<div id="indicex">
+			<button type="button" class="btn btn-primary float-left btn-lg p-3 px-5" name="btn btn-volver" onclick="atras()">{{ _('Volver') }}</button>
+			<button  type="button" class="btn btn-primary float-right btn-lg p-3 px-5" onclick="tablesToExcel(['tablaRedes', 'cbx cbx-louvain'],['tablaRedes', 'cbx cbx-louvain'], 'InformeFinal.xls', 'Excel')">{{ _('Exportar Informe dinámico') }}</button>
+			<a href="#navegacion" class="btn btn-primary float-right btn-lg p-3 px-5">{{ _('Menú de Navegación') }}</a>
+		</div>
+	</div>
+	<div class="col-3">
+	</div>
+	<div id="content" class="d-flex flex-row bd-highlight mb-3">
+			<div id="indice" class="float-left col-2 p-2 bd-highligh">
+					<form action="" id="form-menu" method="post">
+						<a name="navegacion"><h3 style="text-align: center;">{{_('Menú de Navegación')}}</h3></a>
+						{% if "cbx cbx-nnod" in informe.keys() or "cbx cbx-nenl" in informe.keys() or "cbx cbx-nint" in informe.keys() or "cbx cbx-dens" in informe.keys() or "cbx cbx-clust" in informe.keys() or "cbx cbx-trans" in informe.keys() or "cbx cbx-dia" in informe.keys() or "cbx cbx-rad" in informe.keys() or "cbx cbx-longmed" in informe.keys() %}
+						<a href="#medidasred" class="btn btn-primary btn-block">{{_('Medidas de red')}}</a>
+						{%endif%}
+						{% if "cbx cbx-nnod" in informe.keys() %}
+						<a href="#numnodos" class="btn btn-secondary btn-block">{{_('Número Nodos')}}</a>
+						{%endif%}
+						{%if "cbx cbx-nenl" in informe.keys()%}
+						<a href="#numenlaces" class="btn btn-secondary btn-block">{{_('Número Enlaces')}}</a>
+						{%endif%}
+						{%if "cbx cbx-nint" in informe.keys() %}
+						<a href="#numinter" class="btn btn-secondary btn-block">{{_('Número Interacciones')}}</a>
+						{%endif%}
+						{%if "cbx cbx-dens" in informe.keys() %}
+						<a href="#densidad" class="btn btn-secondary btn-block">{{_('Densidad')}}</a>
+						{%endif%}
+						{%if "cbx cbx-clust" in informe.keys() %}
+						<a href="#cclm" class="btn btn-secondary btn-block">{{_('Coeficiente de Clustering Local Medio')}}</a>
+						{%endif%}
+						{%if "cbx cbx-trans" in informe.keys() %}
+						<a href="#transitividad" class="btn btn-secondary btn-block">{{_('Transitividad')}}</a>
+						{%endif%}
+						{%if "cbx cbx-dia" in informe.keys() %}
+						<a href="#diametro" class="btn btn-secondary btn-block">{{_('Diametro')}}</a>
+						{%endif%}
+						{%if "cbx cbx-rad" in informe.keys() %}
+						<a href="#radio" class="btn btn-secondary btn-block">{{_('Radio')}}</a>
+						{%endif%}
+						{%if "cbx cbx-longmed" in informe.keys() %}
+						<a href="#distmed" class="btn btn-secondary btn-block">{{_('Distancia Media')}}</a>
+						{%endif%}
+						{% if "cbx cbx-gradosin" in informe.keys() or "cbx cbx-gradocon" in informe.keys() or "cbx cbx-locclust" in informe.keys() or "cbx cbx-exc" in informe.keys() or "cbx cbx-centg" in informe.keys() or "cbx cbx-centc" in informe.keys() or "cbx cbx-centi" in informe.keys() or "cbx cbx-ranwal" in informe.keys() or "cbx cbx-centv" in informe.keys() or "cbx cbx-para" in informe.keys() %}
+						<a href="#medidasnodo" class="btn btn-primary btn-block">{{_('Medidas de nodo')}}</a>
+						{%endif%}
+						{% if "cbx cbx-concomp" in informe.keys() %}
+						<a href="#cc" class="btn btn-secondary btn-block">{{_('Componentes Conectados')}}</a>
+						{%endif%}
+						{% if "cbx cbx-gradosin" in informe.keys() %}
+						<a href="#gsinpeso" class="btn btn-secondary btn-block">{{_('Grado Nodos Sin Peso')}}</a>
+						{%endif%}
+						{%if "cbx cbx-gradocon" in informe.keys() %}
+						<a href="#gconpeso" class="btn btn-secondary btn-block">{{_('Grado Nodos Con Peso')}}</a>
+						{%endif%}
+						{% if "cbx cbx-locclust" in informe.keys() %}
+						<a href="#ccl" class="btn btn-secondary btn-block">{{_('Coeficiente de Clustering Local')}}</a>
+						{%endif%}
+						{%if "cbx cbx-exc" in informe.keys() %}
+						<a href="#excen" class="btn btn-secondary btn-block">{{_('Excentricidad')}}</a>
+						{%endif%}
+						{% if "cbx cbx-centg" in informe.keys() %}
+						<a href="#cg" class="btn btn-secondary btn-block">{{_('Centralidad Grado')}}</a>
+						{%endif%}
+						{%if "cbx cbx-centc" in informe.keys() %}
+						<a href="#ccer" class="btn btn-secondary btn-block">{{_('Centralidad Cercanía')}}</a>
+						{%endif%}
+						{%if "cbx cbx-centi" in informe.keys() %}
+						<a href="#cinter" class="btn btn-secondary btn-block">{{_('Centralidad Intermediación')}}</a>
+						{%endif%}
+						{%if "cbx cbx-ranwal" in informe.keys() %}
+						<a href="#ica" class="btn btn-secondary btn-block">{{_('Intermediación Camino Aleatorio')}}</a>
+						{%endif%}
+						{%if "cbx cbx-centv" in informe.keys() %}
+						<a href="#cvp" class="btn btn-secondary btn-block">{{_('Centralidad Valor Propio')}}</a>
+						{%endif%}
+						{%if "cbx cbx-para" in informe.keys() %}
+						<a href="#pagerank" class="btn btn-secondary btn-block">{{_('Pagerank')}}</a>
+						{%endif%}
+						{% if "cbx cbx-kcliperc" in informe.keys() %}
+						<a href="#kcc" class="btn btn-secondary btn-block">{{_('Comunidades K-clique')}}</a>
+						{%endif%}
+						{%if "cbx cbx-girnew" in informe.keys() %}
+						<a href="#gnew" class="btn btn-secondary btn-block">{{_('Comunidades Girvan-Newman')}}</a>
+						{%endif%}
+						{%if "cbx cbx-greedy" in informe.keys() %}
+						<a href="#greedy" class="btn btn-secondary btn-block">{{_('Comunidades Clauset-Newman-Moore')}}</a>
+						{%endif%}
+						{%if "cbx cbx-louvain" in informe.keys() %}
+						<a href="#louvain" class="btn btn-secondary btn-block">{{_('Comunidades Louvain')}}</a>
+						{%endif%}
+					</form>
+				</div>
+		<div id="forms" style="margin-bottom:5rem;">
+			<h2>{{_('Informe:')}}</h2>
+			{% if "cbx cbx-nnod" in informe.keys() or "cbx cbx-nenl" in informe.keys() or "cbx cbx-nint" in informe.keys() or "cbx cbx-dens" in informe.keys() or "cbx cbx-clust" in informe.keys() or "cbx cbx-trans" in informe.keys() or "cbx cbx-dia" in informe.keys() or "cbx cbx-rad" in informe.keys() or "cbx cbx-longmed" in informe.keys() %}
+			<a name="medidasred"><h4>{{_('Medidas de Red:')}}</h4></a>
+			{% if informe.keys()|length > 0 %}
+					<table id="tablaRedes" class="table table-hover">
+						<thead>
+							<tr class="table-primary">
+							<th scope="col">Intervalo</th>
+							{% if "cbx cbx-nnod" in informe.keys() %}
+								<a name="numnodos"><th scope="col">{{_('Número Nodos')}}</th></a>
+							{% endif %}
+							{% if "cbx cbx-nenl" in informe.keys() %}
+								<a name="numenlaces"><th scope="col">{{_('Número Enlaces')}}</th></a>	
+							{% endif %}
+							{% if "cbx cbx-nint" in informe.keys() %}
+								<a name="numinter"><th scope="col">{{_('Número Interaciones')}}</th></a>								
+							{% endif %}
+							{% if "cbx cbx-dens" in informe.keys() %}
+								<a name="densidad"><th scope="col">{{_('Densidad')}}</th></a>								
+							{% endif %}
+							{% if "cbx cbx-clust" in informe.keys() %}
+								<a name="cclm"><th scope="col">{{_('Coeficiente de Clustering Local Medio')}}</th></a>			
+							{% endif %}
+							{% if "cbx cbx-trans" in informe.keys() %}
+								<a name="transitividad"><th scope="col">{{_('Transitividad')}}</th></a>
+							{% endif %}
+							{% if "cbx cbx-dia" in informe.keys() %}
+								<a name="diametro"><th scope="col">{{_('Diámetro')}}</th></a>
+							{% endif %}
+							{% if "cbx cbx-rad" in informe.keys() %}
+								<a name="radio"><th scope="col">{{_('Radio')}}</th></a>
+							{% endif %}
+							{% if "cbx cbx-longmed" in informe.keys() %}
+								<a name="distmed"><th scope="col">{{_('Distancia Media')}}</th></a>
+							{% endif %}
+							</tr>
+						</thead>
+						<tbody>
+							{% for x in range(intervalos+1) %}
+								<tr>
+									<td>{{x}}</td>
+									{% if "cbx cbx-nnod" in informe.keys() %}
+										<td>{{informe["cbx cbx-nnod"][x][1]}}</td>
+									{% endif %}
+									{% if "cbx cbx-nenl" in informe.keys() %}
+										<td>{{informe["cbx cbx-nenl"][x][1]}}</td>
+									{% endif %}
+									{% if "cbx cbx-nint" in informe.keys() %}
+										<td>{{informe["cbx cbx-nint"][x][1]}}</td>
+									{% endif %}
+									{% if "cbx cbx-dens" in informe.keys() %}
+										<td>{{informe["cbx cbx-dens"][x][1]}}</td>
+									{% endif %}
+									{% if "cbx cbx-clust" in informe.keys() %}
+										<td>{{informe["cbx cbx-clust"][x][1]}}</td>
+									{% endif %}
+									{% if "cbx cbx-trans" in informe.keys() %}
+										<td>{{informe["cbx cbx-trans"][x][1]}}</td>
+									{% endif %}
+									{% if "cbx cbx-dia" in informe.keys() %}
+										<td>{{informe["cbx cbx-dia"][x][1]}}</td>
+									{% endif %}
+									{% if "cbx cbx-rad" in informe.keys() %}
+										<td>{{informe["cbx cbx-rad"][x][1]}}</td>
+									{% endif %}
+									{% if "cbx cbx-longmed" in informe.keys() %}
+										<td>{{informe["cbx cbx-longmed"][x][1]}}</td>
+									{% endif %}
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table> 
+			{% endif %}
+			{% endif %}
+			{{lista}}
+			{% if "cbx cbx-concomp" in informe.keys() or "cbx cbx-louvain" in informe.keys() or "cbx cbx-gradosin" in informe.keys() or "cbx cbx-gradocon" in informe.keys() or "cbx cbx-locclust" in informe.keys() or "cbx cbx-exc" in informe.keys() or "cbx cbx-centg" in informe.keys() or "cbx cbx-centc" in informe.keys() or "cbx cbx-centi" in informe.keys() or "cbx cbx-ranwal" in informe.keys() or "cbx cbx-centv" in informe.keys() or "cbx cbx-para" in informe.keys() %}
+			<a name="medidasnodo"><h4>{{_('Medidas de Nodo:')}}</h4></a>
+
+					{% if "cbx cbx-concomp" in informe.keys() %}
+					<a name="cc"><p><h5>{{_('Componentes Conectados')}}:</h5> </p></a>
+					<table id="tablaComponentesConectados" class="table table-hover">
+						<thead>
+							<tr class="table-primary">
+								<th scope="col">Intervalo</th>
+								{% for i in informe["cbx cbx-concomp"] %}
+									{% if intervalos == i[0] %}
+										<th scope="col">{{_('Componente')}}{{i[1]}}</th>
+									{% endif %}
+								{% endfor %}
+							</tr>
+						</thead>
+						<tbody>
+							{% for x in range(intervalos+1) %}
+									<tr>
+										<td>{{x}}</td>
+											{% for i in informe["cbx cbx-concomp"] %}
+												{% if x == i[0] %}
+													{% for j in i[2] %}
+													<td>{{j}} </td>
+													{% endfor %}
+												{% endif %}
+											{% endfor %}
+									</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<br/>
+				{% endif %}
+
+				{% if "cbx cbx-gradosin" in informe.keys() %}
+					<a name="gsinpeso"><h5>{{_('Grado Nodos Sin Peso:')}}</h5></a>
+						<table id="tablaGradoNodoSinPeso" class="table table-hover">
+							<thead>
+								<tr class="table-primary">
+								<th scope="col">Intervalo</th>
+								{% for x in personajes %}
+									<th scope="col">{{x}}</th>
+								{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+							{% for x in range(intervalos+1) %}
+									<tr>
+										<td>{{x}}</td>
+										{% for i in informe["cbx cbx-gradosin"] %}
+											{% if x == i[0] %}
+												<td>{{i[2]}}</td>
+											{% endif %}
+										{% endfor %}
+									</tr>
+							{% endfor %}
+							</tbody>
+						</table> 
+						<br/>
+				{% endif %}
+
+				{% if "cbx cbx-gradocon" in informe.keys() %}
+					<a name="gconpeso"><h5>{{_('Grado Nodos Con Peso:')}}</h5></a>
+						<table id="tablaGradoNodoConPeso" class="table table-hover">
+							<thead>
+								<tr class="table-primary">
+								<th scope="col">Intervalo</th>
+								{% for x in personajes %}
+									<th scope="col">{{x}}</th>
+								{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+							{% for x in range(intervalos+1) %}
+									<tr>
+										<td>{{x}}</td>
+										{% for i in informe["cbx cbx-gradocon"] %}
+											{% if x == i[0] %}
+												<td>{{i[2]}}</td>
+											{% endif %}
+										{% endfor %}
+									</tr>
+							{% endfor %}
+							</tbody>
+						</table> 
+						<br/>
+				{% endif %}
+					
+				{% if "cbx cbx-locclust" in informe.keys() %}
+					<a name="ccl"><h5>{{_(' Coeficiente de Clustering Local:')}}</h5></a>
+						<table id="tablaCoeficienteClustering" class="table table-hover">
+							<thead>
+								<tr class="table-primary">
+								<th scope="col">Intervalo</th>
+								{% for x in personajes %}
+									<th scope="col">{{x}}</th>
+								{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+							{% for x in range(intervalos+1) %}
+									<tr>
+										<td>{{x}}</td>
+										{% for i in informe["cbx cbx-locclust"] %}
+											{% if x == i[0] %}
+												<td>{{i[2]}}</td>
+											{% endif %}
+										{% endfor %}
+									</tr>
+							{% endfor %}
+							</tbody>
+						</table> 
+						<br/>
+				{% endif %}
+
+				{% if "cbx cbx-exc" in informe.keys() %}
+					<a name="excen"><h5>{{_(' Excentricidad:')}}</h5></a>
+						<table id="tablaExcentricidad" class="table table-hover">
+							<thead>
+								<tr class="table-primary">
+								<th scope="col">Intervalo</th>
+								{% for x in personajes %}
+									<th scope="col">{{x}}</th>
+								{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+							{% for x in range(intervalos+1) %}
+									<tr>
+										<td>{{x}}</td>
+										{% for i in informe["cbx cbx-exc"] %}
+											{% if x == i[0] %}
+												<td>{{i[2]}}</td>
+											{% endif %}
+										{% endfor %}
+									</tr>
+							{% endfor %}
+							</tbody>
+						</table> 
+						<br/>
+				{% endif %}
+
+				{% if "cbx cbx-centg" in informe.keys() %}
+					<a name="cg"><h5>{{_(' Centralidad Grado:')}}</h5></a>
+						<table id="tablaCentGrado" class="table table-hover">
+							<thead>
+								<tr class="table-primary">
+								<th scope="col">Intervalo</th>
+								{% for x in personajes %}
+									<th scope="col">{{x}}</th>
+								{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+							{% for x in range(intervalos+1) %}
+									<tr>
+										<td>{{x}}</td>
+										{% for i in informe["cbx cbx-centg"] %}
+											{% if x == i[0] %}
+												<td>{{i[2]}}</td>
+											{% endif %}
+										{% endfor %}
+									</tr>
+							{% endfor %}
+							</tbody>
+						</table> 
+						<br/>
+				{% endif %}
+				
+				{% if "cbx cbx-centc" in informe.keys() %}
+					<a name="ccer"><h5>{{_(' Centralidad Cercanía:')}}</h5></a>
+						<table id="tablaCentCercania" class="table table-hover">
+							<thead>
+								<tr class="table-primary">
+								<th scope="col">Intervalo</th>
+								{% for x in personajes %}
+									<th scope="col">{{x}}</th>
+								{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+							{% for x in range(intervalos+1) %}
+									<tr>
+										<td>{{x}}</td>
+										{% for i in informe["cbx cbx-centc"] %}
+											{% if x == i[0] %}
+												<td>{{i[2]}}</td>
+											{% endif %}
+										{% endfor %}
+									</tr>
+							{% endfor %}
+							</tbody>
+						</table> 
+						<br/>
+				{% endif %}
+
+				{% if "cbx cbx-centi" in informe.keys() %}
+					<a name="cinter"><h5>{{_(' Centralidad Intermediación:')}}</h5></a>
+						<table id="tablaCentIntermediación" class="table table-hover">
+							<thead>
+								<tr class="table-primary">
+								<th scope="col">Intervalo</th>
+								{% for x in personajes %}
+									<th scope="col">{{x}}</th>
+								{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+							{% for x in range(intervalos+1) %}
+									<tr>
+										<td>{{x}}</td>
+										{% for i in informe["cbx cbx-centi"] %}
+											{% if x == i[0] %}
+												<td>{{i[2]}}</td>
+											{% endif %}
+										{% endfor %}
+									</tr>
+							{% endfor %}
+							</tbody>
+						</table> 
+						<br/>
+				{% endif %}
+					
+				{% if "cbx cbx-ranwal" in informe.keys() %}	
+					<a name="ica"><h5>{{_(' Centralidad Camino Aleatorio:')}}</h5></a>
+						<table id="tablaCentCamAleatorio" class="table table-hover">
+							<thead>
+								<tr class="table-primary">
+								<th scope="col">Intervalo</th>
+								{% for x in personajes %}
+									<th scope="col">{{x}}</th>
+								{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+							{% for x in range(intervalos+1) %}
+									<tr>
+										<td>{{x}}</td>
+										{% for i in informe["cbx cbx-ranwal"] %}
+											{% if x == i[0] %}
+												<td>{{i[2]}}</td>
+											{% endif %}
+										{% endfor %}
+									</tr>
+							{% endfor %}
+							</tbody>
+						</table> 
+						<br/>
+				{% endif %}
+
+				{% if "cbx cbx-centv" in informe.keys() %}
+					<a name="cvp"><h5>{{_(' Centralidad Valor Propio:')}}</h5></a>
+						<table id="tablaCentValorPropio" class="table table-hover">
+							<thead>
+								<tr class="table-primary">
+								<th scope="col">Intervalo</th>
+								{% for x in personajes %}
+									<th scope="col">{{x}}</th>
+								{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+							{% for x in range(intervalos+1) %}
+									<tr>
+										<td>{{x}}</td>
+										{% for i in informe["cbx cbx-centv"] %}
+											{% if x == i[0] %}
+												<td>{{i[2]}}</td>
+											{% endif %}
+										{% endfor %}
+									</tr>
+							{% endfor %}
+							</tbody>
+						</table> 
+						<br/>
+				{% endif %}
+
+				{% if "cbx cbx-para" in informe.keys() %}
+					<a name="pagerank"><h5>{{_(' Centralidad Pagerank:')}}</h5></a>			
+						<table id="tablaPageRank" class="table table-hover">
+							<thead>
+								<tr class="table-primary">
+								<th scope="col">Intervalo</th>
+								{% for x in personajes %}
+									<th scope="col">{{x}}</th>
+								{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+							{% for x in range(intervalos+1) %}
+									<tr>
+										<td>{{x}}</td>
+										{% for i in informe["cbx cbx-para"] %}
+											{% if x == i[0] %}
+												<td>{{i[2]}}</td>
+											{% endif %}
+										{% endfor %}
+									</tr>
+							{% endfor %}
+							</tbody>
+						</table> 
+						<br/>
+				{% endif %}
+				{% endif %}
+
+				{% if "cbx cbx-kcliperc" in informe.keys() %}
+				<a name="kcc"><p><h5>{{_('Comunidades K-clique')}}:</h5> </p></a>
+				<table id="tablaComunidadK-clique" class="table table-hover">
+					<thead>
+						<tr class="table-primary">
+							<th scope="col">Intervalo</th>
+							{% for i in informe["cbx cbx-kcliperc"] %}
+								{% if intervalos == i[0] %}
+									<th scope="col">{{_('Comunidad')}}{{i[1]}}</th>
+								{% endif %}
+							{% endfor %}
+						</tr>
+					</thead>
+					<tbody>
+						{% for x in range(intervalos+1) %}
+								<tr>
+									<td>{{x}}</td>
+									
+										{% for i in informe["cbx cbx-kcliperc"] %}
+											{% if x == i[0] %}
+												{% for j in i[2] %}
+												<td>{{j}} </td>
+												{% endfor %}
+											{% endif %}
+										{% endfor %}
+									
+								</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<br/>
+				{% endif %}
+
+				{% if "cbx cbx-girnew" in informe.keys() %}
+				<a name="gnew"><p><h5>{{_('Comunidades Girvan-Newman')}}:</h5> </p></a>
+				<table id="tablaGirvan-Newman" class="table table-hover">
+					<thead>
+						<tr class="table-primary">
+							<th scope="col">Intervalo</th>
+							{% for i in informe["cbx cbx-girnew"] %}
+								{% if intervalos == i[0] %}
+									<th scope="col">{{_('Comunidad')}}{{i[1]}}</th>
+								{% endif %}
+							{% endfor %}
+						</tr>
+					</thead>
+					<tbody>
+						{% for x in range(intervalos+1) %}
+								<tr>
+									<td>{{x}}</td>
+									
+										{% for i in informe["cbx cbx-girnew"] %}
+											{% if x == i[0] %}
+												{% for j in i[2] %}
+												<td>{{j}} </td>
+												{% endfor %}
+											{% endif %}
+										{% endfor %}
+									
+								</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<br/>
+				{% endif %}
+
+				{% if "cbx cbx-greedy" in informe.keys() %}
+				<a name="greedy"><p><h5>{{_('Comunidades Clauset-Newman-Moore')}}:</h5> </p></a>
+				<table id="tablaClauset-Newman-Moore" class="table table-hover">
+					<thead>
+						<tr class="table-primary">
+							<th scope="col">Intervalo</th>
+							{% for i in informe["cbx cbx-greedy"] %}
+								{% if intervalos == i[0] %}
+									<th scope="col">{{_('Comunidad')}}{{i[1]}}</th>
+								{% endif %}
+							{% endfor %}
+						</tr>
+					</thead>
+					<tbody>
+						{% for x in range(intervalos+1) %}
+								<tr>
+									<td>{{x}}</td>
+									
+										{% for i in informe["cbx cbx-greedy"] %}
+											{% if x == i[0] %}
+												{% for j in i[2] %}
+												<td>{{j}} </td>
+												{% endfor %}
+											{% endif %}
+										{% endfor %}
+									
+								</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<br/>
+				{% endif %}
+
+			{% if "cbx cbx-louvain" in informe.keys() %}
+			<a name="louvain"><p><h5>{{_('Comunidades Louvain')}}:</h5> </p></a>
+			<table id="cbx cbx-louvain" class="table table-hover">
+				<thead>
+					<tr class="table-primary">
+						<th scope="col">Intervalo</th>
+						{% for i in informe["cbx cbx-louvain"] %}
+							{% if intervalos == i[0] %}
+								<th scope="col">{{_('Comunidad')}}{{i[1]}}</th>
+							{% endif %}
+						{% endfor %}
+					</tr>
+				</thead>
+				<tbody>
+					{% for x in range(intervalos+1) %}
+							<tr>
+								<td>{{x}}</td>
+								
+									{% for i in informe["cbx cbx-louvain"] %}
+										{% if x == i[0] %}
+											{% for j in i[2] %}
+											<td>{{j}} </td>
+											{% endfor %}
+										{% endif %}
+									{% endfor %}
+								
+							</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<br/>
+			{% endif %}
+			</div>
+		</div>
+
+
+	<footer></footer>
+	
+
+	
+	<script>
+			//https://stackoverflow.com/questions/47750766/how-to-export-html-tables-to-excel-in-multi-tab-format
+			var tablesToExcel = (function() {
+			var uri = 'data:application/vnd.ms-excel;base64,'
+			, tmplWorkbookXML = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">'
+			+ '<DocumentProperties xmlns="urn:schemas-microsoft-com:office:office"><Author>Axel Richter</Author><Created>{created}</Created></DocumentProperties>'
+			+ '<Styles>'
+			+ '<Style ss:ID="Currency"><NumberFormat ss:Format="Currency"></NumberFormat></Style>'
+			+ '<Style ss:ID="Date"><NumberFormat ss:Format="Medium Date"></NumberFormat></Style>'
+			+ '</Styles>' 
+			+ '{worksheets}</Workbook>'
+			, tmplWorksheetXML = '<Worksheet ss:Name="{nameWS}"><Table>{rows}</Table></Worksheet>'
+			, tmplCellXML = '<Cell{attributeStyleID}{attributeFormula}><Data ss:Type="{nameType}">{data}</Data></Cell>'
+			, base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+			, format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+			return function(tables, wsnames, wbname, appname) {
+			var ctx = "";
+			var workbookXML = "";
+			var worksheetsXML = "";
+			var rowsXML = "";
+
+			for (var i = 0; i < tables.length; i++) {
+				if (!tables[i].nodeType) tables[i] = document.getElementById(tables[i]);
+				for (var j = 0; j < tables[i].rows.length; j++) {
+				rowsXML += '<Row>'
+				for (var k = 0; k < tables[i].rows[j].cells.length; k++) {
+					var dataType = tables[i].rows[j].cells[k].getAttribute("data-type");
+					var dataStyle = tables[i].rows[j].cells[k].getAttribute("data-style");
+					var dataValue = tables[i].rows[j].cells[k].getAttribute("data-value");
+					dataValue = (dataValue)?dataValue:tables[i].rows[j].cells[k].innerHTML;
+					var dataFormula = tables[i].rows[j].cells[k].getAttribute("data-formula");
+					dataFormula = (dataFormula)?dataFormula:(appname=='Calc' && dataType=='DateTime')?dataValue:null;
+					ctx = {  attributeStyleID: (dataStyle=='Currency' || dataStyle=='Date')?' ss:StyleID="'+dataStyle+'"':''
+						, nameType: (dataType=='Number' || dataType=='DateTime' || dataType=='Boolean' || dataType=='Error')?dataType:'String'
+						, data: (dataFormula)?'':dataValue
+						, attributeFormula: (dataFormula)?' ss:Formula="'+dataFormula+'"':''
+						};
+					rowsXML += format(tmplCellXML, ctx);
+				}
+				rowsXML += '</Row>'
+				}
+				ctx = {rows: rowsXML, nameWS: wsnames[i] || 'Sheet' + i};
+				worksheetsXML += format(tmplWorksheetXML, ctx);
+				rowsXML = "";
+			}
+
+			ctx = {created: (new Date()).getTime(), worksheets: worksheetsXML};
+			workbookXML = format(tmplWorkbookXML, ctx);
+
+				//console.log(workbookXML);
+
+			var link = document.createElement("A");
+			link.href = uri + base64(workbookXML);
+			link.download = wbname || 'Workbook.xls';
+			link.target = '_blank';
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+			}
+		})();
+
+	</script>
+
+
+
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="{{ url_for('static', filename='js/language.js') }}" type="text/javascript"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+	<script type="text/javascript">
+		var validNavigation = false;
+		var contador = 0;
+		function atras() {
+			validNavigation = true;
+			window.location.href='{{ url_for('informeDinamicoconf') }}'
+		}
+
+		function sendForm() {
+			var msg = "{{ _('Por favor introduzca valor en:') }}"
+			var send = true
+			if(document.getElementById("cbx-kcliperc").checked && document.getElementById("valkcliqper").value.length == 0){
+				send = false
+				msg += "\n" + "{{_('K del K-clique de comunidades')}}"
+			}
+			if(send){
+				validNavigation = true;
+				document.getElementById("form").submit()
+			} else {
+				alert(msg)
+			}
+		}
+
+		function comunes(){
+
+		}
+
+		//https://eureka.ykyuen.info/2011/02/22/jquery-javascript-capture-the-browser-or-tab-closed-event/
+		
+
+		function endSession() {
+			$.ajax({
+		      type: "POST",
+		      contentType: "application/json;charset=utf-8",
+		      url: "/Fin-Sesion",
+		      traditional: "true",
+		      data: JSON.stringify({{ g.usuario }}),
+		      dataType: "json",
+		      success: function(response){
+          			location.reload();
+         		 }
+		    });
+		}
+
+		function wireUpEvents() {
+			  /*
+			  * For a list of events that triggers onbeforeunload on IE
+			  * check http://msdn.microsoft.com/en-us/library/ms536907(VS.85).aspx
+			  */
+			  window.onbeforeunload = function(event) {
+				  if (!validNavigation) {
+					 endSession();
+				  }
+			  }
+			 
+			  // Attach the event keypress to exclude the F5 refresh
+			  $(document).bind('keydown', function(e) {
+				if (e.keyCode == 116){
+				  validNavigation = true;
+				}
+			  });
+
+			 
+			  // Attach the event click for all links in the page
+			  $("a").bind("click", function() {
+				validNavigation = true;
+			  });
+			 
+			  // Attach the event submit for all forms in the page
+			  $("form").bind("submit", function() {
+				validNavigation = true;
+			  });
+			 
+			  // Attach the event click for all inputs in the page
+			  $("input[type=submit]").bind("click", function() {
+				validNavigation = true;
+			  });
+
+			  $("input[type=button]").bind("click", function() {
+					validNavigation = true;
+			  });
+			}
+			 
+			// Wire up the events as soon as the DOM tree is ready
+			$(document).ready(function() {
+			  wireUpEvents();  
+		});
+	</script>
+</body>
+</html>

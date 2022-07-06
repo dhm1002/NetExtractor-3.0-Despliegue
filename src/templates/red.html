@@ -18,7 +18,7 @@
 				  <a class="nav-link" href="{{ url_for('inicio') }}"><h5>{{ _('Inicio') }}</h5></a>
 				</li>
 				<li class="nav-item">
-				  <a class="nav-link" href="https://github.com/jng0020/NetExtractor" target="_blank"><h5>{{ _('Repositorio') }}</h5></a>
+				  <a class="nav-link" href="https://github.com/adb1004/NetExtractor-2.0" target="_blank"><h5>{{ _('Repositorio') }}</h5></a>
 				</li>
 				<li class="nav-item">
 				  <a class="nav-link" href="{{ url_for('about') }}" target="_blank"><h5>{{ _('Acerca De') }}</h5></a>
@@ -36,6 +36,7 @@
 		<div id="indice">
 			<button type="button" class="btn btn-primary float-left btn-lg p-3 px-5" name="btn btn-volver" onclick="guardaconfig('params')">{{ _('Volver') }}</button>
 			<button type="button" class="btn btn-primary float-right btn-lg p-3 px-5" name="btn btn-volver" onclick="guardaconfig('informe')">{{ _('Generar Informe') }}</button>
+			<button type="button" class="btn btn-primary float-right btn-lg p-3 px-5" name="btn btn-volver" onclick="guardaconfig('redDinamica')">{{ _('Red Dinámica') }}</button>
 		</div>
 	</div>
 	<!--<div id="content" class="d-flex flex-row bd-highlight mb-3">-->
@@ -121,6 +122,9 @@
 					validNavigation = true;
 					window.location.href='{{ url_for('paramsPeliculas') }}'
 				}
+			}else if(ventana=='redDinamica'){
+				validNavigation = true;
+				window.location.href='{{ url_for('redDinamica') }}'
 			}else{
 			    validNavigation = true;
 				window.location.href='{{ url_for('informe') }}'
