@@ -24,6 +24,9 @@ Para la instalación de todos los componentes necesarios para el despliegue de l
 * **html5lib:** *versión 1.0*
 * **networkx:** *versión 2.2*
 * **scipy:** *versión 1.1*
+* **DyNetX:** *versión 0.3.1*
+* **ffmpeg-python** *versión 0.2.0*
+* **IPython** *versión 7.16.3*
 
 Estos requisitos son de fácil instalación mediante la ejecución del siguiente comando: 
 
