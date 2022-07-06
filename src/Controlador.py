@@ -13,7 +13,10 @@ app.config['UPLOAD_FOLDER'] = cfg.upload_folder
 app.config['BABEL_TRANSLATION_DIRECTORIES'] = cfg.translations_folder
 app.config['SECRET_KEY'] = cfg.secretkey
 babel = Babel(app)
-
+frames=5
+apariciones=None
+epub=False
+sesion=0
 tbd = TempBD.TempBD.getInstance()
 
 @babel.localeselector
@@ -298,6 +301,10 @@ def modidpers():
     
 @app.route('/Parametros/', methods=["GET", "POST"])
 def params():
+    global epub
+    global sesion
+    epub=True
+    sesion=0
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
         return redirect(url_for('home'))
     g.usuario = session['usuario']
@@ -316,6 +323,11 @@ def params():
 
 @app.route('/Parametros-Peliculas/', methods=["GET", "POST"])
 def paramsPeliculas():
+    global apariciones
+    global epub
+    global sesion
+    epub=False
+    sesion=0
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
         return redirect(url_for('home'))
     g.usuario = session['usuario']
@@ -324,18 +336,21 @@ def paramsPeliculas():
         return redirect(url_for('home'))
     if request.method == "POST":
         apar = request.form['txt txt-apar']
+        apariciones=apar
         m.obtenerRed(int(apar))          
         return redirect(url_for('red'))
     return render_template('paramsPeliculas.html', pers = {k: v for k, v in sorted(m.getPersonajes().items(), key=lambda x: x[1].getNumApariciones(), reverse=True)})
 
 @app.route('/Red/', methods=["GET", "POST"])
 def red():
+    global apariciones
     if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
         return redirect(url_for('home'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
     if (m.hayPersonajes() == 0):
         return redirect(url_for('home'))
+    #m.obtenerRed(int(apariciones)) 
     jsonred = m.visualizar()
     if request.method == "POST":
         if("btn btn-expgml" in request.form):
@@ -351,6 +366,81 @@ def red():
             m.exportPajek(filename)
             return send_file(filename, mimetype='text/net', attachment_filename=session['fichero'] + ".net", as_attachment=True)
     return render_template('red.html', jsonred = jsonred, config = session['configVis'], cambiarPantalla = m.devolverCambio())
+
+@app.route('/redDinamica/' , methods=["GET","POST"])
+def redDinamica():
+    global frames
+    global epub
+    global sesion
+    #fullpath = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), fich.filename)
+    if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
+        return redirect(url_for('home'))
+    g.usuario = session['usuario']
+    m = tbd.getObject(session['usuario'])
+    if (m.hayPersonajes() == 0):
+        return redirect(url_for('home'))
+    tiempoMasAlto = m.ordenarRedDinamica(epub)
+    slider = tiempoMasAlto[2]
+    #frames=3
+    #jsonred = m.vistaDinamica(int(frames))
+    if request.method == "POST":
+        if("btn btn-expgml" in request.form):
+            filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".gml")
+            m.exportGML(filename)
+            return send_file(filename, mimetype='text/gml', attachment_filename=session['fichero'] + ".gml", as_attachment=True)
+        elif("btn btn-expgexf" in request.form):
+            filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".gexf")
+            m.exportGEXFdinamica(filename,frames,epub)
+            return send_file(filename, mimetype='text/gexf', attachment_filename=session['fichero'] + ".gexf", as_attachment=True)
+        elif("btn btn-expnet" in request.form):
+            filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".net")
+            m.exportPajek(filename)
+            return send_file(filename, mimetype='text/net', attachment_filename=session['fichero'] + ".net", as_attachment=True)
+        elif("btn btn-des" in request.form):
+            #frames = tiempoMasAlto[2]
+            filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".mp4")
+            m.descargarRed(tiempoMasAlto[2],filename,epub)
+            return send_file(filename, mimetype='text/mp4', attachment_filename=session['fichero'] + ".mp4", as_attachment=True)
+        elif("btn btn-desact" in request.form):
+            filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".mp4")
+            m.descargarRed(frames,filename,epub)
+            return send_file(filename, mimetype='text/mp4', attachment_filename=session['fichero'] + ".mp4", as_attachment=True)
+            #filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".net")
+            #m.exportPajek(filename)
+            #return send_file(filename, mimetype='text/net', attachment_filename=session['fichero'] + ".net", as_attachment=True)
+            #filename = m.descargarRed(frames)
+            #return send_file(filename, mimetype='text/gif', attachment_filename=session['fichero'] + ".gif", as_attachment=True) 
+
+
+        elif("btn btn-anterior" in request.form):
+            frames = frames-1
+            jsonred = m.vistaDinamica(int(frames),epub)
+            return render_template('redDinamica.html', jsonred = jsonred, config = session['configVis'], cambiarPantalla = m.devolverCambio(),value=frames, slider=slider )
+        elif("btn btn-siguiente" in request.form):
+            frames = frames+1
+            jsonred = m.vistaDinamica(int(frames),epub)
+            return render_template('redDinamica.html', jsonred = jsonred, config = session['configVis'], cambiarPantalla = m.devolverCambio(), value=frames, slider=slider )
+        elif("btn btn-buscar" in request.form):
+            frames=int(request.form['txt txt-inter'])
+            jsonred = m.vistaDinamica(int(frames),epub)
+            return render_template('redDinamica.html', jsonred = jsonred, config = session['configVis'], cambiarPantalla = m.devolverCambio(), value=frames, slider=slider )
+        #elif(request.form["slide"]):
+        elif("slide" in request.form):
+            return redirect(url_for('home'))
+            frames=int(request.form["slide"])
+            jsonred = m.vistaDinamica(int(frames),epub)
+            return render_template('redDinamica.html', jsonred = jsonred, config = session['configVis'], cambiarPantalla = m.devolverCambio(), value=frames, slider=slider )
+            
+    elif sesion == 0:
+        tiempoMasAlto = m.ordenarRedDinamica(epub)
+        frames = tiempoMasAlto[2]
+        jsonred = m.vistaDinamica(int(frames),epub)   
+        sesion=1
+    else:
+        jsonred = m.vistaDinamica(int(frames),epub) 
+
+    return render_template('redDinamica.html', jsonred = jsonred, config = session['configVis'], cambiarPantalla = m.devolverCambio(), value=frames, slider=slider )
+
 
 @app.route('/Informe/', methods=["GET", "POST"])
 def informe():
@@ -378,6 +468,65 @@ def visinforme():
     if (m.hayPersonajes() == 0):
         return redirect(url_for('home'))
     return render_template('visinforme.html', informe = m.informe)
+
+@app.route('/InformeDinamica/', methods=["GET", "POST"])
+def informeDinamico():
+    if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
+        return redirect(url_for('home'))
+    g.usuario = session['usuario']
+    m = tbd.getObject(session['usuario'])
+    if (m.hayPersonajes() == 0):
+        return redirect(url_for('home'))
+    if request.method == "POST":
+#        print(request.form)
+        x = dict(request.form)
+#        del x['btn btn-informe']
+        direc = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']))
+        m.generarInforme(x,direc)
+        return redirect(url_for('visinformeDinamica'))
+    return render_template('informedinamico.html')
+
+@app.route('/InformeDinamicaConf/', methods=["GET", "POST"])
+def informeDinamicoconf():
+    global epub
+    if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
+        return redirect(url_for('home'))
+    g.usuario = session['usuario']
+    m = tbd.getObject(session['usuario'])
+    if (m.hayPersonajes() == 0):
+        return redirect(url_for('home'))
+    if request.method == "POST":
+#        print(request.form)
+        x = dict(request.form)
+#        del x['btn btn-informe']
+        direc = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']))
+        m.generarInformeDinamico(x,direc,epub)
+        #return redirect(url_for('home'))
+        return redirect(url_for('visinformeDinamicaconf'))
+    return render_template('informedinamicoconf.html')
+
+@app.route('/InformeDinamicaConf/Visualizar/', methods=["GET", "POST"])
+def visinformeDinamicaconf():
+    global frames
+    if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
+        return redirect(url_for('home'))
+    g.usuario = session['usuario']
+    m = tbd.getObject(session['usuario'])
+    if (m.hayPersonajes() == 0):
+        return redirect(url_for('home'))
+    lista=m.generarValoresDescargaInforme()
+    personajes=m.elementosRed()
+    return render_template('visinformedinamicaconf.html', informe = m.informeDina, intervalos=frames, personajes=personajes, lista=str(lista))
+
+@app.route('/InformeDinamica/Visualizar/', methods=["GET", "POST"])
+def visinformeDinamica():
+    if('fichero' not in session or session['usuario'] not in tbd.getSesiones().keys()):
+        return redirect(url_for('home'))
+    g.usuario = session['usuario']
+    m = tbd.getObject(session['usuario'])
+    if (m.hayPersonajes() == 0):
+        return redirect(url_for('home'))
+    return render_template('visinformedinamica.html', informe = m.informe)
 
 @app.route('/Informe/Visualizar/<path:filename>')
 def download_file(filename):
