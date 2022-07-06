@@ -10,3 +10,6 @@ html5lib==1.0.1
 scipy==1.1.0
 python-louvain
 Werkzeug==0.16.1
+DyNetX==0.3.1
+ffmpeg-python==0.2.0
+IPython==7.16.3
