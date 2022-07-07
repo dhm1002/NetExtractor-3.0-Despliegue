@@ -1,13 +1,15 @@
 ![Figura 0](ReadMeImages/NetExtractor2.png)
-# Bienvenido a NetExtractor
+# Bienvenido a NetExtractor 2.0
 
-NetExtractor es un proyecto realizado por la Universidad de Burgos que consiste en una aplicación empleada para generar de forma automática la red de interacciones de personajes en guiones de películas y novelas con el fin de analizar las redes obtenidas para capturar sus métricas más relevantes.
+NetExtractor 2.0 es un proyecto realizado por la Universidad de Burgos que consiste en una aplicación empleada para generar de forma automática la red de interacciones de personajes en guiones de películas y novelas con el fin de analizar las redes obtenidas para capturar sus métricas más relevantes.
 
 Las redes van a ser obtenidas mediante la introducción de dichos guiones en la aplicación desde la página web de https://www.imsdb.com/ o mediante la introducción de un fichero tipo ePub.
 
 Una vez que se hayan introducido los requisitos anteriormente mencionados, podremos crear los diccionarios de personajes los cuales podemos modificar, borrar personajes, cambiarlos o combinarlos en caso de que así se requiera. Cuando se genere la red, tendremos un menú de selección de las características deseadas para extraer de la red que, una vez seleccionadas, podrán ser visualizadas en el informe generado.
 
-De forma general esto sería lo que hace la aplicación, aun así, en este repositorio tenemos toda la información acerca del proyecto, en la carpeta "doc" tendremos toda la documentación necesaria así como los manuales de uso de la aplicación. Además la aplicación posee una wiki en la cual podremos consultar también documentación. Link de la wiki: https://wikinetextractor.wikidot.com.
+También se ha implementado una red dinámica para ver como son las relaciones entre los personajes a lo largo del tiempo. Además, se ha implementado un informe dinámico que nos mostrará las metricás en cada uno de los intervalos de tiempo.
+
+De forma general esto sería lo que hace la aplicación, aun así, en este repositorio tenemos toda la información acerca del proyecto, en la carpeta "doc" tendremos toda la documentación necesaria así como los manuales de uso de la aplicación.
 
 ## Instalación en local:
 
@@ -40,33 +42,21 @@ Ahora ya tendremos corriendo nuestra aplicación, que se comprueba si en nuestra
 
 ![Figura 1](ReadMeImages/iniciado.PNG)
 
-Finalmente simplemente debemos ir al navegador web que más nos guste e introducir la dirección que aparece en la imagen, es decir https://127.0.0.1:5000 y ya tendríamos nuestra aplicación funcionando en modo local.
-## Aplicación desplegada:
-
-La aplicación está abierta y desplegada en https://www.heroku.com un sitio web para poder desplegar aplicaciones web de forma gratuita.
-Para poder acceder a la aplicación se debe acceder al siguiente link: https://netextractor.herokuapp.com.
-
-## Uso de la aplicación:
-
-Para explicar el uso de la aplicación se han creado dos vídeos, uno con una ejecución sencilla de la película del Joker, para ver de forma general lo que hace la aplicación; y otro que explica de forma detallada cada una de las opciones que se pueden tener dentro de la aplicación, con el fin, de que el usuario pueda entender de manera más precisa el funcionamiento de NetExtractor.
-
-- Video de la ejecución rápida:<br/>
-[![Ejecución sencilla](http://img.youtube.com/vi/-4pfwa-tp_s/0.jpg)](https://www.youtube.com/watch?v=-4pfwa-tp_s&feature=youtu.be)
-
-- Video de una ejecución detallada:<br/>
-[![Ejecución detallada](http://img.youtube.com/vi/WL-U85159nM/0.jpg)](https://www.youtube.com/watch?v=WL-U85159nM&feature=youtu.be)
+Finalmente simplemente debemos ir al navegador web que más nos guste e introducir la dirección que aparece en la imagen, es decir http://127.0.0.1:5000 y ya tendríamos nuestra aplicación funcionando en modo local.
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
-# Welcome to NetExtractor
+# Welcome to NetExtractor 2.0
 
-NetExtractor is a University of Burgos's project that consist of an application used to generate automatic character interaction networks of movie scripts and novels with the goal of analyze the obtained networks to capture each of its most relevant metrics.
+NetExtractor 2.0 is a University of Burgos's project that consist of an application used to generate automatic character interaction networks of movie scripts and novels with the goal of analyze the obtained networks to capture each of its most relevant metrics.
 
 Networks will be obtained through the introduction of the movie scripts from the following website  https://www.imsdb.com/ or through an ePub file.
 
 Once the requirements have been introduced, we can create the character dictionaries which can be modify, delete characters, change them or combine them if required. When the network is generated, we will have a menu to select the desired characteristics to extract from the network that, once selected, can be displayed in the generated report.
 
-In general, this would be what the application does, even so, in this repository we have all the information about the project, in the "doc" folder we will have all the necessary documentation as well as the application usage manuals. In addition the application has a wiki in which we can also consult documentation. Wiki link: https://wikinetextractor.wikidot.com.
+A dynamic network has also been implemented to see how the relationships between the characters are over time. In addition, a dynamic report has been implemented that will show us the metrics in each of the time intervals.
+
+In general, this would be what the application does, even so, in this repository we have all the information about the project, in the "doc" folder we will have all the necessary documentation as well as the application usage manuals.
 
 ## Local instalation:
 
@@ -96,9 +86,5 @@ Now we will have our application running, which checks if the following appears 
 
 ![Figure 1](ReadMeImages/iniciado.PNG)
 
-Finally we simply have to go to the web browser that we like the most and enter the address that appears in the image, that is https://127.0.0.1:5000 and we would already have our application running locally.
+Finally we simply have to go to the web browser that we like the most and enter the address that appears in the image, that is http://127.0.0.1:5000 and we would already have our application running locally.
 
-## Deployed application:
-
-The application is open and deployed in https://www.heroku.com a website to be able to deploy web applications for free.
-To access the application you must access the following link: https://netextractor.herokuapp.com.
