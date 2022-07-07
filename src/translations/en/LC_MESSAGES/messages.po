@@ -8,16 +8,78 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2020-02-05 17:27+0100\n"
-"PO-Revision-Date: 2020-02-05 17:27+0100\n"
+"PO-Revision-Date: 2022-07-07 03:14+0200\n"
 "Last-Translator: \n"
-"Language: en_GB\n"
 "Language-Team: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.7.0\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 3.1\n"
+
+#: src/templates/informe.html:38 src/templates/red.html:38
+msgid "Red Dinámica"
+msgstr "Dynamic Network"
+
+#: src/templates/redDinamica.html:89
+msgid "Intervalo de tiempo actual:"
+msgstr "Current time range:"
+
+#: src/templates/redDinamica.html:93
+msgid "Introduzca el intervalo de tiempo que quiera observar."
+msgstr "Enter the time interval you want to observe."
+
+#: src/templates/redDinamica.html:94
+msgid "Intervalo de tiempo"
+msgstr "Time interval"
+
+#: src/templates/redDinamica.html:100
+msgid "Anterior"
+msgstr "Previous"
+
+#: src/templates/redDinamica.html:95
+msgid "Buscar"
+msgstr "Search"
+
+#: src/templates/redDinamica.html:106
+msgid "Descargar animación actual"
+msgstr "Download current animation"
+
+#: src/templates/redDinamica.html:107
+msgid "Descargar animación"
+msgstr "Download animation"
+
+#: src/templates/redDinamica.html:75
+msgid "Generar Informe Dinámico"
+msgstr "Generate Dynamic Report"
+
+#: src/templates/informedinamicoconf.html:50
+msgid "Extracción de datos para el informe dinámico"
+msgstr "Data extraction for dynamic report"
+
+#: src/templates/informedinamicoconf.html:55
+#: src/templates/visinformedinamicaconf.html:147
+msgid "Medidas de red"
+msgstr "Network metrics"
+
+#: src/templates/informedinamicoconf.html:86
+#: src/templates/visinformedinamicaconf.html:220
+msgid "Medidas de nodo"
+msgstr "Node metrics"
+
+#: src/templates/visinformedinamicaconf.html:142
+msgid "Informe Dinámico:"
+msgstr "Dynamic Report:"
+
+#: src/templates/visinformedinamicaconf.html:49
+msgid "Exportar Informe dinámico"
+msgstr "Export Dynamic Report"
+
+#: src/templates/visinformedinamicaconf.html:152
+msgid "Intervalo"
+msgstr "Interval"
 
 #: src/Controlador.py:92
 msgid "La ruta indicada no contiene un fichero epub"
@@ -124,50 +186,28 @@ msgid "Wiki"
 msgstr "Wiki"
 
 #: src/templates/about.html:46
-msgid "¿Qué es NetExtractor?"
-msgstr "What is NetExtractor?"
+msgid "¿Qué es NetExtractor 2.0?"
+msgstr "What is NetExtractor 2.0?"
 
 #: src/templates/about.html:47
-msgid ""
-"NetExtractor es una herramienta desarrollada en la Universidad de Burgos que "
-"permite generar de forma automática la red de interacciones de personajes en "
-"novelas o películas y analizar las redes obtenidas para capturar sus métricas "
-"más relevantes de una forma sencilla."
-msgstr ""
-"NetExtractor is a tool developed by University of Burgos that allows you to "
-"automatically generate the character interactions network in novels or movies "
-"and analyze the networks obtained to capture their most relevant metrics in a "
-"simple way."
+msgid "NetExtractor 2.0 es una herramienta desarrollada en la Universidad de Burgos que permite generar de forma automática la red de interacciones de personajes en novelas o películas y analizar las redes obtenidaspara capturar sus métricas más relevantes de una forma sencilla. Además, estas redes complejas podrán visualizarse de forma dinámica y mostrar un informe dinámico."
+msgstr "NetExtractor 2.0 is a tool developed at the University of Burgos that allows you to automatically generate the network of interactions of characters in novels or movies and analyze the networks obtained to capture their most relevant metrics in a simple way. Furthermore, these complex networks will be able to be dynamically visualized and display a dynamic report."
 
 #: src/templates/about.html:49
 msgid "¿Quién integra el proyecto?"
 msgstr "Who integrates the Project?"
 
 #: src/templates/about.html:50
-msgid ""
-"El proyecto de NetExtractor fue iniciado por el alumno del grado de Ingeniería "
-"Informática Luis Miguel Cabrejas, tutorizado por D. Jose Manuel Galán y D. Luis "
-"Rodrigo Izquierdo; y ha sido continuado por el alumno de Ingeniería Informática "
-"Jorge Navarro, tutorizado por D. Jose Manuel Galán y Dña. Virginia Ahedo."
-msgstr ""
-"The NetExtractor project was initiated by the student of the degree of Computer "
-"Engineering Luis Miguel Cabrejas, tutored by Mr. Jose Manuel Galán and Mr. Luis "
-"Rodrigo Izquierdo; and has been continued by the student of Computer Engineering "
-"Jorge Navarro, tutored by Mr. Jose Manuel Galán and Ms. Virginia Ahedo."
+msgid "El proyecto de NetExtractor 2.0 fue iniciado por el alumno del grado de Ingeniería Informática Luis Miguel Cabrejas, tutorizado por D. Jose Manuel Galán y D. Luis Rodrigo Izquierdo; y fue continuado por el alumno de Ingeniería Informática Jorge Navarro, tutorizado por D. Jose Manuel Galán y Dña. Virginia Ahedo. De su última actualización ha sido encargado el alumno de Ingeniería Informática Alberto Diez, tutorizado por D. Jose Manuel Galán y Dña. Virginia Ahedo."
+msgstr "The NetExtractor 2.0 project was initiated by the Computer Engineering degree student Luis Miguel Cabrejas, tutored by D. Jose Manuel Galán and D. Luis Rodrigo Izquierdo; and it was continued by the Computer Engineering student Jorge Navarro, tutored by Mr. Jose Manuel Galán and Mrs. Virginia Ahedo.Computer Engineering student Alberto Diez, tutored by Mr. Jose Manuel Galán and Mrs. Virginia Ahedo, has been in charge of its latest update."
 
 #: src/templates/about.html:52
 msgid "Agradecimientos"
 msgstr "Acknowledgment"
 
 #: src/templates/about.html:53
-msgid ""
-"A los alumnos del grado de Ingeniería Informática Alicia Olivares y Yi Peng Ji "
-"por el algoritmo de obtención del gráfico implementado en este proyecto en la "
-"sección \"Detección de roles\"."
-msgstr ""
-"To students of the degree of Computer Engineering Alicia Olivares and Yi Peng Ji "
-"by the algorithm of obtaining the graph implemented in this project in the "
-"section \"Role Detection\"."
+msgid "A los alumnos del grado de Ingeniería Informática Alicia Olivares y Yi Peng Ji por el algoritmo de obtención del gráfico implementado en este proyecto en la sección \"Detección de roles\"."
+msgstr "To students of the degree of Computer Engineering Alicia Olivares and Yi Peng Ji by the algorithm of obtaining the graph implemented in this project in the section \"Role Detection\"."
 
 #: src/templates/about.html:55
 msgid "¿Qué herramientas se han empleado?"
@@ -322,27 +362,16 @@ msgid "El formato introducido es incorrecto."
 msgstr "The entered format is incorrect."
 
 #: src/templates/formatoIncorrecto.html:41
-msgid ""
-"Asegúrese de que el formato sigue las especificaciones indicadas en la wiki de "
-"la aplicación. Usted puede acceder a estas especificaciones simplemente clicando "
-"el siguiente enlace:"
-msgstr ""
-"Make sure that the format follows the specifications indicated on the "
-"application wiki. You can access these specifications by simply clicking on the "
-"following link:"
+msgid "Asegúrese de que el formato sigue las especificaciones indicadas en la wiki de la aplicación. Usted puede acceder a estas especificaciones simplemente clicando el siguiente enlace:"
+msgstr "Make sure that the format follows the specifications indicated on the application wiki. You can access these specifications by simply clicking on the following link:"
 
 #: src/templates/formatoIncorrecto.html:41
 msgid "Formatos de guion"
 msgstr "Script Formats"
 
 #: src/templates/formatoIncorrecto.html:42
-msgid ""
-"Probablemente el guion introducido no tiene un formate de escena válido, las "
-"escenas de los guiones deben contener \"EXT\" o \"INT\" en negrita para ser "
-"consideradas como tal."
-msgstr ""
-"Probably the script entered does not have a valid scene form, the scenes in the "
-"movie script must contain \"EXT\" or \"INT\" in bold to be considered as such."
+msgid "Probablemente el guion introducido no tiene un formate de escena válido, las escenas de los guiones deben contener \"EXT\" o \"INT\" en negrita para ser consideradas como tal."
+msgstr "Probably the script entered does not have a valid scene form, the scenes in the movie script must contain \"EXT\" or \"INT\" in bold to be considered as such."
 
 #: src/templates/formatoIncorrecto.html:43
 msgid "Disculpe las molestias."
@@ -353,54 +382,24 @@ msgid "Introducir nuevo guion"
 msgstr "Introduce new script"
 
 #: src/templates/home.html:43
-msgid "¡Bienvenido a NetExtractor!"
-msgstr "Welcome to NetExtractor!"
+msgid "¡Bienvenido a NetExtractor 2.0!"
+msgstr "Welcome to NetExtractor 2.0!"
 
 #: src/templates/home.html:45
-msgid ""
-"NetExtractor es un proyecto con el fin de generar redes de interacciones entre "
-"personajes, ya sean tanto de películas como de novelas, con el fin de "
-"posteriormente poder extraer características de dichas redes que podrán ser "
-"elegidas y mostradas en un informe."
-msgstr ""
-"NetExtractor is a project in order to generate networks of interactions between "
-"characters, whether of movies and novels, in order to be able to extract "
-"characteristics from those networks that can be chosen and displayed in a report."
+msgid "NetExtractor 2.0 es un proyecto con el fin de generar redes de interacciones entre personajes, ya sean tanto de películas como de novelas, con el fin de posteriormente poder extraer características de dichas redes que podrán ser elegidas y mostradas en un informe. Además, estas redes complejas podrán visualizarse de forma dinámica y mostrar un informe dinámico."
+msgstr "NetExtractor 2.0 is a project in order to generate networks of interactions between characters, whether of movies and novels, in order to be able to extract characteristics from those networks that can be chosen and displayed in a report. Furthermore, these complex networks will be able to be dynamically visualized and display a dynamic report."
 
 #: src/templates/home.html:46
-msgid ""
-"Las novelas serán gestionadas en formato ePub, de tal manera que se debe "
-"introducir uno en la aplicación para poder extraer las características que se "
-"deseen. Por otra parte, para las películas será necesaria la introducción del "
-"guión de dicha película en la aplicación, para ello deberemos obtener uno de los "
-"guiones existentes en la siguiente página:"
-msgstr ""
-"The novels will be managed in ePub format, so that you must enter one in the "
-"application in order to extract the features you want. On the other hand, for "
-"movies it will be necessary to introduce the script of said movie in the "
-"application, for this we will have to obtain one of the scripts existing on the "
-"following page:"
+msgid "Las novelas serán gestionadas en formato ePub, de tal manera que se debe introducir uno en la aplicación para poder extraer las características que se deseen. Por otra parte, para las películas será necesaria la introducción del guión de dicha película en la aplicación, para ello deberemos obtener uno de los guiones existentes en la siguiente página:"
+msgstr "The novels will be managed in ePub format, so that you must enter one in the application in order to extract the features you want. On the other hand, for movies it will be necessary to introduce the script of said movie in the application, for this we will have to obtain one of the scripts existing on the following page:"
 
 #: src/templates/home.html:47
-msgid ""
-"Si desea obtener más información acerca de los integrantes del proyecto o su "
-"desarrollo puede acceder en la parte superior de esta página a los apartados de "
-"\"Acerca de\" o \"Repositorio\". Si desea más información acerca de cómo "
-"manejarse por la aplicación puede consultar el apartado de \"Wiki\" en la parte "
-"superior también."
-msgstr ""
-"If you want to learn more about the project members or their development, you "
-"can access the \"About\" or \"Repository\" sections at the top of this page. If "
-"you want more information about how to manage by the application you can see the "
-"\"Wiki\" section at the top as well."
+msgid "Si desea obtener más información acerca de los integrantes del proyecto o su desarrollo puede acceder en la parte superior de esta página a los apartados de \"Acerca de\" o \"Repositorio\". Si desea más información acerca de cómo manejarse por la aplicación puede consultar el apartado de \"Wiki\" en la parte superior también."
+msgstr "If you want to learn more about the project members or their development, you can access the \"About\" or \"Repository\" sections at the top of this page. If you want more information about how to manage by the application you can see the \"Wiki\" section at the top as well."
 
 #: src/templates/home.html:48
-msgid ""
-"Una vez que pulse el botón de empezar se le mostrará la pantalla para poder "
-"elegir si desea obtener la red de una novela o de una película."
-msgstr ""
-"Once you press the start button you will be shown the screen to be able to "
-"choose if you want to get the network of a novel or a movie."
+msgid "Una vez que pulse el botón de empezar se le mostrará la pantalla para poder elegir si desea obtener la red de una novela o de una película."
+msgstr "Once you press the start button you will be shown the screen to be able to choose if you want to get the network of a novel or a movie."
 
 #: src/templates/home.html:58
 msgid "¡Empezar!"
@@ -723,24 +722,16 @@ msgid "Este proceso puede llevar unos minutos"
 msgstr "This process can be slow, be patient"
 
 #: src/templates/moddict.html:144
-msgid ""
-"Primero se van a buscar las posiciones de los personajes así como la etnia y el "
-"sexo, esto puede tardar unos minutos."
-msgstr ""
-"Looking for the positions of the characters as well as ethnicity and sex, this "
-"can take a few minutes."
+msgid "Primero se van a buscar las posiciones de los personajes así como la etnia y el sexo, esto puede tardar unos minutos."
+msgstr "Looking for the positions of the characters as well as ethnicity and sex, this can take a few minutes."
 
 #: src/templates/moddict.html:166
 msgid "Se va a calcular la etnia y el sexo, esto puede tardar unos minutos."
 msgstr "Looking for ethnicity and sex, this may take a few minutes."
 
 #: src/templates/moddict.html:188
-msgid ""
-"Primero se van a buscar las posiciones de los personajes, esto puede tardar unos "
-"minutos."
-msgstr ""
-"The characters' positions are going to be obtained, this process may last a "
-"couple of minutes."
+msgid "Primero se van a buscar las posiciones de los personajes, esto puede tardar unos minutos."
+msgstr "The characters' positions are going to be obtained, this process may last a couple of minutes."
 
 #: src/templates/modetnia.html:46 src/templates/modsexo.html:38
 msgid "Introduzca la id del personaje"
@@ -774,9 +765,7 @@ msgstr "The introduced id already exists"
 
 #: src/templates/modetnia.html:137 src/templates/modsexo.html:142
 #: src/templates/newpers.html:139 src/templates/newrefpers.html:133
-msgid ""
-"Por favor no introduzca ninguno de los siguientes caracteres como primer "
-"caracter:"
+msgid "Por favor no introduzca ninguno de los siguientes caracteres como primer caracter:"
 msgstr "Please do not enter any of these characters as the first carácter:"
 
 #: src/templates/modetnia.html:141
@@ -896,10 +885,8 @@ msgid "Url perteneciente a *.fandom.com/wiki/Category:Characters"
 msgstr "Url from *.fandom.com/wiki/Category:Characters"
 
 #: src/templates/obtdict.html:85
-msgid ""
-"Personajes que aparecen en la página introducidos. Para avanzar pulsa siguiente."
-msgstr ""
-"Characters that appear on the page have been introduced. To advance press next."
+msgid "Personajes que aparecen en la página introducidos. Para avanzar pulsa siguiente."
+msgstr "Characters that appear on the page have been introduced. To advance press next."
 
 #: src/templates/obtdict.html:88
 msgid "Introduzca una url perteneciente a *.fandom.com/wiki/Category:Characters"
@@ -918,12 +905,8 @@ msgid "Número mínimo de apariciones"
 msgstr "Lowest number of appearances"
 
 #: src/templates/params.html:46
-msgid ""
-"Introduzca la distancia máxima de palabras entre personajes para que cuente como "
-"relación:"
-msgstr ""
-"Enter the highest number of words that have to be between characters so the "
-"relation still counts:"
+msgid "Introduzca la distancia máxima de palabras entre personajes para que cuente como relación:"
+msgstr "Enter the highest number of words that have to be between characters so the relation still counts:"
 
 #: src/templates/params.html:47
 msgid "Número de palabras máximas"
@@ -974,12 +957,8 @@ msgid "Botones de navegación"
 msgstr "Navigation buttons"
 
 #: src/templates/seleccion.html:40
-msgid ""
-"Se recomienda no utilizar los botones de navegación del navegador, en su lugar "
-"utilice los que tiene la propia aplicación."
-msgstr ""
-"It is recommended not to use the browser navigation buttons, instead use those "
-"that the application itself has."
+msgid "Se recomienda no utilizar los botones de navegación del navegador, en su lugar utilice los que tiene la propia aplicación."
+msgstr "It is recommended not to use the browser navigation buttons, instead use those that the application itself has."
 
 #: src/templates/seleccion.html:47
 msgid "epub"
@@ -1141,21 +1120,11 @@ msgstr "Please enter value in:"
 #~ msgid "Acerca de"
 #~ msgstr "About"
 
-#~ msgid ""
-#~ "Ububooknet es una herramienta que permite generar de forma automática la red "
-#~ "de interacciones de personajes en novelas y analizar las redes obtenidas para "
-#~ "capturar sus métricas más relevantes."
-#~ msgstr ""
-#~ "Ububooknet is a tool which allows to generate an interactions between "
-#~ "characters from a novel network automatically, and analyse the resulting "
-#~ "network, obtaining relevant information."
+#~ msgid "Ububooknet es una herramienta que permite generar de forma automática la red de interacciones de personajes en novelas y analizar las redes obtenidas para capturar sus métricas más relevantes."
+#~ msgstr "Ububooknet is a tool which allows to generate an interactions between characters from a novel network automatically, and analyse the resulting network, obtaining relevant information."
 
-#~ msgid ""
-#~ "Esta herramienta ha sido desarrollada por Luis Miguel Cabrejas Arce y "
-#~ "tutorizada por D. José Manuel Galán Ordax y D. Luis Rodrigo Izquierdo Millán."
-#~ msgstr ""
-#~ "This tool has been developed by Luis Miguel Cabrejas Arce and tutorized by D. "
-#~ "José Manuel Galán Ordax and D. Luis Rodrigo Izquierdo Millán."
+#~ msgid "Esta herramienta ha sido desarrollada por Luis Miguel Cabrejas Arce y tutorizada por D. José Manuel Galán Ordax y D. Luis Rodrigo Izquierdo Millán."
+#~ msgstr "This tool has been developed by Luis Miguel Cabrejas Arce and tutorized by D. José Manuel Galán Ordax and D. Luis Rodrigo Izquierdo Millán."
 
 #~ msgid "Créditos"
 #~ msgstr "Credits"
@@ -1319,12 +1288,8 @@ msgstr "Please enter value in:"
 #~ msgid "Introduzca el número mínimo de apariciones en el libro"
 #~ msgstr "Enter the lowest number of appearances in the book"
 
-#~ msgid ""
-#~ "Introduzca la distancia máxima de palabras entre personajes para que cuente "
-#~ "como relación"
-#~ msgstr ""
-#~ "Enter the highest number of words that have to be between characters so the "
-#~ "relation still counts"
+#~ msgid "Introduzca la distancia máxima de palabras entre personajes para que cuente como relación"
+#~ msgstr "Enter the highest number of words that have to be between characters so the relation still counts"
 
 #~ msgid "Red"
 #~ msgstr "Net"
@@ -1422,12 +1387,8 @@ msgstr "Please enter value in:"
 #~ msgid "Introduzca el número <br />mínimo de apariciones <br />en el libro"
 #~ msgstr "Enter the lowest <br /> number of appearances <br /> in the book"
 
-#~ msgid ""
-#~ "Introduzca la distancia <br />máxima de palabras entre <br />personajes para "
-#~ "que <br />cuente como relación"
-#~ msgstr ""
-#~ "Enter the highest <br /> word distance <br /> between characters <br /> to "
-#~ "consider as a relation"
+#~ msgid "Introduzca la distancia <br />máxima de palabras entre <br />personajes para que <br />cuente como relación"
+#~ msgstr "Enter the highest <br /> word distance <br /> between characters <br /> to consider as a relation"
 
 #~ msgid "Introduzca el número <br />mínimo de apariciones <br />en la película:"
 #~ msgstr "Enter the lowest <br /> number of appearances <br /> in the movie:"
@@ -1435,24 +1396,8 @@ msgstr "Please enter value in:"
 #~ msgid "Introduzca la nueva id"
 #~ msgstr "Enter the new id"
 
-#~ msgid ""
-#~ "El proyecto de NetExtractor fue iniciado por el alumno del grado de "
-#~ "Ingeniería Informática Luis Miguel Cabrejas, tutorizado por D. Jose Manuel "
-#~ "Galán -info de jose manuel- y D. Luis Rodrigo Izquierdo -info de luis-; y ha "
-#~ "sido continuado por el alumno de Ingeniería Informática Jorge Navarro, "
-#~ "tutorizado por D. Jose Manuel Galán y Dña. Virginia Ahedo -info de virginia-."
-#~ msgstr ""
-#~ "The NetExtractor project was initiated by the student of the degree of "
-#~ "Computer Engineering Luis Miguel Cabrejas, tutored by Dr. Jose Manuel Galán "
-#~ "and Dr. Luis Rodrigo Izquierdo; and has been continued by the student of "
-#~ "Computer Engineering Jorge Navarro, tutored by Dr. Jose Manuel Galán and Mrs. "
-#~ "Virginia Ahedo."
+#~ msgid "El proyecto de NetExtractor fue iniciado por el alumno del grado de Ingeniería Informática Luis Miguel Cabrejas, tutorizado por D. Jose Manuel Galán -info de jose manuel- y D. Luis Rodrigo Izquierdo -info de luis-; y ha sido continuado por el alumno de Ingeniería Informática Jorge Navarro, tutorizado por D. Jose Manuel Galán y Dña. Virginia Ahedo -info de virginia-."
+#~ msgstr "The NetExtractor project was initiated by the student of the degree of Computer Engineering Luis Miguel Cabrejas, tutored by Dr. Jose Manuel Galán and Dr. Luis Rodrigo Izquierdo; and has been continued by the student of Computer Engineering Jorge Navarro, tutored by Dr. Jose Manuel Galán and Mrs. Virginia Ahedo."
 
-#~ msgid ""
-#~ "A los alumnos del grado de Ingeniería Informática Alicia Olivares y Yi Peng "
-#~ "Ji por su colaboración en la extracción de características de la red para la "
-#~ "generación del informe en el apartado de \"Detección de roles\"."
-#~ msgstr ""
-#~ "To students of the degree of Computer Engineering Alicia Olivares and Yi Peng "
-#~ "Ji for their collaboration in extracting characteristics from the network for "
-#~ "the generation of the report in the section \"Role Detection\"."
+#~ msgid "A los alumnos del grado de Ingeniería Informática Alicia Olivares y Yi Peng Ji por su colaboración en la extracción de características de la red para la generación del informe en el apartado de \"Detección de roles\"."
+#~ msgstr "To students of the degree of Computer Engineering Alicia Olivares and Yi Peng Ji for their collaboration in extracting characteristics from the network for the generation of the report in the section \"Role Detection\"."

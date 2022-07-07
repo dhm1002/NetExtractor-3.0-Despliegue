@@ -4,42 +4,6 @@
 	<title>NetExtractor</title>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
-	<style>
-		.slidecontainer {
-		  width: 100%;
-		}
-		
-		.slider {
-		  -webkit-appearance: none;
-		  width: 100%;
-		  height: 25px;
-		  background: #d3d3d3;
-		  outline: none;
-		  opacity: 0.7;
-		  -webkit-transition: .2s;
-		  transition: opacity .2s;
-		}
-		
-		.slider:hover {
-		  opacity: 1;
-		}
-		
-		.slider::-webkit-slider-thumb {
-		  -webkit-appearance: none;
-		  appearance: none;
-		  width: 25px;
-		  height: 25px;
-		  background: #04AA6D;
-		  cursor: pointer;
-		}
-		
-		.slider::-moz-range-thumb {
-		  width: 25px;
-		  height: 25px;
-		  background: #04AA6D;
-		  cursor: pointer;
-		}
-	</style>
 </head>
 <body>
 	<header id="header">
@@ -79,14 +43,13 @@
 		<div class="parent_div" style="margin-top: 10rem;margin-bottom: 5rem;">
 			<div class="child_div1 p-2 bd-highligh">
 				<div class="canvas_container">
-					<input type="range" min="0" max={{slider}} value={{ value }} class="slider" id="slide" name="slide" >
 					<canvas id="canvas"></canvas>
 				</div>
 			</div>
 
 			<div class="child_div2 p-2 bd-highligh">
 				<form action="" id="form-menu1" method="post">
-					<h3>Intervalo de tiempo actual: {{ value }}</h3>
+					<h3>{{ _('Intervalo de tiempo actual:') }} {{ value }}</h3>
 				</form>
 				<form action="" id="form-menu1" method="post">
 					<!--<div class="btn-group btn-block" role="group" aria-label="Basic example">-->
@@ -109,9 +72,7 @@
 				</form>
 				<form action="" id="form-menu" method="post">
 					<div class="btn-group btn-block" role="group" aria-label="Basic example">
-						<button type="submit" class="btn btn-secondary" name="btn btn-expgml">{{ _('Exportar GML') }}</button>
 						<button type="submit" class="btn btn-secondary" name="btn btn-expgexf">{{ _('Exportar GEXF') }}</button>
-						<button type="submit" class="btn btn-secondary" name="btn btn-expnet">{{ _('Exportar NET') }}</button>
 					</div>
 				</form>
 				<div class="controls_container">

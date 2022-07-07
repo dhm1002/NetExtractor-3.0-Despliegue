@@ -49,7 +49,6 @@ class Modelo:
         """ 
         self.__csv = Lectorcsv.Lectorcsv(self)
         self.__texto = list()
-        #comprobar longitud
         self.personajes= dict()
         self.__fincaps = list()
         self.__G = None
@@ -617,25 +616,20 @@ class Modelo:
         """
         return json.dumps(nx.json_graph.node_link_data(self.__Gnoatt))
 
-    def listaEnlacesFinal(self):
+    def listaEnlacesFinalPelicula(self):
         """
-        Método para crear una lista con los nodos de origen y destino con su peso.
+        Método para crear una lista que contiene el id del enlace, los nodos que tienen el enlace, el tipo de enlace, 
+        el intervalo de tiempo donde se crea el enlace y el peso del enlace. Está lista será para guiones de películas.
+
+        Args:
+
         """
-        #indice=0
-        #listKey = list(self.diccionarioApariciones.keys())
-        #listaFinal=list()
-        #Creamos una lista con cada personaje la primera vez que sale y el numero total de apariciones.
-        #for i in self.diccionarioApariciones.keys():
-        #    r=[listKey[indice],self.diccionarioApariciones.get(i)[0],len(self.diccionarioApariciones.get(i))]
-        #    listaFinal.append(r)
-        #    indice=indice+1
         listaEnlaces = list()
         listaFinalEnlaces=list()
         indice=0
         #Creamos una lista con los enlaces que hay. En la lista tenemos el nodo de origen y de destino, el peso (1), el tipo de
         #enlace (no dirigido) y en que capitulo se da dicho enlace.
         for key in self.diccionarioApariciones:
-            #if(self.personajes[key].getNumApariciones()[0]>=self.apar):
             if(len(self.diccionarioApariciones.get(key))>=self.apar):
                 for key1 in self.diccionarioApariciones:
                     if(len(self.diccionarioApariciones.get(key1))>=self.apar):
@@ -649,9 +643,10 @@ class Modelo:
         
         return listaFinalEnlaces
 
-    def epubfinal(self,rango,minapar,caps):
+    def listaEnlacesFinalNovela(self,rango,minapar,caps):
         """
-        Método para generar un grafo a partir de las relaciones de los personajes
+        Método para crear una lista que contiene el id del enlace, los nodos que tienen el enlace, el tipo de enlace, 
+        el intervalo de tiempo donde se crea el enlace y el peso del enlace. Está lista será para novelas.
     
         Args:
             rango: rango de palabras
@@ -660,9 +655,7 @@ class Modelo:
         """
         persk = list(self.personajes.keys())
         tam = len(persk)
-        #listaEnlaces = list()
         listaFinalEnlaces=list()
-        #self.__G = nx.Graph()
         for i in range(tam):
             #Se comprueba que se cumple con el requisito mínimo de apariciones
             if(self.personajes[persk[i]].getNumApariciones()[0]>=minapar):
@@ -670,7 +663,6 @@ class Modelo:
                 for j in range(i+1,tam):
                     #Se comprueba que cumple el requisito mínimo de apariciones
                     if(self.personajes[persk[j]].getNumApariciones()[0]>=minapar):
-                        #peso=0
                         #Se recorren los capítulos
                         for cap in self.personajes[persk[i]].getPosicionPers().keys():
                             #Se obtienene las posiciones del personaje en el capítulo correspondiente
@@ -690,7 +682,6 @@ class Modelo:
                                         if(aux<0):
                                             #Como nos hemos saltado el capítulo entero consideramos todas las posiciones que tiene el 
                                             #segundo personaje en ese capítulo como relación
-                                            #peso+=len(self.personajes[persk[j]].getPosicionPers()[capaux])
                                             for pesos in range(len(self.personajes[persk[j]].getPosicionPers()[capaux])):
                                                 r=[i,persk[i],persk[j],'Undirected',cap,'1.0']
                                                 listaFinalEnlaces.append(r)
@@ -699,7 +690,6 @@ class Modelo:
                                             #las que se encuentren en el rango
                                             for posj in self.personajes[persk[j]].getPosicionPers()[capaux]:
                                                 if(posj>=aux):
-                                                    #peso+=1
                                                     r=[i,persk[i],persk[j],'Undirected',cap,'1.0']
                                                     listaFinalEnlaces.append(r)
                                     #Se repite el proceso anterior pero para capítulos posteriores
@@ -710,7 +700,6 @@ class Modelo:
                                         post=True
                                         if(aux>self.__fincaps[capaux-1]):
                                             aux = aux - self.__fincaps[capaux-1]
-                                            #peso+=len(self.personajes[persk[j]].getPosicionPers()[capaux])
                                             for pesos in range(len(self.personajes[persk[j]].getPosicionPers()[capaux])):
                                                 r=[i,persk[i],persk[j],'Undirected',cap,'1.0']
                                                 listaFinalEnlaces.append(r)
@@ -724,7 +713,6 @@ class Modelo:
                                                     break
                                 #Si se ha pasado al capítulo previo y al posterior se añaden directamente todas las posiciones del actual
                                 if(not caps and prev and post):
-                                    #peso+=len(self.personajes[persk[j]].getPosicionPers()[cap])
                                     for pesos in range(len(self.personajes[persk[j]].getPosicionPers()[cap])):
                                         r=[i,persk[i],persk[j],'Undirected',cap,'1.0']
                                         listaFinalEnlaces.append(r)
@@ -733,24 +721,24 @@ class Modelo:
                                     for posj in self.personajes[persk[j]].getPosicionPers()[cap]:
                                         if(posj>=(posi-rango)):
                                             if(posj<=(posi+rango)):
-                                                #peso+=1
                                                 r=[i,persk[i],persk[j],'Undirected',cap,'1.0']
                                                 listaFinalEnlaces.append(r)
                                             else:
                                                 break
-                        #if(peso>0):
-                        #    self.__G.add_edge(persk[i],persk[j],weight=peso)
         
         return listaFinalEnlaces
 
     def ordenarRedDinamica(self,epub):
         """
         Método encargado de crear el grafo ordenado, calcular el intervalo de tiempo más alto y crear una lista para conocer los pesos en cada intervalo.
+        
+        Args:
+            epub: variable para conocer si el diccionario es una pelicula o un guion
         """
         if(epub):
-            listaFinalEnlaces=Modelo.epubfinal(self,self.rango,self.minapar,self.caps)
+            listaFinalEnlaces=Modelo.listaEnlacesFinalNovela(self,self.rango,self.minapar,self.caps)
         else:
-            listaFinalEnlaces=Modelo.listaEnlacesFinal(self)
+            listaFinalEnlaces=Modelo.listaEnlacesFinalPelicula(self)
         #Interacciones
         #G puede crecer agregando una interacción a la vez. Cada interacción se define unívocamente por
         #sus puntos finales, u y v, así como por su marca de tiempo t.
@@ -764,7 +752,6 @@ class Modelo:
         for i in range(len(listaOrdenada)):
             objetosNueva=[listaOrdenada[i][4],listaOrdenada[i][1],listaOrdenada[i][2]]
             listaNueva.append(objetosNueva)
-        
         
         lista=list()
         tiempoMasAlto=0
@@ -794,7 +781,13 @@ class Modelo:
 
 
     def vistaDinamica(self, frames, epub): 
-
+        """
+        Método que creara la red dinámica.
+        
+        Args:
+            frames: el intervalo de tiempo que queremos observar.
+            epub: variable para conocer si el diccionario es una pelicula o un guion
+        """
         g, listaFiNal, tiempoMasAlto = Modelo.ordenarRedDinamica(self,epub)
         self.frames=frames
         frame=0
@@ -807,15 +800,11 @@ class Modelo:
                     dInamico.add_edge(listaFiNal[i][1],listaFiNal[i][2],weight=int(listaFiNal[i][3]))
             if epub:
                 for j in range(tam):
-                #for j in self.personajes.keys():
                     for cap in self.personajes[persk[j]].getPosicionPers().keys():
-                        #if frame in self.personajes[persk[j]].getPosicionPers():
-                        #if frame in self.personajes[persk[j]].getPosicionPers().keys():
                         if frame == cap:
                             if(self.personajes[persk[j]].getNumApariciones()[0]>=self.minapar):
                                 if j not in listaFiNal:
                                     dInamico.add_node(persk[j])
-                    #dInamico.add_nodes_from(self.personajes[persk[j]].getPosicionPers())
             else:
                 for j in self.diccionarioApariciones.keys():
                     if frame in self.diccionarioApariciones.get(j):
@@ -827,21 +816,20 @@ class Modelo:
 
         self.__Gdinamica = dInamico.copy()
         self.__G = dInamico.copy()
-        #self.anadirAtributos()
 
         return json.dumps(nx.json_graph.node_link_data(self.__Gdinamica))
 
     def exportGEXFdinamica(self,filename,frames,epub):
         """
-        Método exportar la red a formato GEXF
+        Método exportar la red dinámica a formato GEXF
         
         Args:
             filename: ruta del nuevo fichero
+            frames: el intervalo de tiempo que queremos observar.
+            epub: variable para conocer si el diccionario es una pelicula o un guion
         """
         g, listaFiNal, tiempoMasAlto = Modelo.ordenarRedDinamica(self,epub)
-        #g = dn.DynGraph(edge_removal=True)
         T=nx.Graph()
-
 
         for i in range(len(listaFiNal)):
             if listaFiNal[i][0]<=frames:
@@ -853,52 +841,32 @@ class Modelo:
                     T.add_edge(listaFiNal[i][1],listaFiNal[i][2],weight=int(listaFiNal[i][3]), time=float(listaFiNal[i][0]))
                 else: 
                     T.edges[(listaFiNal[i][1],listaFiNal[i][2])]["weight"]=T.edges[(listaFiNal[i][1],listaFiNal[i][2])]["weight"]+1 
-
-
-
-
-
-        #diccionarioNodos=dict()
-        #for i in range(len(listaFiNal)):
-            #if listaFiNal[i][0]<=frames:
-                #if listaFiNal[i][1] not in diccionarioNodos:
-                #    diccionarioNodos[listaFiNal[i][1]]=float(listaFiNal[i][0])
-               # else:
-              #      diccionarioNodos[listaFiNal[i][1]]=diccionarioNodos.get(listaFiNal[i][1]),float(listaFiNal[i][0])
-             #   if listaFiNal[i][2] not in diccionarioNodos:
-            #        diccionarioNodos[listaFiNal[i][2]]=float(listaFiNal[i][0])
-           #     else:
-          #          diccionarioNodos[listaFiNal[i][2]]=diccionarioNodos.get(listaFiNal[i][2]),float(listaFiNal[i][0])
-        
-        #for i in diccionarioNodos.keys():
-            #T.add_node(i, time=["Infinito","Infinito","Infinito","Infinito","Infinito","Infinito"])
-         #   T.add_node(i, time=[diccionarioNodos.get(i),"Infinity"])
-            #if len(diccionarioNodos[i])==1:
-            #    diccionarioNodos[i]=diccionarioNodos.get(i),"Infinito","Infinito"
-            #    T.add_node(i, time=[diccionarioNodos.get(i)])
-            #elif len(diccionarioNodos[i])==2:
-            #    diccionarioNodos[i]=diccionarioNodos.get(i),"Infinito"
-            #    T.add_node(i, time=[diccionarioNodos.get(i)])
-            #else:
-            #    T.add_node(i, time=[diccionarioNodos.get(i)])
-
-
-        #T=g.time_slice(t_from=frames, t_to=frames+1)
-        #self.writeFile(filename,T)
         self.writeFile(filename,nx.generate_gexf(T))
 
     def elementosRed(self):
+        """
+        Método encargado de mostranos los nodos de la red.
+
+        Args:
+
+        """
         return self.__G.nodes()
 
 
 
     def descargarRed(self, frames, filename,epub): 
-
+        """
+        Método que exportará la animación de la red dinámica.
+        
+        Args:
+            filename: ruta del nuevo fichero
+            frames: el intervalo de tiempo que queremos observar.
+            epub: variable para conocer si el diccionario es una pelicula o un guion
+        """
         g, listaFiNal, tiempoMasAlto = Modelo.ordenarRedDinamica(self,epub)
 
         def update(frames):
             T=g.time_slice(t_from=frames, t_to=frames+1)
-            #print(frame+1)
             nx.set_edge_attributes(T,0,"weight")
             widths = nx.get_edge_attributes(T, 'weight')
             
@@ -908,33 +876,20 @@ class Modelo:
                         widths[listaFiNal[i][1],listaFiNal[i][2]]=listaFiNal[i][3]    
             d = dict(T.degree())
             nx.draw_networkx_nodes(T,pos,ax=ax,node_size=[v * 500 for v in d.values()], alpha=0.5,cmap=[v * 100 for v in d.values()])
-            nx.draw_networkx_edges(T,pos,ax=ax, edgelist = widths.keys(), width=list(widths.values()))#,) width=list(weights.values())) #edgelist = widths.keys(), width=list(widths.values()))
+            nx.draw_networkx_edges(T,pos,ax=ax, edgelist = widths.keys(), width=list(widths.values()))
             nx.draw_networkx_labels(T,pos,font_size=11,ax=ax)
-            #print(T.degree())
-            #return T
+
 
         T=nx.Graph()
         T=g.time_slice(t_from=1, t_to=tiempoMasAlto)
         fig, ax = plt.subplots(figsize=(30,30)) 
         pos = nx.spring_layout(T)
-        #pos = nx.shell_layout(T)
-        #pos = nx.circular_layout(T)
-        #pos=nx.get_node_attributes(T,'pos')
-        #pos=nx.kamada_kawai_layout(T)
-        #pos=nx.spring_layout(T)
         listaEncapsul=list()
         listaEncapsul.append(T.edges())
         nx.set_edge_attributes(T,0,"weight")
 
-        ani = animation.FuncAnimation(fig, func=update, frames=frames, interval=10000)#tiempoMasAlto), interval=50)
-        
-        #writergif = animation.PillowWriter(fps=30) 
-        
-        #ani.save(filename, writer=writergif)
-        #return HTML(ani.to_jshtml())
-        #Writer = animation.writers['ffmpeg']
-        #writer = Writer(fps = 10, bitrate = 8000)
-        #metadata = dict(title='Wav Spectrogram', artist='Matplotlib', comment='')
+        ani = animation.FuncAnimation(fig, func=update, frames=frames, interval=10000)
+
         writer = animation.FFMpegWriter(fps=10, bitrate=3500)
         return ani.save(filename, writer = writer)
 
@@ -1069,11 +1024,12 @@ class Modelo:
     
     def generarInformeDinamico(self, solicitud, direc,epub):
         """
-        Método que maneja las solicitudes de informes
+        Método que maneja las solicitudes de informes dinámica
         
         Args:
             solicitud: lista con las metricas
             direc: directorio donde guardar imagenes
+            epub: variable para conocer si el diccionario es una pelicula o un guion
         """
         switch = {'cbx cbx-nnod': self.nNodosDinamico(epub), 'cbx cbx-nenl': self.nEnlDinamico(epub), 'cbx cbx-nint': self.nIntDinamico(epub), 'cbx cbx-gradosin': self.gSinDinamica(epub), 'cbx cbx-gradocon': self.gConDinamica(epub), 'cbx cbx-dens': self.densDinamica(epub), 'cbx cbx-concomp': self.conCompDinamica(epub), 'cbx cbx-exc': self.excDinamica(epub), 'cbx cbx-dia': self.diamDinamica(epub), 'cbx cbx-rad': self.radDinamica(epub), 'cbx cbx-longmed': self.longMedDinamica(epub), 'cbx cbx-locclust': self.locClustDinamica(epub), 'cbx cbx-clust': self.clustDinamica(epub), 'cbx cbx-trans': self.transDinamica(epub), 'cbx cbx-centg': self.centGDinamica(epub), 'cbx cbx-centc': self.centCDinamica(epub), 'cbx cbx-centi': self.centIDinamica(epub), 'cbx cbx-ranwal': self.ranWalDinamica(epub), 'cbx cbx-centv': self.centVDinamica(epub),'cbx cbx-para': self.paRaDinamica(epub), 'cbx cbx-kcliperc': self.kCliPercDinamica, 'cbx cbx-girnew': self.girNewDinamica(epub), 'cbx cbx-greedy': self.greedyComunidadDinamica(epub), 'cbx cbx-louvain': self.louvainDinamica(epub), 'cbx cbx-roleskcliq': self.roleskclique, 'cbx cbx-rolesgirvan': self.rolesGirvan, 'cbx cbx-rolesgreedy': self.rolesGreedy, 'cbx cbx-roleslouvain': self.rolesLouvain}
         valkcliqper =  solicitud['valkcliqper']
@@ -1092,6 +1048,13 @@ class Modelo:
                 self.informeDina[s] = switch[s]
 
     def generarValoresDescargaInforme(self):
+        """
+        Método que genera todas las solicitudes del informe dinámico para 
+        que posteriormente se pueda descargar en excel el informe dinámico.
+
+        Args:
+
+        """
         contador=0
         listaSolicitud=list()
         for x in self.informeDina.keys():
@@ -1109,12 +1072,13 @@ class Modelo:
         
     def nNodosDinamico(self,epub):
         """
-        Método que devuelve el numero de nodos
+        Método que devuelve el numero de nodos dinámico
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            Numero de nodos
+            Numero de nodos dinámico
         """
         guardarInforme=list()
         print('numero nodos')
@@ -1130,12 +1094,13 @@ class Modelo:
 
     def nEnlDinamico(self,epub):
         """
-        Método que devuelve el numero de enlaces
+        Método que devuelve el numero de enlaces dinámico
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            Numero de enlaces
+            Numero de enlaces dinámico
         """
         guardarInforme=list()
         print('numero enlaces')
@@ -1148,12 +1113,13 @@ class Modelo:
 
     def nIntDinamico(self,epub):
         """
-        Método que devuelve el numero de interacciones
+        Método que devuelve el numero de interacciones dinámico
         
         Args:
-            
+        epub: variable para conocer si el diccionario es una pelicula o un guion 
+
         Return:
-            Numero de interacciones
+            Numero de interacciones dinámico
         """
         guardarInforme=list()
         print('numero interacciones')
@@ -1166,12 +1132,13 @@ class Modelo:
 
     def densDinamica(self,epub):
         """
-        Método que devuelve la densidad de la red
+        Método que devuelve la densidad de la red dinámico
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            Densidad de la red
+            Densidad de la red dinámico
         """
         guardarInforme=list()
         print('densidad')
@@ -1184,12 +1151,13 @@ class Modelo:
 
     def clustDinamica(self,epub):
         """
-        Método que devuelve el clustering global de la red
+        Método que devuelve el clustering global de la red dinámico
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            clustering global
+            clustering global dinámico
         """
         guardarInforme=list()
         print('clustering global')
@@ -1202,12 +1170,13 @@ class Modelo:
 
     def transDinamica(self,epub):
         """
-        Método que devuelve la transitividad de la red
+        Método que devuelve la transitividad de la red dinámico
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            transitividad de la red
+            transitividad de la red dinámico
         """
         guardarInforme=list()
         print('transitividad')
@@ -1220,12 +1189,13 @@ class Modelo:
 
     def diamDinamica(self,epub):
         """
-        Método que devuelve el diametro de la red
+        Método que devuelve el diametro de la red dinámico
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            diametro de la red
+            diametro de la red dinámico
         """
         guardarInforme=list()
         print('diametro')
@@ -1241,12 +1211,13 @@ class Modelo:
         
     def radDinamica(self,epub):
         """
-        Método que devuelve el radio de la red
+        Método que devuelve el radio de la red dinámico
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            radio de la red
+            radio de la red dinámico
         """
         guardarInforme=list()
         print('radio')
@@ -1262,12 +1233,13 @@ class Modelo:
         
     def longMedDinamica(self,epub):
         """
-        Método que devuelve la distancia media de la red
+        Método que devuelve la distancia media de la red dinámico
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            distancia media de la red
+            distancia media de la red dinámico
         """
         guardarInforme=list()
         print('distancia media')
@@ -1283,12 +1255,13 @@ class Modelo:
 
     def gSinDinamica(self,epub):
         """
-        Método que devuelve el grado sin tener en cuenta el peso
+        Método que devuelve el grado sin tener en cuenta el peso dinámico
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            Grado sin el peso
+            Grado sin el peso dinámico
         """
         guardarInforme=list()
         print('grado sin peso')
@@ -1301,12 +1274,13 @@ class Modelo:
 
     def gConDinamica(self,epub):
         """
-        Método que devuelve el grado teniendo en cuenta el peso
+        Método que devuelve el grado teniendo en cuenta el peso dinámico
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            Grado con el peso
+            Grado con el peso dinámico
         """
         guardarInforme=list()
         print('grado con peso')
@@ -1319,12 +1293,13 @@ class Modelo:
 
     def locClustDinamica(self,epub):
         """
-        Método que devuelve el clustering de cada nodo
+        Método que devuelve el clustering de cada nodo dinámico
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            clustering de cada nodo
+            clustering de cada nodo dinámico
         """
         guardarInforme=list()
         print('clustering de cada nodo')
@@ -1337,12 +1312,13 @@ class Modelo:
 
     def excDinamica(self,epub):
         """
-        Método que devuelve la excentricidad de la red
+        Método que devuelve la excentricidad de la red dinámica
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            excentricidad de la red
+            excentricidad de la red dinámica
         """
         guardarInforme=list()
         print('excentricidad')
@@ -1360,12 +1336,13 @@ class Modelo:
 
     def centGDinamica(self,epub):
         """
-        Método que devuelve la centralidad de grado
+        Método que devuelve la centralidad de grado dinámica
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            centralidad de grado
+            centralidad de grado dinámica
         """
         guardarInforme=list()
         print('centralidad de grado')
@@ -1378,12 +1355,13 @@ class Modelo:
         
     def centCDinamica(self,epub):
         """
-        Método que devuelve la centralidad de cercania
+        Método que devuelve la centralidad de cercania dinámica
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            centralidad de cercania
+            centralidad de cercania dinámica
         """
         guardarInforme=list()
         print('centralidad de cercanía')
@@ -1396,12 +1374,13 @@ class Modelo:
         
     def centIDinamica(self,epub):
         """
-        Método que devuelve la centralidad de intermediacion
+        Método que devuelve la centralidad de intermediacion dinámica
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            centralidad de intermediacion
+            centralidad de intermediacion dinámica
         """
         guardarInforme=list()
         print('centralidad de intermediación')
@@ -1414,12 +1393,13 @@ class Modelo:
         
     def ranWalDinamica(self,epub):
         """
-        Método que devuelve la centralidad de intermediacion random walker
+        Método que devuelve la centralidad de intermediacion random walker dinámica
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            centralidad de intermediacion random walker
+            centralidad de intermediacion random walker dinámica
         """
         guardarInforme=list()
         print('random walk')
@@ -1437,12 +1417,13 @@ class Modelo:
         
     def centVDinamica(self,epub):
         """
-        Método que devuelve la centralidad de valor propio
+        Método que devuelve la centralidad de valor propio dinámica
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            centralidad de valor propio
+            centralidad de valor propio dinámica
         """
         guardarInforme=list()
         print('Valor propio')
@@ -1455,12 +1436,13 @@ class Modelo:
         
     def paRaDinamica(self,epub):
         """
-        Método que devuelve la centralidad de pagerank
+        Método que devuelve la centralidad de pagerank dinámica
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            centralidad de pagerank
+            centralidad de pagerank dinámica
         """
         guardarInforme=list()
         print('PageRank')
@@ -1473,12 +1455,13 @@ class Modelo:
 
     def conCompDinamica(self,epub):
         """
-        Método que devuelve todos los componentes conectados
+        Método que devuelve todos los componentes conectados dinámicamente
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            lista de cada componente conectado
+            lista de cada componente conectado dinámico
         """
         guardarInforme=list()
         print('componentes conectados')
@@ -1494,10 +1477,13 @@ class Modelo:
 
     def louvainDinamica(self,epub):
         """
-        Método que ejecuta el algoritmo de louvain y guarda la imagen de las comunidades generadas
+        Método que ejecuta el algoritmo de louvain dinámico
     
+        Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
+
         Return:
-            lista con las particiones.
+            lista con las particiones dinámicas.
         """
         guardarInforme=list()
         print('Com louvain')
@@ -1515,10 +1501,13 @@ class Modelo:
 
     def greedyComunidadDinamica(self,epub):
         """
-        Método que devuelve las comunidades con el algoritmo greedy de Clauset-Newman-Moore
+        Método que devuelve las comunidades con el algoritmo greedy de Clauset-Newman-Moore dinámicamente
+
+        Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
 
         Return:
-            comunidades de Clauset-Newman-Moore
+            comunidades de Clauset-Newman-Moore dinámicas
         """
         guardarInforme=list()
         print('com greedy')
@@ -1533,12 +1522,13 @@ class Modelo:
 
     def kCliPercDinamica(self, k, epub):
         """
-        Método que devuelve las comunidades de k-clique
+        Método que devuelve las comunidades de k-clique dinámicas
         
         Args:
             k: valor k del k-clique
+            epub: variable para conocer si el diccionario es una pelicula o un guion
         Return:
-            comunidades de k-clique
+            comunidades de k-clique dinámicas
         """
         guardarInforme=list()
         print('com kcliq')
@@ -1553,12 +1543,13 @@ class Modelo:
         
     def girNewDinamica(self,epub):
         """
-        Método que devuelve las comunidades de girvan-newman
+        Método que devuelve las comunidades de girvan-newman dinámicas
         
         Args:
+        epub: variable para conocer si el diccionario es una pelicula o un guion
             
         Return:
-            comunidades de girvan-newman
+            comunidades de girvan-newman dinámicas
         """
         guardarInforme=list()
         print('com girvan')

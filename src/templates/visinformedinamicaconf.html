@@ -46,7 +46,7 @@
 	<div class="fixed-bottom" style="background-color:white">
 		<div id="indicex">
 			<button type="button" class="btn btn-primary float-left btn-lg p-3 px-5" name="btn btn-volver" onclick="atras()">{{ _('Volver') }}</button>
-			<button  type="button" class="btn btn-primary float-right btn-lg p-3 px-5" onclick="tablesToExcel(['tablaRedes', 'cbx cbx-louvain'],['tablaRedes', 'cbx cbx-louvain'], 'InformeFinal.xls', 'Excel')">{{ _('Exportar Informe dinámico') }}</button>
+			<button  type="button" class="btn btn-primary float-right btn-lg p-3 px-5" onclick="tablesToExcel( {{lista }},{{lista }}, 'InformeFinal.xls', 'Excel')">{{ _('Exportar Informe dinámico') }}</button>
 			<a href="#navegacion" class="btn btn-primary float-right btn-lg p-3 px-5">{{ _('Menú de Navegación') }}</a>
 		</div>
 	</div>
@@ -136,15 +136,20 @@
 						{%endif%}
 					</form>
 				</div>
+				<div class="p-2 bd-highligh">
+					<div>
+						<div style="text-align: center;">
+						<h1>{{_('Informe Dinámico:')}}</h1><br />
+						</div>
+				</div>
 		<div id="forms" style="margin-bottom:5rem;">
-			<h2>{{_('Informe:')}}</h2>
 			{% if "cbx cbx-nnod" in informe.keys() or "cbx cbx-nenl" in informe.keys() or "cbx cbx-nint" in informe.keys() or "cbx cbx-dens" in informe.keys() or "cbx cbx-clust" in informe.keys() or "cbx cbx-trans" in informe.keys() or "cbx cbx-dia" in informe.keys() or "cbx cbx-rad" in informe.keys() or "cbx cbx-longmed" in informe.keys() %}
-			<a name="medidasred"><h4>{{_('Medidas de Red:')}}</h4></a>
+			<a name="medidasred"><h4>{{_('Medidas de red')}}</h4></a>
 			{% if informe.keys()|length > 0 %}
 					<table id="tablaRedes" class="table table-hover">
 						<thead>
 							<tr class="table-primary">
-							<th scope="col">Intervalo</th>
+							<th scope="col">{{_('Intervalo')}}</th>
 							{% if "cbx cbx-nnod" in informe.keys() %}
 								<a name="numnodos"><th scope="col">{{_('Número Nodos')}}</th></a>
 							{% endif %}
@@ -211,16 +216,15 @@
 					</table> 
 			{% endif %}
 			{% endif %}
-			{{lista}}
 			{% if "cbx cbx-concomp" in informe.keys() or "cbx cbx-louvain" in informe.keys() or "cbx cbx-gradosin" in informe.keys() or "cbx cbx-gradocon" in informe.keys() or "cbx cbx-locclust" in informe.keys() or "cbx cbx-exc" in informe.keys() or "cbx cbx-centg" in informe.keys() or "cbx cbx-centc" in informe.keys() or "cbx cbx-centi" in informe.keys() or "cbx cbx-ranwal" in informe.keys() or "cbx cbx-centv" in informe.keys() or "cbx cbx-para" in informe.keys() %}
-			<a name="medidasnodo"><h4>{{_('Medidas de Nodo:')}}</h4></a>
+			<a name="medidasnodo"><h4>{{_('Medidas de nodo')}}</h4></a>
 
 					{% if "cbx cbx-concomp" in informe.keys() %}
 					<a name="cc"><p><h5>{{_('Componentes Conectados')}}:</h5> </p></a>
-					<table id="tablaComponentesConectados" class="table table-hover">
+					<table id="cbx cbx-concomp" class="table table-hover">
 						<thead>
 							<tr class="table-primary">
-								<th scope="col">Intervalo</th>
+								<th scope="col">{{_('Intervalo')}}</th>
 								{% for i in informe["cbx cbx-concomp"] %}
 									{% if intervalos == i[0] %}
 										<th scope="col">{{_('Componente')}}{{i[1]}}</th>
@@ -247,11 +251,11 @@
 				{% endif %}
 
 				{% if "cbx cbx-gradosin" in informe.keys() %}
-					<a name="gsinpeso"><h5>{{_('Grado Nodos Sin Peso:')}}</h5></a>
-						<table id="tablaGradoNodoSinPeso" class="table table-hover">
+					<a name="gsinpeso"><h5>{{_('Grado Nodos Sin Peso')}}</h5></a>
+						<table id="cbx cbx-gradosin" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">Intervalo</th>
+								<th scope="col">{{_('Intervalo')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
@@ -274,11 +278,11 @@
 				{% endif %}
 
 				{% if "cbx cbx-gradocon" in informe.keys() %}
-					<a name="gconpeso"><h5>{{_('Grado Nodos Con Peso:')}}</h5></a>
-						<table id="tablaGradoNodoConPeso" class="table table-hover">
+					<a name="gconpeso"><h5>{{_('Grado Nodos Con Peso')}}</h5></a>
+						<table id="cbx cbx-gradocon" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">Intervalo</th>
+								<th scope="col">{{_('Intervalo')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
@@ -301,11 +305,11 @@
 				{% endif %}
 					
 				{% if "cbx cbx-locclust" in informe.keys() %}
-					<a name="ccl"><h5>{{_(' Coeficiente de Clustering Local:')}}</h5></a>
-						<table id="tablaCoeficienteClustering" class="table table-hover">
+					<a name="ccl"><h5>{{_('Coeficiente de Clustering Local')}}</h5></a>
+						<table id="cbx cbx-locclust" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">Intervalo</th>
+								<th scope="col">{{_('Intervalo')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
@@ -328,11 +332,11 @@
 				{% endif %}
 
 				{% if "cbx cbx-exc" in informe.keys() %}
-					<a name="excen"><h5>{{_(' Excentricidad:')}}</h5></a>
-						<table id="tablaExcentricidad" class="table table-hover">
+					<a name="excen"><h5>{{_('Excentricidad')}}</h5></a>
+						<table id="cbx cbx-exc" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">Intervalo</th>
+								<th scope="col">{{_('Intervalo')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
@@ -355,11 +359,11 @@
 				{% endif %}
 
 				{% if "cbx cbx-centg" in informe.keys() %}
-					<a name="cg"><h5>{{_(' Centralidad Grado:')}}</h5></a>
-						<table id="tablaCentGrado" class="table table-hover">
+					<a name="cg"><h5>{{_('Centralidad Grado')}}</h5></a>
+						<table id="cbx cbx-centg" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">Intervalo</th>
+								<th scope="col">{{_('Intervalo')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
@@ -382,11 +386,11 @@
 				{% endif %}
 				
 				{% if "cbx cbx-centc" in informe.keys() %}
-					<a name="ccer"><h5>{{_(' Centralidad Cercanía:')}}</h5></a>
-						<table id="tablaCentCercania" class="table table-hover">
+					<a name="ccer"><h5>{{_('Centralidad Cercanía')}}</h5></a>
+						<table id="cbx cbx-centc" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">Intervalo</th>
+								<th scope="col">{{_('Intervalo')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
@@ -409,11 +413,11 @@
 				{% endif %}
 
 				{% if "cbx cbx-centi" in informe.keys() %}
-					<a name="cinter"><h5>{{_(' Centralidad Intermediación:')}}</h5></a>
-						<table id="tablaCentIntermediación" class="table table-hover">
+					<a name="cinter"><h5>{{_('Centralidad Intermediación')}}</h5></a>
+						<table id="cbx cbx-centi" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">Intervalo</th>
+								<th scope="col">{{_('Intervalo')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
@@ -436,11 +440,11 @@
 				{% endif %}
 					
 				{% if "cbx cbx-ranwal" in informe.keys() %}	
-					<a name="ica"><h5>{{_(' Centralidad Camino Aleatorio:')}}</h5></a>
-						<table id="tablaCentCamAleatorio" class="table table-hover">
+					<a name="ica"><h5>{{_('Intermediación Camino Aleatorio')}}</h5></a>
+						<table id="cbx cbx-ranwal" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">Intervalo</th>
+								<th scope="col">{{_('Intervalo')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
@@ -463,11 +467,11 @@
 				{% endif %}
 
 				{% if "cbx cbx-centv" in informe.keys() %}
-					<a name="cvp"><h5>{{_(' Centralidad Valor Propio:')}}</h5></a>
-						<table id="tablaCentValorPropio" class="table table-hover">
+					<a name="cvp"><h5>{{_('Centralidad Valor Propio')}}</h5></a>
+						<table id="cbx cbx-centv" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">Intervalo</th>
+								<th scope="col">{{_('Intervalo')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
@@ -490,11 +494,11 @@
 				{% endif %}
 
 				{% if "cbx cbx-para" in informe.keys() %}
-					<a name="pagerank"><h5>{{_(' Centralidad Pagerank:')}}</h5></a>			
-						<table id="tablaPageRank" class="table table-hover">
+					<a name="pagerank"><h5>{{_('Pagerank')}}</h5></a>			
+						<table id="cbx cbx-para" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">Intervalo</th>
+								<th scope="col">{{_('Intervalo')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
@@ -519,10 +523,10 @@
 
 				{% if "cbx cbx-kcliperc" in informe.keys() %}
 				<a name="kcc"><p><h5>{{_('Comunidades K-clique')}}:</h5> </p></a>
-				<table id="tablaComunidadK-clique" class="table table-hover">
+				<table id="cbx cbx-kcliperc" class="table table-hover">
 					<thead>
 						<tr class="table-primary">
-							<th scope="col">Intervalo</th>
+							<th scope="col">{{_('Intervalo')}}</th>
 							{% for i in informe["cbx cbx-kcliperc"] %}
 								{% if intervalos == i[0] %}
 									<th scope="col">{{_('Comunidad')}}{{i[1]}}</th>
@@ -552,10 +556,10 @@
 
 				{% if "cbx cbx-girnew" in informe.keys() %}
 				<a name="gnew"><p><h5>{{_('Comunidades Girvan-Newman')}}:</h5> </p></a>
-				<table id="tablaGirvan-Newman" class="table table-hover">
+				<table id="cbx cbx-girnew" class="table table-hover">
 					<thead>
 						<tr class="table-primary">
-							<th scope="col">Intervalo</th>
+							<th scope="col">{{_('Intervalo')}}</th>
 							{% for i in informe["cbx cbx-girnew"] %}
 								{% if intervalos == i[0] %}
 									<th scope="col">{{_('Comunidad')}}{{i[1]}}</th>
@@ -585,10 +589,10 @@
 
 				{% if "cbx cbx-greedy" in informe.keys() %}
 				<a name="greedy"><p><h5>{{_('Comunidades Clauset-Newman-Moore')}}:</h5> </p></a>
-				<table id="tablaClauset-Newman-Moore" class="table table-hover">
+				<table id="cbx cbx-greedy" class="table table-hover">
 					<thead>
 						<tr class="table-primary">
-							<th scope="col">Intervalo</th>
+							<th scope="col">{{_('Intervalo')}}</th>
 							{% for i in informe["cbx cbx-greedy"] %}
 								{% if intervalos == i[0] %}
 									<th scope="col">{{_('Comunidad')}}{{i[1]}}</th>
@@ -621,7 +625,7 @@
 			<table id="cbx cbx-louvain" class="table table-hover">
 				<thead>
 					<tr class="table-primary">
-						<th scope="col">Intervalo</th>
+						<th scope="col">{{_('Intervalo')}}</th>
 						{% for i in informe["cbx cbx-louvain"] %}
 							{% if intervalos == i[0] %}
 								<th scope="col">{{_('Comunidad')}}{{i[1]}}</th>
