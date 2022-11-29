@@ -1,6 +1,6 @@
-Flask==1.0.2
+Flask==2.2.2
 numpy==1.15.4
-Flask_Babel==0.12.2
+Flask_Babel==1.0.0
 matplotlib==3.0.2
 networkx==2.2
 ply==3.11
@@ -9,7 +9,7 @@ lxml==4.3.1
 html5lib==1.0.1
 scipy==1.1.0
 python-louvain
-Werkzeug==0.16.1
+Werkzeug==2.2.2
 DyNetX==0.3.1
 ffmpeg-python==0.2.0
 IPython==7.16.3
