@@ -16,19 +16,20 @@ De forma general esto sería lo que hace la aplicación, aun así, en este repos
 Para la instalación de todos los componentes necesarios para el despliegue de la aplicación en local, sólo debemos de instalar los componentes necesarios que usaremos que serán los siguientes:
 
 * **Python:** *versión 3.6*
-* **Flask:** *versión 1.0*
-* **Flask_Babel:** *versión 0.12*
-* **numpy:** *versión 1.15*
-* **matplotlib:** *3.0*
+* **Flask:** *versión 2.2.2*
+* **Flask_Babel:** *versión 1.0.0*
+* **numpy:** *versión 1.21.6*
+* **matplotlib:** *3.0.2*
 * **ply:** *versión 3.11*
-* **beautifulsoup4:** *versión 4.7*
-* **lxml:** *versión 4.3*
-* **html5lib:** *versión 1.0*
+* **beautifulsoup4:** *versión 4.7.1*
+* **lxml:** *versión 4.3.1*
+* **html5lib:** *versión 1.0.1*
 * **networkx:** *versión 2.2*
 * **scipy:** *versión 1.1*
 * **DyNetX:** *versión 0.3.1*
 * **ffmpeg-python** *versión 0.2.0*
 * **IPython** *versión 7.16.3*
+* **Werkzeug** *versión 2.2.2*
 
 Estos requisitos son de fácil instalación mediante la ejecución del siguiente comando: 
 
