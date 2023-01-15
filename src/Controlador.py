@@ -153,7 +153,9 @@ def moddict():
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
     if request.method == "POST":
-        ajax = request.get_json()
+
+        ## modificado
+        ajax = request.get_json(silent=True)
         if(ajax != None):
             if(ajax == 'parsear2'):
                 m.prepararRed()
