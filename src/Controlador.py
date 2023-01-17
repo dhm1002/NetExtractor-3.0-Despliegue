@@ -96,6 +96,20 @@ def index():
             return render_template('index.html', error = error)
     return render_template('index.html')
 
+@app.route('/Sel-Corpus/', methods=["GET","POST"])
+def obraTeatro():
+    error = ''
+    if request.method == "POST":
+        m = mod.Modelo()
+        if('usuario' not in session or session['usuario'] not in tbd.getSesiones().keys()):
+            session['usuario'] = tbd.addSesion(m)
+            dirName = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']))
+            if(not os.path.exists(dirName)):
+                os.makedirs(dirName)
+        
+    return render_template('corpus.html')
+
+
 @app.route('/Acerca', methods=["GET","POST"])
 def about():
     return render_template('about.html')

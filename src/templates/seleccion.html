@@ -44,10 +44,13 @@
 			<div id="form-content" class="d-flex align-items-center w-100">
 				<form class="m-auto" id="form" action="" method="post" enctype=multipart/form-data>
 					<div class="col-12 text-center">
-						<input type="button" class="btn btn-primary btn-lg p-2 px-5 m-5 btn-block" name="btn btn-select" onclick="epub()" value="{{ _('epub') }}">
+						<input type="button" class="btn btn-primary btn-lg p-2 px-5 m-5 btn-block" name="btn btn-epub" onclick="epub()" value="{{ _('Epub') }}">
 					</div>
 					<div class="col-12 text-center">
-						<input type="button" class="btn btn-primary btn-lg p-2 px-5 m-5 btn-block" style="margin-bottom: 14.5rem !important;" name="btn btn-sel" onclick="pelicula()" value="{{ _('pelicula') }}">
+						<input type="button" class="btn btn-primary btn-lg p-2 px-5 m-5 btn-block" name="btn btn-pelicula" onclick="pelicula()" value="{{ _('Película') }}">
+					</div>
+					<div class="col-12 text-center">
+						<input type="button" class="btn btn-primary btn-lg p-2 px-5 m-5 btn-block" style="margin-bottom: 14.5rem !important;" name="btn btn-Obra" onclick="ObraTeatro()" value="{{ _('Obra de teatro') }}">
 					</div>
 				</form>
 				<p>{{error}}</p>
@@ -70,6 +73,11 @@
 		function epub(){
 			validNavigation = true;
 			window.location.href='{{ url_for('index') }}'
+		}
+
+		function ObraTeatro(){
+			validNavigation = true;
+			window.location.href='{{ url_for('obraTeatro') }}'
 		}
 		
 		//https://eureka.ykyuen.info/2011/02/22/jquery-javascript-capture-the-browser-or-tab-closed-event/
