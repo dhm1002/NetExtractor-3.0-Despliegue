@@ -31,6 +31,7 @@ import dynetx as dn
 import networkx as nx
 import matplotlib.pyplot as plt
 import time
+import requests
 
 class Modelo:
     """
@@ -2346,3 +2347,20 @@ class Modelo:
                     mejor = grafo.copy()
         return mejor,mod,npart
         '''
+    ## Metodos para las obras de teatro
+    def getCorpus(self):
+        # obtenemos todas las metricas de los corpus
+        metricas = requests.get("https://dracor.org/api/corpora?include=metrics").json()
+        # iteramos por cada corpus, para seleccionar solamente aquellas que nos interesen
+        lista=[]
+        for i in metricas:
+            corpus={}
+            corpus["titulo"] = i['title']
+            corpus["abr"] = i['name']
+            corpus["obras"] = i['metrics']['plays']
+            corpus["personajes"] = i['metrics']['characters']
+            corpus["hombres"] = i['metrics']['male']
+            corpus["mujeres"] = i['metrics']['female']
+            corpus["fecha"] = i['metrics']['updated']
+            lista.append(corpus)
+        return lista
