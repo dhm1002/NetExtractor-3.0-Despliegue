@@ -35,30 +35,26 @@
 
 	
 	<form id="form" class="m-auto" action="" method="post" enctype=multipart/form-data>
-		<input type='hidden' id= 'obras' name='obras' value='' />
+		<input type='hidden' id= 'obra' name='obra' value='' />
 		<table id="example" class="display" style="width:100%">
 			<thead>
 				<tr>
 					<th>Título</th>
-					<th>Obras</th>
+					<th>Autor</th>
 					<th>Personajes</th>
-					<th>Hombres</th>
-					<th>Mujeres</th>
-					<th>Última actualización</th>
-					<th></th>
+					<th>Año</th>
+                    <th></th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for i in corpus %}
+				{% for i in obras %}
 				<tr>
-						<td>{{i["titulo"] + " (" + i["abr"] + ")" }}</td>
-						<td>{{i["obras"]}}</td>
+						<td>{{i["titulo"] }}</td>
+						<td>{{i["autor"]}}</td>
 						<td>{{i["personajes"]}}</td>
-						<td>{{i["hombres"]}}</td>
-						<td>{{i["mujeres"]}}</td>
 						<td>{{i["fecha"]}}</td>
 						<td>
-							<button type="button" class="btn btn-primary float-left btn-lg p-3 px-1" name={{i['abr']}} onclick="verObras(name)">{{ _('Ver obras') }}</button>
+							<button type="button" class="btn btn-primary float-left btn-lg p-3 px-1" name={{i['id']}} onclick="sendForm(name)">{{ _('Ver Personajes') }}</button>
 						</td>
 				</tr>
 				{% endfor %}
@@ -102,10 +98,9 @@
 			window.location.href='{{ url_for('inicio') }}'
 		}
 
-		function verObras(nombre){
+		function sendForm(nombre){
 			validNavigation = true;
-			document.getElementById('obras').value = nombre;
-			document.getElementById('form').submit();
+			document.getElementById('obra').value = nombre;
 		}
 
 		//https://eureka.ykyuen.info/2011/02/22/jquery-javascript-capture-the-browser-or-tab-closed-event/

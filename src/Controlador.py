@@ -97,7 +97,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/Sel-Corpus/', methods=["GET","POST"])
-def obraTeatro():
+def selCorpus():
     error = ''
     m = mod.Modelo()
     if request.method == "POST":
@@ -107,9 +107,30 @@ def obraTeatro():
             dirName = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']))
             if(not os.path.exists(dirName)):
                 os.makedirs(dirName)
-        
+        tbd.replaceObject(session['usuario'],m)
+        session['corpus'] = request.form['obras']
+        return redirect(url_for('obras'))
     return render_template('corpus.html', corpus = m.getCorpus(), contador = 0 )
 
+
+@app.route('/Sel-Obra/', methods=["GET","POST"])
+def obras():
+    if('corpus' not in session or session['usuario'] not in tbd.getSesiones().keys()):
+        return redirect(url_for('home'))
+    g.usuario = session['usuario']
+    m = tbd.getObject(session['usuario'])
+
+    if request.method == "POST":
+        
+        if('usuario' not in session or session['usuario'] not in tbd.getSesiones().keys()):
+            session['usuario'] = tbd.addSesion(m)
+            dirName = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']))
+            if(not os.path.exists(dirName)):
+                os.makedirs(dirName)
+        tbd.replaceObject(session['usuario'],m)
+        session['corpus'] = request.form['obras']
+        return redirect(url_for('obras'))
+    return render_template('obras.html', obras = m.getPlays(session['corpus']))
 
 @app.route('/Acerca', methods=["GET","POST"])
 def about():

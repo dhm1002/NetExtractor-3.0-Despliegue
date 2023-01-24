@@ -2364,3 +2364,31 @@ class Modelo:
             corpus["fecha"] = i['metrics']['updated']
             lista.append(corpus)
         return lista
+
+    def getPlays(self, corpus):
+        # obtenemos todas las metricas de las obras
+        metricas = requests.get("https://dracor.org/api/corpora/"+corpus+"/metadata").json()
+        # iterate through corpus list and print information
+        # add the number of plays to the print statement which is retrieved from the corpus metrics
+        #print("Abbreviation: Corpus Name (Number of plays)")
+        lista=[]
+        for obra in metricas:
+            diccionario={}
+            diccionario["titulo"] = obra['title']
+            
+            '''
+            if(corpus['normalizedGenre'] != None):
+                print(corpus['normalizedGenre'])
+                diccionario["genero"] = corpus['normalizedGenre']
+            elif (corpus['subtitle'])!= None:
+                diccionario["genero"] = corpus['subtitle']
+            else:
+                diccionario["genero"] = ""
+            '''
+            diccionario["autor"] = obra['firstAuthor']
+            diccionario["personajes"] = obra['size']
+            diccionario["fecha"] = obra['yearNormalized']
+            diccionario["id"] = obra["playName"]
+            lista.append(diccionario)
+        return lista
+        
