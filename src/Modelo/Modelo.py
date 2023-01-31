@@ -56,6 +56,8 @@ class Modelo:
         self.__Gnoatt = None
         self.__Gdinamica = None
         self.urlPelicula = ""
+        self.corpus = ""
+        self.obra = ""
         self.diccionarioApariciones = dict()
         self.cambio = 0
         self.formato = 0
@@ -68,7 +70,7 @@ class Modelo:
         
     def cambiarPantallas(self, cambiopantalla):
         """
-        Método para detectar cambio de pantalla para las dos opciones, película y novela
+        Método para detectar cambio de pantalla para las 3 opciones: película(0) ,novela(1) y obra de teatro(2)
 
         Args:
             cambiopantalla - Int
@@ -215,7 +217,18 @@ class Modelo:
                 self.personajes[i].sumNumApariciones(len(listapar))
         return self.diccionarioApariciones
 
-    def obtenerEthnea(self):
+    def obtenerPosicionGeneroTeatro(self):
+        diccionario = self.diccionarioGeneroApariciones()
+        for i in self.personajes.keys():
+            self.personajes[i].resNumApariciones(self.personajes[i].getNumApariciones()[0])
+            pers = self.personajes[i].getPersonaje()
+            for n in pers.keys():
+                self.personajes[i].lennombres[n] = diccionario[i][0]
+                self.personajes[i].sumNumApariciones(diccionario[i][0])
+                self.personajes[i].setSexo(diccionario[i][1])
+                self.personajes[i].crearDictSE()
+
+    def obtenerEthnea(self,flag):
         """
         Método para obtener etnia y sexo del personaje
     
@@ -225,12 +238,19 @@ class Modelo:
         etnia = None
         sexo = None
         ethneagenni = eg.EthneaGenni()
-        for i in self.personajes.keys():
-            etnia, sexo = ethneagenni.obtenerEtniaSexo(i)
-            self.personajes[i].setEtnia(etnia)
-            self.personajes[i].setSexo(sexo)
-            self.personajes[i].crearDictSE()
-            time.sleep(1)
+        if(flag == False):
+            for i in self.personajes.keys():
+                etnia, sexo = ethneagenni.obtenerEtniaSexo(i)
+                self.personajes[i].setEtnia(etnia)
+                self.personajes[i].setSexo(sexo)
+                self.personajes[i].crearDictSE()
+                time.sleep(1)
+        else:
+            for i in self.personajes.values():
+                etnia, sexo = ethneagenni.obtenerEtniaSexo(i)
+                self.personajes[i].setEtnia(etnia)
+                self.personajes[i].crearDictSE()
+                time.sleep(1)
 
     def getDictParsear(self):
         """
@@ -456,7 +476,9 @@ class Modelo:
         Args:
             
         """
-        if(self.cambio == 1):
+        if(self.cambio == 2):
+            d = Thread(target=self.obtenerPosicionGeneroTeatro())
+        elif(self.cambio == 1):
             d = Thread(target=self.obtenerPosPers)
         else:
             d = Thread(target=self.obtenerNumApariciones)
@@ -2391,4 +2413,22 @@ class Modelo:
             diccionario["id"] = obra["playName"]
             lista.append(diccionario)
         return lista
-        
+
+    def diccionarioObras(self, corpus, obra):
+        self.corpus = corpus
+        self.obra = obra
+        self.vaciarDiccionario()
+        # obtenemos todas las metricas de los personajes de las obras 
+        metricas = requests.get("https://dracor.org/api/corpora/"+corpus+"/play/"+obra+"/cast").json()
+        # iterate through corpus list and print information
+        # add the number of plays to the print statement which is retrieved from the corpus metrics
+        #print("Abbreviation: Corpus Name (Number of plays)")
+        for personaje in metricas:
+            self.anadirPersonaje(personaje['id'],personaje['name'])
+    
+    def diccionarioGeneroApariciones(self):
+        metricas = requests.get("https://dracor.org/api/corpora/"+self.corpus+"/play/"+self.obra+"/cast").json()
+        diccionario={}
+        for corpus in metricas:
+            diccionario[corpus['id']] = (int(corpus['numOfScenes']),corpus['gender'])
+        return diccionario

@@ -95,12 +95,13 @@
 		var validNavigation = false; 
 		function atras() {
 			validNavigation = true;
-			window.location.href='{{ url_for('inicio') }}'
+			window.location.href='{{ url_for('selCorpus') }}'
 		}
 
 		function sendForm(nombre){
 			validNavigation = true;
 			document.getElementById('obra').value = nombre;
+			document.getElementById('form').submit();
 		}
 
 		//https://eureka.ykyuen.info/2011/02/22/jquery-javascript-capture-the-browser-or-tab-closed-event/

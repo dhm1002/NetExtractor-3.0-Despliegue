@@ -40,9 +40,13 @@
 	<div id="content2">
 		<form action="" id="form-menu" method="post">
 			<div class="btn-group btn-block sticky-top" role="group" aria-label="Basic example">
-				<button type="submit" class="btn btn-secondary" id="npers" name="btn btn-newpers">{{ _('Añadir Personaje') }}</button>
+				{% if cambiarPantalla != 2 %}
+					<button type="submit" class="btn btn-secondary" id="npers" name="btn btn-newpers">{{ _('Añadir Personaje') }}</button>
+				{%endif%}
 				<button type="submit" class="btn btn-secondary" id="dpers" name="btn btn-delpers">{{ _('Eliminar Personaje') }}</button>
+				{% if cambiarPantalla != 2 %}
 				<button type="submit" class="btn btn-secondary" id="jpers" name="btn btn-joinpers">{{ _('Juntar Personajes') }}</button>
+				{%endif%}
 				<button type="submit" class="btn btn-secondary" id="nref" name="btn btn-newrefpers">{{ _('Añadir Referencia') }}</button>
 				<button type="submit" class="btn btn-secondary" id="dref" name="btn btn-delrefpers">{{ _('Eliminar Referencia') }}</button>
 				<button type="submit" class="btn btn-secondary" id="mid" name="btn btn-modid">{{ _('Modificar Id Personaje') }}</button>
@@ -58,8 +62,15 @@
 				<div class="txt1">
 					<input type="checkbox" id="pars-cbx" name="cbx cbx-pars">
 					<label for="pars-cbx">{{ _('Obtener Posiciones') }}</label>
-					<input type="checkbox" id="pars-cbx1" name="cbx cbx-pars1">
-					<label for="pars-cbx1">{{ _('Obtener Etnia y Sexo (Opcional: esta opción puede tomar varios minutos.)') }}</label>
+					{% if cambiarPantalla == 2 %}
+						<input type="checkbox" id="pars-cbx2" name="cbx cbx-pars2">
+						<label for="pars-cbx2">{{ _('Obtener Sexo') }}</label>
+						<input type="checkbox" id="pars-cbx3" name="cbx cbx-pars3">
+						<label for="pars-cbx3">{{ _('Obtener Etnia (Opcional: esta opción puede tomar varios minutos.)') }}</label>
+					{% else %}
+						<input type="checkbox" id="pars-cbx1" name="cbx cbx-pars1">
+						<label for="pars-cbx1">{{ _('Obtener Etnia y Sexo (Opcional: esta opción puede tomar varios minutos.)') }}</label>
+					{%endif%}
 				</div>
 			</div>
 		</div>
@@ -118,11 +129,14 @@
 	<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
 	<script type="text/javascript">
 		var cambiarPantalla = {{ cambiarPantalla | safe }};
-		console.log(cambiarPantalla);
 		var validNavigation = false;
 
 		function atras() {
-			if (cambiarPantalla==1){
+			if(cambiarPantalla==2){
+				validNavigation = true;
+				window.location.href='{{ url_for('obras') }}'
+			}
+			else if (cambiarPantalla==1){
 				validNavigation = true;
 				window.location.href='{{ url_for('dictaut') }}'
 			}else{
@@ -132,15 +146,31 @@
 		}
 		
         function loading(){
-        	var parsear = document.getElementById("pars-cbx").checked;
-			var parsear1 = document.getElementById("pars-cbx1").checked;
-			if (parsear && parsear1){
-				var parsear2 = true;
-				parsear = false;
-				parsear1 = false;
+        	var posiciones = document.getElementById("pars-cbx").checked;
+			
+			if(cambiarPantalla==2){
+					sexo = document.getElementById("pars-cbx2").checked;
+					etnia = document.getElementById("pars-cbx3").checked;
+					etniaSexo = false;
+					if (posiciones && etnia && sexo){
+						var todosTeatro = true;
+						posiciones = false;
+						etnia = false;
+						sexo = false;
 			}
-        	if(parsear || parsear1 || parsear2){
-				if(parsear2){
+			}
+			else{
+				var etniaSexo = document.getElementById("pars-cbx1").checked;
+				etnia = false;
+				sexo = false;
+				if (posiciones && etniaSexo){
+					var todos = true;
+					posiciones = false;
+					etniaSexo = false;
+				}
+			}
+        	if(todos || posiciones || etniaSexo || etnia || sexo || todosTeatro){
+				if(todos || todosTeatro){
 					alert("{{ _('Primero se van a buscar las posiciones de los personajes así como la etnia y el sexo, esto puede tardar unos minutos.') }}");
 					$("#loading").show();
 					$("#cargando").show();
@@ -148,21 +178,38 @@
 					$("#workflow").hide();
 					$("#content2").hide();
 					$(".banderas").hide();
-					$.ajax({
-	          		type: "POST",
-	          		contentType: "application/json;charset=utf-8",
-	          		url: "/Modificar-Diccionario/",
-	          		traditional: "true",
-	          		data: JSON.stringify('parsear2'),
-	          		dataType: "json",
-	          		success: function(response){
-	          			validNavigation = true;
-	          			location.reload();
-						//window.location.href='{{ url_for('params') }}'
-             		 }
-	        		});
+					if(todos){
+						$.ajax({
+						type: "POST",
+						contentType: "application/json;charset=utf-8",
+						url: "/Modificar-Diccionario/",
+						traditional: "true",
+						data: JSON.stringify('todos'),
+						dataType: "json",
+						success: function(response){
+							validNavigation = true;
+							location.reload();
+							//window.location.href='{{ url_for('params') }}'
+						}
+						});
+					}
+					if(todosTeatro){
+						$.ajax({
+						type: "POST",
+						contentType: "application/json;charset=utf-8",
+						url: "/Modificar-Diccionario/",
+						traditional: "true",
+						data: JSON.stringify('todosTeatro'),
+						dataType: "json",
+						success: function(response){
+							validNavigation = true;
+							location.reload();
+							//window.location.href='{{ url_for('params') }}'
+						}
+						});
+					}
 				}
-				if(parsear1){
+				if(etniaSexo){
 					alert("{{ _('Se va a calcular la etnia y el sexo, esto puede tardar unos minutos.') }}");
 					$("#loading").show();
 					$("#cargando").show();
@@ -175,7 +222,7 @@
 	          		contentType: "application/json;charset=utf-8",
 	          		url: "/Modificar-Diccionario/",
 	          		traditional: "true",
-	          		data: JSON.stringify('parsear1'),
+	          		data: JSON.stringify('etniaSexo'),
 	          		dataType: "json",
 	          		success: function(response){
 	          			validNavigation = true;
@@ -184,7 +231,29 @@
              		 }
 	        		});
 				}
-				if(parsear){
+				if(posiciones && sexo){
+					alert("{{ _('Primero se van a buscar las posiciones de los personajes así como el sexo, esto puede tardar unos minutos.') }}");
+					$("#loading").show();
+					$("#cargando").show();
+					$("#content").hide();
+					$("#workflow").hide();
+					$("#content2").hide();
+					$(".banderas").hide();
+					$.ajax({
+	          		type: "POST",
+	          		contentType: "application/json;charset=utf-8",
+	          		url: "/Modificar-Diccionario/",
+	          		traditional: "true",
+	          		data: JSON.stringify('posiciones2'),
+	          		dataType: "json",
+	          		success: function(response){
+	          			validNavigation = true;
+	          			location.reload();
+						//window.location.href='{{ url_for('params') }}'
+             		 }
+	        		});
+				}
+				if(posiciones && !sexo){
 					alert("{{ _('Primero se van a buscar las posiciones de los personajes, esto puede tardar unos minutos.') }}");
 					$("#loading").show();
 					$("#cargando").show();
@@ -197,7 +266,7 @@
 	          		contentType: "application/json;charset=utf-8",
 	          		url: "/Modificar-Diccionario/",
 	          		traditional: "true",
-	          		data: JSON.stringify('parsear'),
+	          		data: JSON.stringify('posiciones'),
 	          		dataType: "json",
 	          		success: function(response){
 	          			validNavigation = true;
@@ -206,6 +275,29 @@
              		 }
 	        		});
 				}
+				if(etnia){
+					alert("{{ _('Se va a calcular la etnia , esto puede tardar unos minutos.') }}");
+					$("#loading").show();
+					$("#cargando").show();
+					$("#content").hide();
+					$("#workflow").hide();
+					$("#content2").hide();
+					$(".banderas").hide();
+					$.ajax({
+	          		type: "POST",
+	          		contentType: "application/json;charset=utf-8",
+	          		url: "/Modificar-Diccionario/",
+	          		traditional: "true",
+	          		data: JSON.stringify('etnia'),
+	          		dataType: "json",
+	          		success: function(response){
+	          			validNavigation = true;
+	          			location.reload();
+						//window.location.href='{{ url_for('params') }}'
+             		 }
+	        		});
+				}
+
         	} else {
 				if(cambiarPantalla==1){
 					validNavigation = true;
@@ -220,10 +312,17 @@
         window.onload = function lockcbx() {
         	var divapar = document.getElementsByClassName("NumApar");
         	for(var i=0; divapar[i]; ++i){
-        		if(divapar[i].getAttribute("parse")=="false"){
+        		if(divapar[i].getAttribute("parse")=="false" && cambiarPantalla == 2){
+        			document.getElementById("pars-cbx").checked = true;
+        			document.getElementById("pars-cbx").disabled = true;
+        			document.getElementById("pars-cbx2").checked = true;
+        			document.getElementById("pars-cbx2").disabled = true;
+        		}
+				else if(divapar[i].getAttribute("parse")=="false"){
         			document.getElementById("pars-cbx").checked = true;
         			document.getElementById("pars-cbx").disabled = true;
         		}
+				
         	}
         }
 

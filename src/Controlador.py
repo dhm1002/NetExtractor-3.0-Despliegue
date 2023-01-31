@@ -96,6 +96,9 @@ def index():
             return render_template('index.html', error = error)
     return render_template('index.html')
 
+'''
+Método que permite seleccionar el corpus y redirecciona a la pantalla de obras
+'''
 @app.route('/Sel-Corpus/', methods=["GET","POST"])
 def selCorpus():
     error = ''
@@ -109,27 +112,25 @@ def selCorpus():
                 os.makedirs(dirName)
         tbd.replaceObject(session['usuario'],m)
         session['corpus'] = request.form['obras']
+        session['fichero'] = request.form['obras']
+        m.cambiarPantallas(2)
         return redirect(url_for('obras'))
     return render_template('corpus.html', corpus = m.getCorpus(), contador = 0 )
 
-
+'''
+Método que permite seleccionar la obra y redirecciona a la pantalla de personajes
+'''
 @app.route('/Sel-Obra/', methods=["GET","POST"])
 def obras():
     if('corpus' not in session or session['usuario'] not in tbd.getSesiones().keys()):
         return redirect(url_for('home'))
     g.usuario = session['usuario']
     m = tbd.getObject(session['usuario'])
-
     if request.method == "POST":
-        
-        if('usuario' not in session or session['usuario'] not in tbd.getSesiones().keys()):
-            session['usuario'] = tbd.addSesion(m)
-            dirName = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']))
-            if(not os.path.exists(dirName)):
-                os.makedirs(dirName)
-        tbd.replaceObject(session['usuario'],m)
-        session['corpus'] = request.form['obras']
-        return redirect(url_for('obras'))
+        obra = request.form['obra']
+        corpus = session['corpus']
+        m.diccionarioObras(corpus,obra)
+        return redirect(url_for('moddict'))
     return render_template('obras.html', obras = m.getPlays(session['corpus']))
 
 @app.route('/Acerca', methods=["GET","POST"])
@@ -193,16 +194,26 @@ def moddict():
         ## modificado
         ajax = request.get_json(silent=True)
         if(ajax != None):
-            if(ajax == 'parsear2'):
+            if(ajax == 'todos'):
                 m.prepararRed()
                 m.obtenerEthnea()
                 return json.dumps("True")
-            if(ajax == 'parsear1'):
+            if(ajax == 'etniaSexo'):
                 m.obtenerEthnea()
                 return json.dumps("True")
-            if(ajax == 'parsear'):
+            if(ajax == 'posiciones'):
                 m.prepararRed()
                 return json.dumps("True")
+            if(ajax == 'todosTeatro'):
+                m.prepararRed()
+                m.obtenerEthnea(flag=True)
+                return json.dumps("True")
+            if(ajax == 'posiciones2'):
+                m.prepararRed()
+                return json.dumps("True")
+            if(ajax == 'etnia'):
+                m.obtenerEthnea(flag=True) 
+                return json.dumps("True")  
         if("btn btn-newpers" in request.form):
             return redirect(url_for('newpers'))
         elif("btn btn-delpers" in request.form):
@@ -377,7 +388,7 @@ def paramsPeliculas():
         apariciones=apar
         m.obtenerRed(int(apar))          
         return redirect(url_for('red'))
-    return render_template('paramsPeliculas.html', pers = {k: v for k, v in sorted(m.getPersonajes().items(), key=lambda x: x[1].getNumApariciones(), reverse=True)})
+    return render_template('paramsPeliculas.html', pers = {k: v for k, v in sorted(m.getPersonajes().items(), key=lambda x: x[1].getNumApariciones(), reverse=True)},cambiarPantalla = m.devolverCambio())
 
 @app.route('/Red/', methods=["GET", "POST"])
 def red():
@@ -566,4 +577,6 @@ def finSesion():
         shutil.rmtree(os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario'])))
         session['fichero'] = "null"
         session['usuario'] = "null"
+        session['corpus'] = "null"
+        session['obra'] = "null"
         return "true"
