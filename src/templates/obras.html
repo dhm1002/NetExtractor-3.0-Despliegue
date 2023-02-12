@@ -36,7 +36,7 @@
 	
 	<form id="form" class="m-auto" action="" method="post" enctype=multipart/form-data>
 		<input type='hidden' id= 'obra' name='obra' value='' />
-		<table id="example" class="display" style="width:100%">
+		<table id="example" class="display" style="width:80%">
 			<thead>
 				<tr>
 					<th>Título</th>
@@ -54,7 +54,7 @@
 						<td>{{i["personajes"]}}</td>
 						<td>{{i["fecha"]}}</td>
 						<td style="text-align:right">
-							<button type="button" class="btn btn-primary float-center btn-lg p-3 px-1" name={{i['id']}} onclick="sendForm(name)">{{ _('Ver Personajes') }}</button>
+							<button type="button" class="btn btn-primary float-center btn-lg p-1 px-1" name={{i['id']}} onclick="sendForm(name)">{{ _('Ver Personajes') }}</button>
 						</td>
 				</tr>
 				{% endfor %}
@@ -86,7 +86,7 @@
 
 		$(document).ready(function() {
 			$('#example').DataTable({
-				scrollY: '325px',
+				scrollY: '260px',
         		scrollCollapse: true,
 				paging: false
 			});

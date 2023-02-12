@@ -36,7 +36,7 @@
 	
 	<form id="form" class="m-auto" action="" method="post" enctype=multipart/form-data>
 		<input type='hidden' id= 'obras' name='obras' value='' />
-		<table id="example" class="display" style="width:100%">
+		<table id="example" class="display" style="width:150%">
 			<thead>
 				<tr>
 					<th>Título</th>
@@ -58,7 +58,7 @@
 						<td>{{i["mujeres"]}}</td>
 						<td>{{i["fecha"]}}</td>
 						<td>
-							<button type="button" class="btn btn-primary float-left btn-lg p-3 px-1" name={{i['abr']}} onclick="verObras(name)">{{ _('Ver obras') }}</button>
+							<button type="button" class="btn btn-primary float-left btn-lg p-1 px-1" name={{i['abr']}} onclick="verObras(name)">{{ _('Ver obras') }}</button>
 						</td>
 				</tr>
 				{% endfor %}
@@ -70,13 +70,14 @@
 
 
 
-
-
-	<div class="fixed-bottom" style="background-color:white">
+	
+	
+	<div class="fixed-bottom" style="background-color:white" >
 		<div id="indice">
 			<button type="button" class="btn btn-primary float-left btn-lg p-3 px-5" name="btn btn-volver" onclick="atras()">{{ _('Volver') }}</button>
 		</div>
 	</div>
+	
 	<footer></footer>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -90,7 +91,7 @@
 
 		$(document).ready(function() {
 			$('#example').DataTable({
-				scrollY: '325px',
+				scrollY: '260px',
         		scrollCollapse: true,
 				paging: false
 			});
