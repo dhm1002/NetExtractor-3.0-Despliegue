@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from src.Modelo import Personaje as p
+from src.Modelo import LectorGrafo as lg
 from src.Lexers import CreaDict as cd
 from src.Lexers import PosPersonajes as pp
 from src.LecturaFicheros import Lectorcsv
@@ -32,6 +33,13 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import time
 import requests
+
+
+
+import itertools
+import time
+
+import networkx as nx
 
 class Modelo:
     """
@@ -593,30 +601,55 @@ class Modelo:
         Args:
             apar: numero minimo de apariciones
         """
+        
         self.apar=apar 
         self.__G = nx.Graph()
         lista = list()
         aux = 0
-        for key in self.diccionarioApariciones:
-            aux = 0
-            if(self.personajes[key].getNumApariciones()[0]>=self.apar):
-                for key1 in self.diccionarioApariciones:
-                    if(self.personajes[key1].getNumApariciones()[0]>=self.apar):
-                        if (not key == key1):
-                            lista = Modelo.elementosComunes(self.diccionarioApariciones.get(key), self.diccionarioApariciones.get(key1))
+        if(self.cambio!=2):
+            for key in self.diccionarioApariciones:
+                aux = 0
+                if(self.personajes[key].getNumApariciones()[0]>=self.apar):
+                    for key1 in self.diccionarioApariciones:
+                        if(self.personajes[key1].getNumApariciones()[0]>=self.apar):
+                            if (not key == key1):
+                                lista = Modelo.elementosComunes(self.diccionarioApariciones.get(key), self.diccionarioApariciones.get(key1))
 
-                            if (not len(lista) == 0):
-                                #listaprueba.append((key,key1,len(lista)))
-                                peso = len(lista)
-                                self.__G.add_edge(key,key1,weight=int(peso))
-                                aux = 1
-                if(aux == 0):
-                    self.__G.add_node(key)
-            else:
-                if(self.__G.has_node(key)):
-                    self.__G.remove_node(key)
-        self.__Gnoatt = self.__G.copy()
-        self.anadirAtributos()
+                                if (not len(lista) == 0):
+                                    #listaprueba.append((key,key1,len(lista)))
+                                    peso = len(lista)
+                                    self.__G.add_edge(key,key1,weight=int(peso))
+                                    aux = 1
+                    if(aux == 0):
+                        self.__G.add_node(key)
+                else:
+                    if(self.__G.has_node(key)):
+                        self.__G.remove_node(key)
+            self.__Gnoatt = self.__G.copy()
+            self.anadirAtributos()
+        else:
+            corpus = self.corpus
+            obra= self.obra
+            url = "https://dracor.org/api/corpora/"+corpus+"/play/"+obra+"/networkdata/gexf"
+            corpora_metrics = requests.get(url)
+            variable = lg.read_gexf(corpora_metrics.text)
+            self.__G = variable.copy()
+            for key in self.personajes:
+                if(self.personajes[key].getNumApariciones()[0]<self.apar):
+                    if(self.__G.has_node(key)):
+                        self.__G.remove_node(key)
+            self.simplificarGrafo()
+
+
+    ## EL grafo que obtenemos de dracor nos da mucha información innecesaria, asi que con este método lo simplificamos
+    def simplificarGrafo(self):  
+        self.__Gnoatt = nx.Graph()
+        self.__Gnoatt.graph = self.__G.graph
+        for i in self.__G.nodes:
+            self.__Gnoatt.add_node(i.upper())
+        for i in self.__G.edges(data=True):
+            self.__Gnoatt.add_edge(i[0].upper(),i[1].upper(),weight=i[2]['weight'])
+
     
     def anadirAtributos(self):
         """

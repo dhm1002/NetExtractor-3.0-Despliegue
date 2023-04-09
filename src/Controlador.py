@@ -52,8 +52,7 @@ def diccionarioPelicula():
                 os.makedirs(dirName)
         #APUNTAR EN LA DOCUMENTACION
         tbd.replaceObject(session['usuario'],m)
-        if('configVis' not in session):
-            session['configVis'] = {'Path to file (csv or json)': 'https://gist.githubusercontent.com/ulfaslak/6be66de1ac3288d5c1d9452570cbba5a/raw/0b9595c09b9f70a77ee05ca16d5a8b42a9130c9e/miserables.json', 'Apply heat (wiggle)': False, 'Charge strength': -50, 'Center gravity': 0.1, 'Link distance': 10, 'Link width': 5, 'Link alpha': 0.5, 'Node size': 10, 'Node stroke size': 0.5, 'Node size exponent': 0.5, 'Link width exponent': 0.5, 'Collision': False, 'Node fill': '#16a085', 'Node stroke': '#000000', 'Link stroke': '#7c7c7c', 'Label stroke': '#000000', 'Show labels': True, 'Show singleton nodes': False, 'Node size by strength': True, 'Zoom': 1.5, 'Min. link weight %': 0, 'Max. link weight %': 100}   
+        session['configVis'] = {'Path to file (csv or json)': 'https://gist.githubusercontent.com/ulfaslak/6be66de1ac3288d5c1d9452570cbba5a/raw/0b9595c09b9f70a77ee05ca16d5a8b42a9130c9e/miserables.json', 'Apply heat (wiggle)': False, 'Charge strength': -50, 'Center gravity': 0.1, 'Link distance': 10, 'Link width': 5, 'Link alpha': 0.5, 'Node size': 10, 'Node stroke size': 0.5, 'Node size exponent': 0.5, 'Link width exponent': 0.5, 'Collision': False, 'Node fill': '#16a085', 'Node stroke': '#000000', 'Link stroke': '#7c7c7c', 'Label stroke': '#000000', 'Show labels': True, 'Show singleton nodes': False, 'Node size by strength': True, 'Zoom': 1.5, 'Min. link weight %': 0, 'Max. link weight %': 100}   
         url = request.form['txt txt-url1']
         m = tbd.getObject(session['usuario'])
         formato = m.scrapeWikiPelicula(url)
@@ -88,8 +87,7 @@ def index():
             os.remove(fullpath)
             tbd.replaceObject(session['usuario'],m)
             m.cambiarPantallas(1)
-            if('configVis' not in session):
-                session['configVis'] = {'Path to file (csv or json)': 'https://gist.githubusercontent.com/ulfaslak/6be66de1ac3288d5c1d9452570cbba5a/raw/0b9595c09b9f70a77ee05ca16d5a8b42a9130c9e/miserables.json', 'Apply heat (wiggle)': False, 'Charge strength': -50, 'Center gravity': 0.1, 'Link distance': 10, 'Link width': 5, 'Link alpha': 0.5, 'Node size': 10, 'Node stroke size': 0.5, 'Node size exponent': 0.5, 'Link width exponent': 0.5, 'Collision': False, 'Node fill': '#16a085', 'Node stroke': '#000000', 'Link stroke': '#7c7c7c', 'Label stroke': '#000000', 'Show labels': True, 'Show singleton nodes': False, 'Node size by strength': True, 'Zoom': 1.5, 'Min. link weight %': 0, 'Max. link weight %': 100}
+            session['configVis'] = {'Path to file (csv or json)': 'https://gist.githubusercontent.com/ulfaslak/6be66de1ac3288d5c1d9452570cbba5a/raw/0b9595c09b9f70a77ee05ca16d5a8b42a9130c9e/miserables.json', 'Apply heat (wiggle)': False, 'Charge strength': -50, 'Center gravity': 0.1, 'Link distance': 10, 'Link width': 5, 'Link alpha': 0.5, 'Node size': 10, 'Node stroke size': 0.5, 'Node size exponent': 0.5, 'Link width exponent': 0.5, 'Collision': False, 'Node fill': '#16a085', 'Node stroke': '#000000', 'Link stroke': '#7c7c7c', 'Label stroke': '#000000', 'Show labels': True, 'Show singleton nodes': False, 'Node size by strength': True, 'Zoom': 1.5, 'Min. link weight %': 0, 'Max. link weight %': 100}
             return redirect(url_for('dictaut'))
         else: 
             error = gettext("La ruta indicada no contiene un fichero epub")
@@ -130,6 +128,8 @@ def obras():
         obra = request.form['obra']
         corpus = session['corpus']
         m.diccionarioObras(corpus,obra)
+        # Debido al formato de los grafos en las obras de teatro, la configuración inicial es un poco diferente
+        session['configVis'] = {'Path to file (csv or json)': 'https://gist.githubusercontent.com/ulfaslak/6be66de1ac3288d5c1d9452570cbba5a/raw/0b9595c09b9f70a77ee05ca16d5a8b42a9130c9e/miserables.json', 'Apply heat (wiggle)': False, 'Charge strength': -100, 'Center gravity': 0.1, 'Link distance': 25, 'Link width': 2, 'Link alpha': 0.5, 'Node size': 5, 'Node stroke size': 0.5, 'Node size exponent': 0.5, 'Link width exponent': 0.5, 'Collision': False, 'Node fill': '#16a085', 'Node stroke': '#000000', 'Link stroke': '#7c7c7c', 'Label stroke': '#000000', 'Show labels': True, 'Show singleton nodes': False, 'Node size by strength': True, 'Zoom': 2, 'Min. link weight %': 0, 'Max. link weight %': 100}   
         return redirect(url_for('moddict'))
     return render_template('obras.html', obras = m.getPlays(session['corpus']))
 
