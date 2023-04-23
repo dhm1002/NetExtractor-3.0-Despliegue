@@ -233,7 +233,7 @@ def moddict():
         elif("btn btn-expdict" in request.form):
             filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".csv")
             m.exportDict(filename)
-            return send_file(filename, mimetype='text/csv', attachment_filename=session['fichero'] + ".csv", as_attachment=True)
+            return send_file(filename, mimetype='text/csv', download_name=session['fichero'] + ".csv", as_attachment=True)
     return render_template('moddict.html', pers = m.getPersonajes(), cambiarPantalla = m.devolverCambio())
 
 @app.route('/Modificar-Diccionario/Anadir-Personaje/', methods=["GET", "POST"])    
@@ -404,15 +404,15 @@ def red():
         if("btn btn-expgml" in request.form):
             filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".gml")
             m.exportGML(filename)
-            return send_file(filename, mimetype='text/gml', attachment_filename=session['fichero'] + ".gml", as_attachment=True)
+            return send_file(filename, mimetype='text/gml', download_name=session['fichero'] + ".gml", as_attachment=True)
         elif("btn btn-expgexf" in request.form):
             filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".gexf")
             m.exportGEXF(filename)
-            return send_file(filename, mimetype='text/gexf', attachment_filename=session['fichero'] + ".gexf", as_attachment=True)
+            return send_file(filename, mimetype='text/gexf', download_name=session['fichero'] + ".gexf", as_attachment=True)
         elif("btn btn-expnet" in request.form):
             filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".net")
             m.exportPajek(filename)
-            return send_file(filename, mimetype='text/net', attachment_filename=session['fichero'] + ".net", as_attachment=True)
+            return send_file(filename, mimetype='text/net', download_name=session['fichero'] + ".net", as_attachment=True)
     return render_template('red.html', jsonred = jsonred, config = session['configVis'], cambiarPantalla = m.devolverCambio())
 
 @app.route('/redDinamica/' , methods=["GET","POST"])
@@ -432,23 +432,23 @@ def redDinamica():
         if("btn btn-expgml" in request.form):
             filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".gml")
             m.exportGML(filename)
-            return send_file(filename, mimetype='text/gml', attachment_filename=session['fichero'] + ".gml", as_attachment=True)
+            return send_file(filename, mimetype='text/gml', download_name=session['fichero'] + ".gml", as_attachment=True)
         elif("btn btn-expgexf" in request.form):
             filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".gexf")
             m.exportGEXFdinamica(filename,frames,epub)
-            return send_file(filename, mimetype='text/gexf', attachment_filename=session['fichero'] + ".gexf", as_attachment=True)
+            return send_file(filename, mimetype='text/gexf', download_name=session['fichero'] + ".gexf", as_attachment=True)
         elif("btn btn-expnet" in request.form):
             filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".net")
             m.exportPajek(filename)
-            return send_file(filename, mimetype='text/net', attachment_filename=session['fichero'] + ".net", as_attachment=True)
+            return send_file(filename, mimetype='text/net', download_name=session['fichero'] + ".net", as_attachment=True)
         elif("btn btn-des" in request.form):
             filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".mp4")
             m.descargarRed(tiempoMasAlto[2],filename,epub)
-            return send_file(filename, mimetype='text/mp4', attachment_filename=session['fichero'] + ".mp4", as_attachment=True)
+            return send_file(filename, mimetype='text/mp4', download_name=session['fichero'] + ".mp4", as_attachment=True)
         elif("btn btn-desact" in request.form):
             filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".mp4")
             m.descargarRed(frames,filename,epub)
-            return send_file(filename, mimetype='text/mp4', attachment_filename=session['fichero'] + ".mp4", as_attachment=True)
+            return send_file(filename, mimetype='text/mp4', download_name=session['fichero'] + ".mp4", as_attachment=True)
         elif("btn btn-anterior" in request.form):
             frames = frames-1
             jsonred = m.vistaDinamica(int(frames),epub)
