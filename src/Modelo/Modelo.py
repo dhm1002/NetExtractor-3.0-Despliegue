@@ -596,7 +596,7 @@ class Modelo:
 
     def obtenerRed(self, apar):
         """
-        Método para generar un grafo a partir de las relaciones de los personajes en guiones de películas
+        Método para generar un grafo a partir de las relaciones de los personajes en guiones de películas y obras de teatro
     
         Args:
             apar: numero minimo de apariciones
@@ -699,6 +699,33 @@ class Modelo:
         
         return listaFinalEnlaces
 
+    def listaEnlacesFinalTeatro(self,minapar):
+        """
+        Método para crear una lista que contiene el id del enlace(En principio no será el empleado en la red inicial será un id inventado),
+        los nodos que tienen el enlace, el tipo de enlace, el intervalo de tiempo donde se crea el enlace y el peso del enlace. Está lista será para obras de teatro.
+
+        Args:
+             minapar: numero minimo de apariciones
+
+        """
+        listaEnlaces = list()
+        listaFinalEnlaces=list()
+        indice=0
+        #Creamos una lista con los enlaces que hay. En la lista tenemos el nodo de origen y de destino, el peso (1), el tipo de
+        #enlace (no dirigido) y en que escena se da dicho enlace.
+        metricas = requests.get("https://dracor.org/api/corpora/"+self.corpus+"/play/"+self.obra).json()
+        for escena in metricas["segments"]:
+            if(len(escena["speakers"])!=0):
+                for nodo1 in range(0,len(escena["speakers"])-1):
+                    if(self.personajes[escena["speakers"][nodo1]].getNumApariciones()[0]>=minapar):
+                        for nodo2 in range(nodo1+1,len(escena["speakers"])):
+                            if(self.personajes[escena["speakers"][nodo2]].getNumApariciones()[0]>=minapar):
+                                r=[indice,escena["speakers"][nodo1].upper(),escena["speakers"][nodo2].upper(),'Undirected',escena["number"]-1,'1.0']
+                                indice = indice + 1
+                                listaFinalEnlaces.append(r)
+
+        return listaFinalEnlaces
+
     def listaEnlacesFinalNovela(self,rango,minapar,caps):
         """
         Método para crear una lista que contiene el id del enlace, los nodos que tienen el enlace, el tipo de enlace, 
@@ -791,14 +818,19 @@ class Modelo:
         Args:
             epub: variable para conocer si el diccionario es una pelicula o un guion
         """
-        if(epub):
-            listaFinalEnlaces=Modelo.listaEnlacesFinalNovela(self,self.rango,self.minapar,self.caps)
+        if(self.cambio == 2):
+            listaOrdenada = Modelo.listaEnlacesFinalTeatro(self,self.apar)
         else:
-            listaFinalEnlaces=Modelo.listaEnlacesFinalPelicula(self)
-        #Interacciones
-        #G puede crecer agregando una interacción a la vez. Cada interacción se define unívocamente por
-        #sus puntos finales, u y v, así como por su marca de tiempo t.
-        listaOrdenada=sorted(listaFinalEnlaces, key=itemgetter(4), reverse=False)
+            if(epub):
+                listaFinalEnlaces=Modelo.listaEnlacesFinalNovela(self,self.rango,self.minapar,self.caps)
+            else:
+                listaFinalEnlaces=Modelo.listaEnlacesFinalPelicula(self,self.minapar)
+            
+            #Interacciones
+            #G puede crecer agregando una interacción a la vez. Cada interacción se define unívocamente por
+            #sus puntos finales, u y v, así como por su marca de tiempo t.
+            listaOrdenada=sorted(listaFinalEnlaces, key=itemgetter(4), reverse=False)
+
         g = dn.DynGraph(edge_removal=True)
 
         for i in range(len(listaOrdenada)):
