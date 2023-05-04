@@ -646,9 +646,12 @@ class Modelo:
         self.__Gnoatt = nx.Graph()
         self.__Gnoatt.graph = self.__G.graph
         for i in self.__G.nodes:
-            self.__Gnoatt.add_node(i.upper())
+            nodo = list(self.personajes[i].getPersonaje().keys())[0].upper()
+            self.__Gnoatt.add_node(nodo)
         for i in self.__G.edges(data=True):
-            self.__Gnoatt.add_edge(i[0].upper(),i[1].upper(),weight=i[2]['weight'])
+            nodo1 = list(self.personajes[i[0]].getPersonaje().keys())[0].upper()
+            nodo2 = list(self.personajes[i[1]].getPersonaje().keys())[0].upper()
+            self.__Gnoatt.add_edge(nodo1,nodo2,weight=i[2]['weight'])
 
     
     def anadirAtributos(self):
@@ -717,10 +720,17 @@ class Modelo:
         for escena in metricas["segments"]:
             if(len(escena["speakers"])!=0):
                 for nodo1 in range(0,len(escena["speakers"])-1):
-                    if(self.personajes[escena["speakers"][nodo1]].getNumApariciones()[0]>=minapar):
+
+                    personaje1 = self.personajes[escena["speakers"][nodo1]]
+                    if(personaje1.getNumApariciones()[0]>=minapar):
+
                         for nodo2 in range(nodo1+1,len(escena["speakers"])):
-                            if(self.personajes[escena["speakers"][nodo2]].getNumApariciones()[0]>=minapar):
-                                r=[indice,escena["speakers"][nodo1].upper(),escena["speakers"][nodo2].upper(),'Undirected',escena["number"]-1,'1.0']
+
+                            personaje2 = self.personajes[escena["speakers"][nodo2]]
+                            if(personaje2.getNumApariciones()[0]>=minapar):
+                                nombre1 = list(personaje1.getPersonaje().keys())[0].upper()
+                                nombre2 = list(personaje2.getPersonaje().keys())[0].upper()
+                                r=[indice,nombre1,nombre2,'Undirected',escena["number"]-1,'1.0']
                                 indice = indice + 1
                                 listaFinalEnlaces.append(r)
 
