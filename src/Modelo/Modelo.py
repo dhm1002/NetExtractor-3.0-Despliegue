@@ -730,7 +730,7 @@ class Modelo:
                             if(personaje2.getNumApariciones()[0]>=minapar):
                                 nombre1 = list(personaje1.getPersonaje().keys())[0].upper()
                                 nombre2 = list(personaje2.getPersonaje().keys())[0].upper()
-                                r=[indice,nombre1,nombre2,'Undirected',escena["number"]-1,'1.0']
+                                r=[indice,nombre1,nombre2,'Undirected',escena["number"],'1.0']
                                 indice = indice + 1
                                 listaFinalEnlaces.append(r)
 
