@@ -54,8 +54,12 @@
 				<form action="" id="form-menu1" method="post">
 					<!--<div class="btn-group btn-block" role="group" aria-label="Basic example">-->
 						<h5>{{ _('Introduzca el intervalo de tiempo que quiera observar.') }}</h5>
-						<input type="text" id="inter" name="txt txt-inter" size="17" placeholder="{{ _('Intervalo de tiempo') }}">
-						<button type="submit" class="btn btn-secondary" name="btn btn-buscar" onclick="sendForm()">{{ _('Buscar') }}</button>
+						<div class="slidecontainer">
+							<input type="range" min="1" max="{{ slider }}" value="{{ value }}" class="slider" id="inter" name="txt txt-inter" > 
+							<!--input type="text" id="inter" name="txt txt-inter" size="17" placeholder="{{ _('Intervalo de tiempo') }}"-->
+							<button type="submit" class="btn btn-secondary" name="btn btn-buscar" onclick="sendForm()">{{ _('Buscar') }}</button>
+							<div id="demo"></div>
+						</div>
 					<!--</div>-->
 				</form>
 				<form action="" id="form-menu" method="post">
@@ -115,7 +119,7 @@
 		var validNavigation = false;
 		var cambiarPantalla = {{ cambiarPantalla | safe }};
 		console.log(cambiarPantalla);
-
+		
 		function carga(){
 			var conf = {{ config|tojson|safe }};
 			vis(conf);
@@ -147,6 +151,15 @@
 			}
 			
 		}
+		var slider = document.getElementById("inter");
+		var output = document.getElementById("demo");
+		output.innerHTML = slider.value; // Display the default slider value
+
+		// Update the current slider value (each time you drag the slider handle)
+		slider.oninput = function() {
+  			output.innerHTML = this.value;
+		};
+
 		//https://eureka.ykyuen.info/2011/02/22/jquery-javascript-capture-the-browser-or-tab-closed-event/
 		
 		function sendForm(){
@@ -164,7 +177,6 @@
 				}
 			}
 		}
-
 		function endSession() {
 			$.ajax({
 		      type: "POST",
