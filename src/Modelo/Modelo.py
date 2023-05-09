@@ -646,12 +646,14 @@ class Modelo:
         self.__Gnoatt = nx.Graph()
         self.__Gnoatt.graph = self.__G.graph
         for i in self.__G.nodes:
-            nodo = list(self.personajes[i].getPersonaje().keys())[0].upper()
-            self.__Gnoatt.add_node(nodo)
+            if(i in self.personajes):
+                nodo = list(self.personajes[i].getPersonaje().keys())[0].upper()
+                self.__Gnoatt.add_node(nodo)
         for i in self.__G.edges(data=True):
-            nodo1 = list(self.personajes[i[0]].getPersonaje().keys())[0].upper()
-            nodo2 = list(self.personajes[i[1]].getPersonaje().keys())[0].upper()
-            self.__Gnoatt.add_edge(nodo1,nodo2,weight=i[2]['weight'])
+            if(i[0] in self.personajes and i[1] in self.personajes ):
+                nodo1 = list(self.personajes[i[0]].getPersonaje().keys())[0].upper()
+                nodo2 = list(self.personajes[i[1]].getPersonaje().keys())[0].upper()
+                self.__Gnoatt.add_edge(nodo1,nodo2,weight=i[2]['weight'])
 
     
     def anadirAtributos(self):
@@ -720,19 +722,20 @@ class Modelo:
         for escena in metricas["segments"]:
             if(len(escena["speakers"])!=0):
                 for nodo1 in range(0,len(escena["speakers"])-1):
+                    if(escena["speakers"][nodo1] in self.personajes):
+                        personaje1 = self.personajes[escena["speakers"][nodo1]]
+                        if(personaje1.getNumApariciones()[0]>=minapar):
 
-                    personaje1 = self.personajes[escena["speakers"][nodo1]]
-                    if(personaje1.getNumApariciones()[0]>=minapar):
-
-                        for nodo2 in range(nodo1+1,len(escena["speakers"])):
-
-                            personaje2 = self.personajes[escena["speakers"][nodo2]]
-                            if(personaje2.getNumApariciones()[0]>=minapar):
-                                nombre1 = list(personaje1.getPersonaje().keys())[0].upper()
-                                nombre2 = list(personaje2.getPersonaje().keys())[0].upper()
-                                r=[indice,nombre1,nombre2,'Undirected',escena["number"],'1.0']
-                                indice = indice + 1
-                                listaFinalEnlaces.append(r)
+                            for nodo2 in range(nodo1+1,len(escena["speakers"])):
+                                
+                                if(escena["speakers"][nodo2] in self.personajes):
+                                    personaje2 = self.personajes[escena["speakers"][nodo2]]
+                                    if(personaje2.getNumApariciones()[0]>=minapar):
+                                        nombre1 = list(personaje1.getPersonaje().keys())[0].upper()
+                                        nombre2 = list(personaje2.getPersonaje().keys())[0].upper()
+                                        r=[indice,nombre1,nombre2,'Undirected',escena["number"],'1.0']
+                                        indice = indice + 1
+                                        listaFinalEnlaces.append(r)
 
         return listaFinalEnlaces
 
@@ -834,7 +837,7 @@ class Modelo:
             if(epub):
                 listaFinalEnlaces=Modelo.listaEnlacesFinalNovela(self,self.rango,self.minapar,self.caps)
             else:
-                listaFinalEnlaces=Modelo.listaEnlacesFinalPelicula(self,self.minapar)
+                listaFinalEnlaces=Modelo.listaEnlacesFinalPelicula(self)
             
             #Interacciones
             #G puede crecer agregando una interacción a la vez. Cada interacción se define unívocamente por
