@@ -71,6 +71,7 @@
 	<div class="fixed-bottom" style="background-color:white">
 		<div id="indice">
 			<button type="button" class="btn btn-primary float-left btn-lg p-3 px-5" name="btn btn-volver" onclick="atras()">{{ _('Volver') }}</button>
+			<button type="button" class="btn btn-primary float-right btn-lg p-3 px-5" name="btn btn-ayuda" onclick="ayuda()">{{ _('Ayuda') }}</button>
 		</div>
 	</div>
 	<footer></footer>
@@ -98,6 +99,15 @@
 			window.location.href='{{ url_for('selCorpus') }}'
 		}
 
+		function ayuda() {	
+			s= 'En la siguiente tabla se muestran todos las obras disponibles para el corpus seleccionado.\n'+
+				'- Se puede ordenar por una columna específica haciendo click en las flechas de la cabecera\n'+
+				'- Se puede buscar un término concreto en el buscador de la parte superior derecha\n'+
+				'- Al hacer click en cualquier botón \'Ver personajes\' se redirigirá a la pantalla que muestra todos los personajes de la obra seleccionada '
+
+			alert(s)
+
+		}
 		function sendForm(nombre){
 			validNavigation = true;
 			document.getElementById('obra').value = nombre;
