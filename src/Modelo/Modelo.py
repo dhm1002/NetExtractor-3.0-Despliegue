@@ -31,9 +31,11 @@ from operator import itemgetter
 import dynetx as dn
 import networkx as nx
 import matplotlib.pyplot as plt
+
+s = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..\..', 'ffmpeg.exe'))
+plt.rcParams['animation.ffmpeg_path'] = s
 import time
 import requests
-
 
 
 import itertools
@@ -48,7 +50,6 @@ class Modelo:
     Args:
         
     """ 
-
     def __init__(self):
         """
         Clase que contiene la lógica de la aplicación
