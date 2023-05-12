@@ -858,25 +858,40 @@ class Modelo:
         for i in range(len(listaOrdenada)):
             lista.append([listaOrdenada[i][1],listaOrdenada[i][2]])
             tiempoMasAlto=listaOrdenada[i][4]
-        listaFiNal=list()
-        listasEnlPers=list()
-        listaEnlPers=dict()
+        ## Lista que vamos a devolver con los enlaces y su respectivo peso, para cada instante 
+        listaFinal=list()
+        ## Lista para controlar que enlaces añadimos en cada escena y no repetir
+        listaCheck=list()
+        ## Diccionario en el que vamos almacenando el último peso registrado para los enlaces añadidos
+        dictEnlPers=dict()
         for i in range(tiempoMasAlto):
             for j in range(len(listaNueva)):
                 if listaNueva[j][0]==i+1:
-                    if str([listaNueva[j][1],listaNueva[j][2]]) in listaEnlPers:
-                        valorAntiguo=listaEnlPers.get(str([listaNueva[j][1],listaNueva[j][2]]))
-                        listaEnlPers[str([listaNueva[j][1],listaNueva[j][2]])]=valorAntiguo+1
-                        objNueva=[listaNueva[j][0],listaNueva[j][1],listaNueva[j][2],listaEnlPers.get(str([listaNueva[j][1],listaNueva[j][2]]))]
-                        listaFiNal.append(objNueva)
-                    else:  
-                        if [listaNueva[j][2], listaNueva[j][1]] not in listasEnlPers:
+                    ## Solo evaluamos en caso de que para la escena de ese enlace, no hayamos añadido el enlace contrario
+                    ## (Ej. PersonajeA,PersonajeB su enlace contrario sería PersonajeB,PersonajeA)
+                    if [listaNueva[j][0],listaNueva[j][2],listaNueva[j][1]] not in listaCheck:
+                        ## Si existe en el diccionario aumentamos en uno el peso y añadimos el enlace con el peso actualizado a la lista final
+                        if str([listaNueva[j][1],listaNueva[j][2]]) in dictEnlPers:
+                            valorAntiguo=dictEnlPers.get(str([listaNueva[j][1],listaNueva[j][2]]))
+                            dictEnlPers[str([listaNueva[j][1],listaNueva[j][2]])]=valorAntiguo+1
+                            objNueva=[listaNueva[j][0],listaNueva[j][1],listaNueva[j][2],dictEnlPers.get(str([listaNueva[j][1],listaNueva[j][2]]))]
+                            listaFinal.append(objNueva)
+                            listaCheck.append([listaNueva[j][0],listaNueva[j][1],listaNueva[j][2]])
+                        ## Si no existe en el diccionario, pero existe el contrario hacemos lo mismo con el contrario
+                        elif str([listaNueva[j][2],listaNueva[j][1]]) in dictEnlPers:
+                            valorAntiguo=dictEnlPers.get(str([listaNueva[j][2],listaNueva[j][1]]))
+                            dictEnlPers[str([listaNueva[j][2],listaNueva[j][1]])]=valorAntiguo+1
+                            objNueva=[listaNueva[j][0],listaNueva[j][2],listaNueva[j][1],dictEnlPers.get(str([listaNueva[j][2],listaNueva[j][1]]))]
+                            listaFinal.append(objNueva)
+                            listaCheck.append([listaNueva[j][0],listaNueva[j][1],listaNueva[j][2]])
+                        ## Si no existe ninguno de los 2, lo añadimos con peso 1
+                        else:
                             #print(listaNueva[j][2], listaNueva[j][1])
                             objNueva=[listaNueva[j][0],listaNueva[j][1],listaNueva[j][2],1]
-                            listaFiNal.append(objNueva)
-                            listaEnlPers[str([listaOrdenada[j][1],listaOrdenada[j][2]])]=1
-                            listasEnlPers.append([listaOrdenada[j][1],listaOrdenada[j][2]])
-        return g, listaFiNal, tiempoMasAlto
+                            listaFinal.append(objNueva)
+                            dictEnlPers[str([listaNueva[j][1],listaNueva[j][2]])]=1
+                            listaCheck.append([listaNueva[j][0],listaNueva[j][1],listaNueva[j][2]])
+        return g, listaFinal, tiempoMasAlto
 
 
 
