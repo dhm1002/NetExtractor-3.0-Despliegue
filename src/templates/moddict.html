@@ -60,15 +60,11 @@
 		<div id="indice">
 			<div id="cbx">
 				<div class="txt1">
-					<input type="checkbox" id="pars-cbx" name="cbx cbx-pars">
-					<label for="pars-cbx">{{ _('Obtener Posiciones') }}</label>
 					{% if cambiarPantalla == 2 %}
-						<input type="checkbox" id="pars-cbx2" name="cbx cbx-pars2">
-						<label for="pars-cbx2">{{ _('Obtener Sexo') }}</label>
-						<input type="checkbox" id="pars-cbx3" name="cbx cbx-pars3">
+						<input type="checkbox" id="pars-cbx" name="cbx cbx-pars">
 						<label for="pars-cbx3">{{ _('Obtener Etnia (Opcional: esta opción puede tomar varios minutos.)') }}</label>
 					{% else %}
-						<input type="checkbox" id="pars-cbx1" name="cbx cbx-pars1">
+						<input type="checkbox" id="pars-cbx" name="cbx cbx-pars">
 						<label for="pars-cbx1">{{ _('Obtener Etnia y Sexo (Opcional: esta opción puede tomar varios minutos.)') }}</label>
 					{%endif%}
 				</div>
@@ -146,158 +142,100 @@
 		}
 		
         function loading(){
-        	var posiciones = document.getElementById("pars-cbx").checked;
 			
-			if(cambiarPantalla==2){
-					sexo = document.getElementById("pars-cbx2").checked;
-					etnia = document.getElementById("pars-cbx3").checked;
-					etniaSexo = false;
-					if (posiciones && etnia && sexo){
-						var todosTeatro = true;
-						posiciones = false;
-						etnia = false;
-						sexo = false;
+        	var divapar = document.getElementsByClassName("NumApar");
+        	var etnia = document.getElementById("pars-cbx").checked;
+			var apariciones = false;
+			for(var i=0; divapar[i]; ++i){
+        		if(divapar[i].getAttribute("parse")=="false"){
+					apariciones = true
+					break;
+        		}
 			}
+			
+			var todos = false
+			if(apariciones && etnia){
+				todos = true
+				apariciones = false
+				etnia = false
 			}
-			else{
-				var etniaSexo = document.getElementById("pars-cbx1").checked;
-				etnia = false;
-				sexo = false;
-				if (posiciones && etniaSexo){
-					var todos = true;
-					posiciones = false;
-					etniaSexo = false;
-				}
-			}
-        	if(todos || posiciones || etniaSexo || etnia || sexo || todosTeatro){
-				if(todos || todosTeatro){
-					alert("{{ _('Primero se van a buscar las posiciones de los personajes así como la etnia y el sexo, esto puede tardar unos minutos.') }}");
+			
+        	if(todos || apariciones || etnia){
+				if(todos){
+					alert("{{ _('Primero se van a buscar las apariciones de los personajes así como la etnia y el sexo, esto puede tardar unos minutos.') }}");
 					$("#loading").show();
 					$("#cargando").show();
 					$("#content").hide();
 					$("#workflow").hide();
 					$("#content2").hide();
 					$(".banderas").hide();
-					if(todos){
 						$.ajax({
-						type: "POST",
-						contentType: "application/json;charset=utf-8",
-						url: "/Modificar-Diccionario/",
-						traditional: "true",
-						data: JSON.stringify('todos'),
-						dataType: "json",
-						success: function(response){
-							validNavigation = true;
-							location.reload();
-							//window.location.href='{{ url_for('params') }}'
-						}
+							type: "POST",
+							contentType: "application/json;charset=utf-8",
+							url: "/Modificar-Diccionario/",
+							traditional: "true",
+							data: JSON.stringify('todos'),
+							dataType: "json",
+							success: function(response){
+								validNavigation = true;
+								location.reload();
+								//window.location.href='{{ url_for('params') }}'
+							}
 						});
-					}
-					if(todosTeatro){
-						$.ajax({
-						type: "POST",
-						contentType: "application/json;charset=utf-8",
-						url: "/Modificar-Diccionario/",
-						traditional: "true",
-						data: JSON.stringify('todosTeatro'),
-						dataType: "json",
-						success: function(response){
-							validNavigation = true;
-							location.reload();
-							//window.location.href='{{ url_for('params') }}'
-						}
-						});
-					}
-				}
-				if(etniaSexo){
-					alert("{{ _('Se va a calcular la etnia y el sexo, esto puede tardar unos minutos.') }}");
-					$("#loading").show();
-					$("#cargando").show();
-					$("#content").hide();
-					$("#workflow").hide();
-					$("#content2").hide();
-					$(".banderas").hide();
-					$.ajax({
-	          		type: "POST",
-	          		contentType: "application/json;charset=utf-8",
-	          		url: "/Modificar-Diccionario/",
-	          		traditional: "true",
-	          		data: JSON.stringify('etniaSexo'),
-	          		dataType: "json",
-	          		success: function(response){
-	          			validNavigation = true;
-	          			location.reload();
-						//window.location.href='{{ url_for('params') }}'
-             		 }
-	        		});
-				}
-				if(posiciones && sexo){
-					alert("{{ _('Primero se van a buscar las posiciones de los personajes así como el sexo, esto puede tardar unos minutos.') }}");
-					$("#loading").show();
-					$("#cargando").show();
-					$("#content").hide();
-					$("#workflow").hide();
-					$("#content2").hide();
-					$(".banderas").hide();
-					$.ajax({
-	          		type: "POST",
-	          		contentType: "application/json;charset=utf-8",
-	          		url: "/Modificar-Diccionario/",
-	          		traditional: "true",
-	          		data: JSON.stringify('posiciones2'),
-	          		dataType: "json",
-	          		success: function(response){
-	          			validNavigation = true;
-	          			location.reload();
-						//window.location.href='{{ url_for('params') }}'
-             		 }
-	        		});
-				}
-				if(posiciones && !sexo){
-					alert("{{ _('Primero se van a buscar las posiciones de los personajes, esto puede tardar unos minutos.') }}");
-					$("#loading").show();
-					$("#cargando").show();
-					$("#content").hide();
-					$("#workflow").hide();
-					$("#content2").hide();
-					$(".banderas").hide();
-					$.ajax({
-	          		type: "POST",
-	          		contentType: "application/json;charset=utf-8",
-	          		url: "/Modificar-Diccionario/",
-	          		traditional: "true",
-	          		data: JSON.stringify('posiciones'),
-	          		dataType: "json",
-	          		success: function(response){
-	          			validNavigation = true;
-	          			location.reload();
-						//window.location.href='{{ url_for('params') }}'
-             		 }
-	        		});
 				}
 				if(etnia){
-					alert("{{ _('Se va a calcular la etnia , esto puede tardar unos minutos.') }}");
-					$("#loading").show();
-					$("#cargando").show();
-					$("#content").hide();
-					$("#workflow").hide();
-					$("#content2").hide();
-					$(".banderas").hide();
-					$.ajax({
-	          		type: "POST",
-	          		contentType: "application/json;charset=utf-8",
-	          		url: "/Modificar-Diccionario/",
-	          		traditional: "true",
-	          		data: JSON.stringify('etnia'),
-	          		dataType: "json",
-	          		success: function(response){
-	          			validNavigation = true;
-	          			location.reload();
-						//window.location.href='{{ url_for('params') }}'
-             		 }
-	        		});
+					if(cambiarPantalla != 2){
+						alert("{{ _('Se va a calcular la etnia y el sexo, esto puede tardar unos minutos.') }}");
+					} else{
+							alert("{{ _('Se va a calcular la etnia , esto puede tardar unos minutos.') }}");
+					}
+						$("#loading").show();
+						$("#cargando").show();
+						$("#content").hide();
+						$("#workflow").hide();
+						$("#content2").hide();
+						$(".banderas").hide();
+						$.ajax({
+							type: "POST",
+							contentType: "application/json;charset=utf-8",
+							url: "/Modificar-Diccionario/",
+							traditional: "true",
+							data: JSON.stringify('etniaSexo'),
+							dataType: "json",
+							success: function(response){
+								validNavigation = true;
+								location.reload();
+								//window.location.href='{{ url_for('params') }}'
+						}
+						});
+					
 				}
-
+				if(apariciones){
+					if(cambiarPantalla == 2){
+						alert("{{ _('Primero se van a buscar las apariciones de los personajes así como el sexo, esto puede tardar unos minutos.') }}");
+					}else{
+						alert("{{ _('Primero se van a buscar las apariciones de los personajes, esto puede tardar unos minutos.') }}");
+					}
+						$("#loading").show();
+						$("#cargando").show();
+						$("#content").hide();
+						$("#workflow").hide();
+						$("#content2").hide();
+						$(".banderas").hide();
+						$.ajax({
+							type: "POST",
+							contentType: "application/json;charset=utf-8",
+							url: "/Modificar-Diccionario/",
+							traditional: "true",
+							data: JSON.stringify('posiciones'),
+							dataType: "json",
+							success: function(response){
+								validNavigation = true;
+								location.reload();
+								//window.location.href='{{ url_for('params') }}'
+							}
+						});
+				}
         	} else {
 				if(cambiarPantalla==1){
 					validNavigation = true;
@@ -307,23 +245,6 @@
 					window.location.href='{{ url_for('paramsPeliculas') }}'
 				}
         	}     
-        }
-
-        window.onload = function lockcbx() {
-        	var divapar = document.getElementsByClassName("NumApar");
-        	for(var i=0; divapar[i]; ++i){
-        		if(divapar[i].getAttribute("parse")=="false" && cambiarPantalla == 2){
-        			document.getElementById("pars-cbx").checked = true;
-        			document.getElementById("pars-cbx").disabled = true;
-        			document.getElementById("pars-cbx2").checked = true;
-        			document.getElementById("pars-cbx2").disabled = true;
-        		}
-				else if(divapar[i].getAttribute("parse")=="false"){
-        			document.getElementById("pars-cbx").checked = true;
-        			document.getElementById("pars-cbx").disabled = true;
-        		}
-				
-        	}
         }
 
         //https://eureka.ykyuen.info/2011/02/22/jquery-javascript-capture-the-browser-or-tab-closed-event/

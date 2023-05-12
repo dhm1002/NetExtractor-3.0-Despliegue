@@ -196,24 +196,14 @@ def moddict():
         if(ajax != None):
             if(ajax == 'todos'):
                 m.prepararRed()
-                m.obtenerEthnea()
+                m.obtenerEthnea(flag = (m.devolverCambio() == 2))
                 return json.dumps("True")
             if(ajax == 'etniaSexo'):
-                m.obtenerEthnea()
+                m.obtenerEthnea(flag = (m.devolverCambio() == 2))
                 return json.dumps("True")
             if(ajax == 'posiciones'):
                 m.prepararRed()
                 return json.dumps("True")
-            if(ajax == 'todosTeatro'):
-                m.prepararRed()
-                m.obtenerEthnea(flag=True)
-                return json.dumps("True")
-            if(ajax == 'posiciones2'):
-                m.prepararRed()
-                return json.dumps("True")
-            if(ajax == 'etnia'):
-                m.obtenerEthnea(flag=True) 
-                return json.dumps("True")  
         if("btn btn-newpers" in request.form):
             return redirect(url_for('newpers'))
         elif("btn btn-delpers" in request.form):
