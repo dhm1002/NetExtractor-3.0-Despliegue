@@ -49,7 +49,9 @@
 				{%endif%}
 				<button type="submit" class="btn btn-secondary" id="nref" name="btn btn-newrefpers">{{ _('Añadir Referencia') }}</button>
 				<button type="submit" class="btn btn-secondary" id="dref" name="btn btn-delrefpers">{{ _('Eliminar Referencia') }}</button>
+				{% if cambiarPantalla != 2 %}
 				<button type="submit" class="btn btn-secondary" id="mid" name="btn btn-modid">{{ _('Modificar Id Personaje') }}</button>
+				{%endif%}
 				<button type="submit" class="btn btn-secondary" id="met" name="btn btn-modet">{{ _('Modificar Etnia Personaje') }}</button>
 				<button type="submit" class="btn btn-secondary" id="mse" name="btn btn-modse">{{ _('Modificar Sexo Personaje') }}</button>
 				<button type="submit" class="btn btn-secondary" id="exp" name="btn btn-expdict">{{ _('Exportar Diccionario') }}</button>
