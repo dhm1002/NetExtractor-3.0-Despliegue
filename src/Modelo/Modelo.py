@@ -228,6 +228,7 @@ class Modelo:
 
     def obtenerPosicionGeneroTeatro(self):
         diccionario = self.diccionarioGeneroApariciones()
+        self.diccionarioApariciones = dict()
         for i in self.personajes.keys():
             self.personajes[i].resNumApariciones(self.personajes[i].getNumApariciones()[0])
             pers = self.personajes[i].getPersonaje()
@@ -236,6 +237,7 @@ class Modelo:
                 self.personajes[i].sumNumApariciones(diccionario[i][0])
                 self.personajes[i].setSexo(diccionario[i][1])
                 self.personajes[i].crearDictSE()
+                self.diccionarioApariciones[i] = diccionario[i][2]
 
     def obtenerEthnea(self,flag):
         """
@@ -687,55 +689,24 @@ class Modelo:
         listaEnlaces = list()
         listaFinalEnlaces=list()
         indice=0
+        persk = list(self.diccionarioApariciones.keys())
+        tam = len(persk)
         #Creamos una lista con los enlaces que hay. En la lista tenemos el nodo de origen y de destino, el peso (1), el tipo de
         #enlace (no dirigido) y en que capitulo se da dicho enlace.
-        for key in self.diccionarioApariciones:
+        for i in range(tam):
+            key = persk[i]
             if(len(self.diccionarioApariciones.get(key))>=self.apar):
-                for key1 in self.diccionarioApariciones:
+                for j in range(i+1,tam):
+                    key1 = persk[j]
                     if(len(self.diccionarioApariciones.get(key1))>=self.apar):
-                        if (not key == key1):
-                            listaEnlaces = list(set(self.diccionarioApariciones.get(key)).intersection(self.diccionarioApariciones.get(key1))) 
-                            if (not len(listaEnlaces) == 0):
-                                for i in range(len(listaEnlaces)):
-                                    r=[indice,key,key1,'Undirected',listaEnlaces[i],'1.0']
-                                    listaFinalEnlaces.append(r)
-                                    indice=indice+1
-        
-        return listaFinalEnlaces
-
-    def listaEnlacesFinalTeatro(self,minapar):
-        """
-        Método para crear una lista que contiene el id del enlace(En principio no será el empleado en la red inicial será un id inventado),
-        los nodos que tienen el enlace, el tipo de enlace, el intervalo de tiempo donde se crea el enlace y el peso del enlace. Está lista será para obras de teatro.
-
-        Args:
-             minapar: numero minimo de apariciones
-
-        """
-        listaEnlaces = list()
-        listaFinalEnlaces=list()
-        indice=0
-        #Creamos una lista con los enlaces que hay. En la lista tenemos el nodo de origen y de destino, el peso (1), el tipo de
-        #enlace (no dirigido) y en que escena se da dicho enlace.
-        metricas = requests.get("https://dracor.org/api/corpora/"+self.corpus+"/play/"+self.obra).json()
-        for escena in metricas["segments"]:
-            if(len(escena["speakers"])!=0):
-                for nodo1 in range(0,len(escena["speakers"])-1):
-                    if(escena["speakers"][nodo1] in self.personajes):
-                        personaje1 = self.personajes[escena["speakers"][nodo1]]
-                        if(personaje1.getNumApariciones()[0]>=minapar):
-
-                            for nodo2 in range(nodo1+1,len(escena["speakers"])):
-                                
-                                if(escena["speakers"][nodo2] in self.personajes):
-                                    personaje2 = self.personajes[escena["speakers"][nodo2]]
-                                    if(personaje2.getNumApariciones()[0]>=minapar):
-                                        nombre1 = list(personaje1.getPersonaje().keys())[0].upper()
-                                        nombre2 = list(personaje2.getPersonaje().keys())[0].upper()
-                                        r=[indice,nombre1,nombre2,'Undirected',escena["number"],'1.0']
-                                        indice = indice + 1
-                                        listaFinalEnlaces.append(r)
-
+                        listaEnlaces = list(set(self.diccionarioApariciones.get(key)).intersection(self.diccionarioApariciones.get(key1))) 
+                        if (not len(listaEnlaces) == 0):
+                            for i in range(len(listaEnlaces)):
+                                personaje1 = list(self.personajes[key].getPersonaje().keys())[0].upper()
+                                personaje2 = list(self.personajes[key1].getPersonaje().keys())[0].upper()
+                                r=[indice,personaje1,personaje2,'Undirected',listaEnlaces[i],'1.0']
+                                listaFinalEnlaces.append(r)
+                                indice=indice+1
         return listaFinalEnlaces
 
     def listaEnlacesFinalNovela(self,rango,minapar,caps):
@@ -830,18 +801,15 @@ class Modelo:
         Args:
             epub: variable para conocer si el diccionario es una pelicula o un guion
         """
-        if(self.cambio == 2):
-            listaOrdenada = Modelo.listaEnlacesFinalTeatro(self,self.apar)
+        if(epub):
+            listaFinalEnlaces=Modelo.listaEnlacesFinalNovela(self,self.rango,self.minapar,self.caps)
         else:
-            if(epub):
-                listaFinalEnlaces=Modelo.listaEnlacesFinalNovela(self,self.rango,self.minapar,self.caps)
-            else:
-                listaFinalEnlaces=Modelo.listaEnlacesFinalPelicula(self)
-            
-            #Interacciones
-            #G puede crecer agregando una interacción a la vez. Cada interacción se define unívocamente por
-            #sus puntos finales, u y v, así como por su marca de tiempo t.
-            listaOrdenada=sorted(listaFinalEnlaces, key=itemgetter(4), reverse=False)
+            listaFinalEnlaces=Modelo.listaEnlacesFinalPelicula(self)
+        
+        #Interacciones
+        #G puede crecer agregando una interacción a la vez. Cada interacción se define unívocamente por
+        #sus puntos finales, u y v, así como por su marca de tiempo t.
+        listaOrdenada=sorted(listaFinalEnlaces, key=itemgetter(4), reverse=False)
 
         g = dn.DynGraph(edge_removal=True)
 
@@ -909,23 +877,24 @@ class Modelo:
         dInamico=nx.Graph()
         persk = list(self.personajes.keys())
         tam = len(persk)
-        while(frames>=frame):
+        while(frames>frame):
             for i in range(len(listaFiNal)):
                 if listaFiNal[i][0] == frame+1:
                     dInamico.add_edge(listaFiNal[i][1],listaFiNal[i][2],weight=int(listaFiNal[i][3]))
             if epub:
                 for j in range(tam):
                     for cap in self.personajes[persk[j]].getPosicionPers().keys():
-                        if frame == cap:
+                        if frame+1 == cap:
                             if(self.personajes[persk[j]].getNumApariciones()[0]>=self.minapar):
-                                if j not in listaFiNal:
+                                if j not in dInamico:
                                     dInamico.add_node(persk[j])
             else:
                 for j in self.diccionarioApariciones.keys():
-                    if frame in self.diccionarioApariciones.get(j):
+                    if frame+1 in self.diccionarioApariciones.get(j):
                         if(len(self.diccionarioApariciones.get(j))>=self.apar):
-                            if j not in listaFiNal:
-                                dInamico.add_node(j)
+                            personaje = list(self.personajes[j].getPersonaje().keys())[0].upper()
+                            if personaje not in dInamico:
+                                dInamico.add_node(personaje)
 
             frame=frame+1
 
@@ -2519,8 +2488,14 @@ class Modelo:
             self.anadirPersonaje(personaje['id'],personaje['name'])
     
     def diccionarioGeneroApariciones(self):
-        metricas = requests.get("https://dracor.org/api/corpora/"+self.corpus+"/play/"+self.obra+"/cast").json()
+        personajes = requests.get("https://dracor.org/api/corpora/"+self.corpus+"/play/"+self.obra+"/cast").json()
         diccionario={}
-        for corpus in metricas:
-            diccionario[corpus['id']] = (int(corpus['numOfScenes']),corpus['gender'])
+        escenas = requests.get("https://dracor.org/api/corpora/"+self.corpus+"/play/"+self.obra).json()
+        for personaje in personajes:
+            apariciones = list()
+            for escena in escenas["segments"]:
+                for nodo in escena["speakers"]:
+                    if(nodo==personaje["id"]):
+                        apariciones.append(escena["number"])
+            diccionario[personaje['id']] = (int(personaje['numOfScenes']),personaje['gender'],apariciones)
         return diccionario
