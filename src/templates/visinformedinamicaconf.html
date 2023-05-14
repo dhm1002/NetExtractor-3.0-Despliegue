@@ -180,9 +180,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% for x in range(intervalos+1) %}
+							{% for x in range(intervalos) %}
 								<tr>
-									<td>{{x}}</td>
+									<td>{{x+1}}</td>
 									{% if "cbx cbx-nnod" in informe.keys() %}
 										<td>{{informe["cbx cbx-nnod"][x][1]}}</td>
 									{% endif %}
@@ -233,11 +233,11 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% for x in range(intervalos+1) %}
+							{% for x in range(intervalos) %}
 									<tr>
-										<td>{{x}}</td>
+										<td>{{x+1}}</td>
 											{% for i in informe["cbx cbx-concomp"] %}
-												{% if x == i[0] %}
+												{% if x+1 == i[0] %}
 													{% for j in i[2] %}
 													<td>{{j}} </td>
 													{% endfor %}

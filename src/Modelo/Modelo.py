@@ -1166,7 +1166,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('numero nodos')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             #guardarInforme[i+1]=nx.number_of_nodes(self.__G)
             guarda=nx.number_of_nodes(self.__G)
@@ -1188,7 +1188,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('numero enlaces')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             guarda=nx.number_of_edges(self.__G)
             todo=[i,guarda]
@@ -1207,7 +1207,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('numero interacciones')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             guarda=self.__G.size(weight='weight')
             todo=[i,guarda]
@@ -1226,7 +1226,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('densidad')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             guarda=nx.density(self.__G)
             todo=[i,guarda]
@@ -1245,7 +1245,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('clustering global')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             guarda=nx.average_clustering(self.__G)
             todo=[i,guarda]
@@ -1264,7 +1264,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('transitividad')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             guarda=nx.transitivity(self.__G)
             todo=[i,guarda]
@@ -1283,7 +1283,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('diametro')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             if(nx.is_connected(self.__G)):
                 guarda=nx.diameter(self.__G)
@@ -1305,7 +1305,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('radio')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             if(nx.is_connected(self.__G)):
                 guarda=nx.radius(self.__G)
@@ -1327,7 +1327,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('distancia media')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             if(nx.is_connected(self.__G)):
                 guarda=nx.average_shortest_path_length(self.__G)
@@ -1349,7 +1349,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('grado sin peso')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             for x in nx.degree(self.__G):
                 todo=[i,x[0],x[1]]
@@ -1368,7 +1368,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('grado con peso')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             for x in nx.degree(self.__G,weight='weight'):
                 todo=[i,x[0],x[1]]
@@ -1387,7 +1387,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('clustering de cada nodo')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             for x in nx.clustering(self.__G):
                 todo=[i,x,nx.clustering(self.__G)[x]]
@@ -1406,7 +1406,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('excentricidad')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             if(nx.is_connected(self.__G)):
                 for x in nx.eccentricity(self.__G):
@@ -1430,7 +1430,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('centralidad de grado')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             for x in nx.degree_centrality(self.__G):
                 todo=[i,x,nx.degree_centrality(self.__G)[x]]
@@ -1449,7 +1449,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('centralidad de cercanía')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             for x in nx.closeness_centrality(self.__G):
                 todo=[i,x,nx.closeness_centrality(self.__G)[x]]
@@ -1468,7 +1468,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('centralidad de intermediación')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             for x in nx.betweenness_centrality(self.__G):
                 todo=[i,x,nx.betweenness_centrality(self.__G)[x]]
@@ -1487,14 +1487,19 @@ class Modelo:
         """
         guardarInforme=list()
         print('random walk')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
-            if(nx.is_connected(self.__G)):
-                for x in nx.current_flow_betweenness_centrality(self.__G):
-                    todo=[i,x,nx.current_flow_betweenness_centrality(self.__G)[x]]
+            if(len(self.__G.edges)>0):
+                if(nx.is_connected(self.__G)):
+                    for x in nx.current_flow_betweenness_centrality(self.__G):
+                        todo=[i,x,nx.current_flow_betweenness_centrality(self.__G)[x]]
+                        guardarInforme.append(todo)
+                else:
+                    j="La red no está conectada"
+                    todo=[i,i,j]
                     guardarInforme.append(todo)
             else:
-                j="La red no está conectada"
+                j="Red sin enlaces"
                 todo=[i,i,j]
                 guardarInforme.append(todo)
         return guardarInforme
@@ -1511,7 +1516,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('Valor propio')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             for x in nx.eigenvector_centrality(self.__G):
                 todo=[i,x,nx.eigenvector_centrality(self.__G)[x]]
@@ -1530,7 +1535,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('PageRank')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             for x in nx.pagerank_numpy(self.__G,alpha=0.85):
                 todo=[i,x,nx.pagerank_numpy(self.__G,alpha=0.85)[x]]
@@ -1549,13 +1554,13 @@ class Modelo:
         """
         guardarInforme=list()
         print('componentes conectados')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
-            tiempo=1
+            componente=1
             for x in nx.connected_components(self.__G):
-                todo=[i,tiempo, [x]]
+                todo=[i,componente, [x]]
                 guardarInforme.append(todo)
-                tiempo=tiempo+1
+                componente=componente+1
         return guardarInforme
 
 
@@ -1571,15 +1576,22 @@ class Modelo:
         """
         guardarInforme=list()
         print('Com louvain')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
-            partition = community_louvain.best_partition(self.__G)
-            particiones = self.ordenarFrozen(partition)
-            tiempo=1
-            for x in particiones:
-                todo=[i,tiempo, [x]]
+            if(len(self.__G.edges)>0):
+                partition = community_louvain.best_partition(self.__G)
+                particiones = self.ordenarFrozen(partition)
+                tiempo=1
+                for x in particiones:
+                    todo=[i,tiempo, [x]]
+                    guardarInforme.append(todo)
+                    tiempo=tiempo+1 
+            elif(len(self.__G.nodes)>0):
+                todo=[i,1, [frozenset([list(self.__G.nodes)[0]])]]
                 guardarInforme.append(todo)
-                tiempo=tiempo+1
+            else:
+                todo=[i,1, ["Red sin nodos"]]
+                guardarInforme.append(todo)
         return guardarInforme
 
 
@@ -1594,14 +1606,22 @@ class Modelo:
             comunidades de Clauset-Newman-Moore dinámicas
         """
         guardarInforme=list()
+        auxiliar = list()
         print('com greedy')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
-            tiempo=1
-            for x in nx.algorithms.community.greedy_modularity_communities(self.__G):
-                todo=[i,tiempo, [x]]
+            if(len(self.__G.edges)>0):
+                tiempo=1
+                for x in nx.algorithms.community.greedy_modularity_communities(self.__G):
+                    todo=[i,tiempo, [x]]
+                    guardarInforme.append(todo)
+                    tiempo=tiempo+1
+            elif(len(self.__G.nodes)>0):
+                todo=[i,1, [frozenset([list(self.__G.nodes)[0]])]]
                 guardarInforme.append(todo)
-                tiempo=tiempo+1
+            else:
+                todo=[i,1, ["Red sin nodos"]]
+                guardarInforme.append(todo)
         return guardarInforme
 
     def kCliPercDinamica(self, k, epub):
@@ -1616,7 +1636,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('com kcliq')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             tiempo=1
             for x in nx.algorithms.community.k_clique_communities(self.__G, int(k)):
@@ -1637,7 +1657,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('com girvan')
-        for i in range(self.frames+1):
+        for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             d = nx.algorithms.community.girvan_newman(self.__G)
             lista = list(tuple(sorted(c) for c in next(d)))
