@@ -1553,6 +1553,7 @@ class Modelo:
             lista de cada componente conectado dinámico
         """
         guardarInforme=list()
+        maximo = 0
         print('componentes conectados')
         for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
@@ -1560,8 +1561,10 @@ class Modelo:
             for x in nx.connected_components(self.__G):
                 todo=[i,componente, [x]]
                 guardarInforme.append(todo)
+                if(componente > maximo):
+                    maximo = componente
                 componente=componente+1
-        return guardarInforme
+        return guardarInforme,maximo
 
 
     def louvainDinamica(self,epub):
@@ -1576,6 +1579,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('Com louvain')
+        maximo = 0
         for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             if(len(self.__G.edges)>0):
@@ -1585,6 +1589,8 @@ class Modelo:
                 for x in particiones:
                     todo=[i,tiempo, [x]]
                     guardarInforme.append(todo)
+                    if(tiempo>maximo):
+                        maximo = tiempo
                     tiempo=tiempo+1 
             elif(len(self.__G.nodes)>0):
                 todo=[i,1, [frozenset([list(self.__G.nodes)[0]])]]
@@ -1592,7 +1598,7 @@ class Modelo:
             else:
                 todo=[i,1, ["Red sin nodos"]]
                 guardarInforme.append(todo)
-        return guardarInforme
+        return guardarInforme,maximo
 
 
     def greedyComunidadDinamica(self,epub):
@@ -1608,6 +1614,7 @@ class Modelo:
         guardarInforme=list()
         auxiliar = list()
         print('com greedy')
+        maximo = 0
         for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             if(len(self.__G.edges)>0):
@@ -1615,6 +1622,8 @@ class Modelo:
                 for x in nx.algorithms.community.greedy_modularity_communities(self.__G):
                     todo=[i,tiempo, [x]]
                     guardarInforme.append(todo)
+                    if(tiempo>maximo):
+                        maximo = tiempo
                     tiempo=tiempo+1
             elif(len(self.__G.nodes)>0):
                 todo=[i,1, [frozenset([list(self.__G.nodes)[0]])]]
@@ -1622,7 +1631,7 @@ class Modelo:
             else:
                 todo=[i,1, ["Red sin nodos"]]
                 guardarInforme.append(todo)
-        return guardarInforme
+        return guardarInforme,maximo
 
     def kCliPercDinamica(self, k, epub):
         """
@@ -1636,14 +1645,17 @@ class Modelo:
         """
         guardarInforme=list()
         print('com kcliq')
+        maximo = 0
         for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             tiempo=1
             for x in nx.algorithms.community.k_clique_communities(self.__G, int(k)):
                 todo=[i,tiempo, [x]]
                 guardarInforme.append(todo)
+                if(tiempo>maximo):
+                    maximo = tiempo
                 tiempo=tiempo+1
-        return guardarInforme
+        return guardarInforme,maximo
         
     def girNewDinamica(self,epub):
         """
@@ -1657,6 +1669,7 @@ class Modelo:
         """
         guardarInforme=list()
         print('com girvan')
+        maximo = 0
         for i in range(1,self.frames+1):
             Modelo.vistaDinamica(self, i, epub)
             d = nx.algorithms.community.girvan_newman(self.__G)
@@ -1665,8 +1678,10 @@ class Modelo:
             for x in lista:
                 todo=[i,tiempo, [x]]
                 guardarInforme.append(todo)
+                if(tiempo>maximo):
+                    maximo = tiempo
                 tiempo=tiempo+1
-        return guardarInforme
+        return guardarInforme,maximo
 
 
     def nNodos(self):

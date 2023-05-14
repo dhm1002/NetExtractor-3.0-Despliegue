@@ -225,10 +225,8 @@
 						<thead>
 							<tr class="table-primary">
 								<th scope="col">{{_('Intervalo')}}</th>
-								{% for i in informe["cbx cbx-concomp"] %}
-									{% if intervalos == i[0] %}
-										<th scope="col">{{_('Componente')}}{{i[1]}}</th>
-									{% endif %}
+								{% for i in range(1,informe["cbx cbx-concomp"][1]+1)%}
+										<th scope="col">{{_('Componente ')}}{{i}}</th>
 								{% endfor %}
 							</tr>
 						</thead>
@@ -236,7 +234,7 @@
 							{% for x in range(intervalos) %}
 									<tr>
 										<td>{{x+1}}</td>
-											{% for i in informe["cbx cbx-concomp"] %}
+											{% for i in informe["cbx cbx-concomp"][0] %}
 												{% if x+1 == i[0] %}
 													{% for j in i[2] %}
 													<td>{{j}} </td>
@@ -527,10 +525,8 @@
 					<thead>
 						<tr class="table-primary">
 							<th scope="col">{{_('Intervalo')}}</th>
-							{% for i in informe["cbx cbx-kcliperc"] %}
-								{% if intervalos == i[0] %}
-									<th scope="col">{{_('Comunidad')}}{{i[1]}}</th>
-								{% endif %}
+							{% for i in range(1,informe["cbx cbx-kcliperc"][1]+1) %}
+									<th scope="col">{{_('Comunidad ')}}{{i}}</th>
 							{% endfor %}
 						</tr>
 					</thead>
@@ -539,7 +535,7 @@
 								<tr>
 									<td>{{x}}</td>
 									
-										{% for i in informe["cbx cbx-kcliperc"] %}
+										{% for i in informe["cbx cbx-kcliperc"][0] %}
 											{% if x == i[0] %}
 												{% for j in i[2] %}
 												<td>{{j}} </td>
@@ -560,10 +556,8 @@
 					<thead>
 						<tr class="table-primary">
 							<th scope="col">{{_('Intervalo')}}</th>
-							{% for i in informe["cbx cbx-girnew"] %}
-								{% if intervalos == i[0] %}
-									<th scope="col">{{_('Comunidad')}}{{i[1]}}</th>
-								{% endif %}
+							{% for i in range(1,informe["cbx cbx-girnew"][1]+1) %}
+								<th scope="col">{{_('Comunidad ')}}{{i}}</th>
 							{% endfor %}
 						</tr>
 					</thead>
@@ -572,7 +566,7 @@
 								<tr>
 									<td>{{x}}</td>
 									
-										{% for i in informe["cbx cbx-girnew"] %}
+										{% for i in informe["cbx cbx-girnew"][0] %}
 											{% if x == i[0] %}
 												{% for j in i[2] %}
 												<td>{{j}} </td>
@@ -593,10 +587,8 @@
 					<thead>
 						<tr class="table-primary">
 							<th scope="col">{{_('Intervalo')}}</th>
-							{% for i in informe["cbx cbx-greedy"] %}
-								{% if intervalos == i[0] %}
-									<th scope="col">{{_('Comunidad')}}{{i[1]}}</th>
-								{% endif %}
+							{% for i in range(1,informe["cbx cbx-greedy"][1]+1) %}
+								<th scope="col">{{_('Comunidad ')}}{{i}}</th>
 							{% endfor %}
 						</tr>
 					</thead>
@@ -605,7 +597,7 @@
 								<tr>
 									<td>{{x}}</td>
 									
-										{% for i in informe["cbx cbx-greedy"] %}
+										{% for i in informe["cbx cbx-greedy"][0] %}
 											{% if x == i[0] %}
 												{% for j in i[2] %}
 												<td>{{j}} </td>
@@ -626,10 +618,8 @@
 				<thead>
 					<tr class="table-primary">
 						<th scope="col">{{_('Intervalo')}}</th>
-						{% for i in informe["cbx cbx-louvain"] %}
-							{% if intervalos == i[0] %}
-								<th scope="col">{{_('Comunidad')}}{{i[1]}}</th>
-							{% endif %}
+						{% for i in range(1,informe["cbx cbx-louvain"][1]+1) %}
+							<th scope="col">{{_('Comunidad ')}}{{i}}</th>
 						{% endfor %}
 					</tr>
 				</thead>
@@ -638,7 +628,7 @@
 							<tr>
 								<td>{{x}}</td>
 								
-									{% for i in informe["cbx cbx-louvain"] %}
+									{% for i in informe["cbx cbx-louvain"][0] %}
 										{% if x == i[0] %}
 											{% for j in i[2] %}
 											<td>{{j}} </td>
