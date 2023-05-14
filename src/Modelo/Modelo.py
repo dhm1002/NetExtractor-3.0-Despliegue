@@ -959,9 +959,9 @@ class Modelo:
                     if (listaFiNal[i][1],listaFiNal[i][2]) in T.edges():
                         widths[listaFiNal[i][1],listaFiNal[i][2]]=listaFiNal[i][3]    
             d = dict(T.degree())
-            nx.draw_networkx_nodes(T,pos,ax=ax,node_size=[v * 500 for v in d.values()], alpha=0.5,cmap=[v * 100 for v in d.values()])
+            nx.draw_networkx_nodes(T,pos,ax=ax,node_size=[v * 1000 for v in d.values()], alpha=0.5,cmap=[v * 100 for v in d.values()])
             nx.draw_networkx_edges(T,pos,ax=ax, edgelist = widths.keys(), width=list(widths.values()))
-            nx.draw_networkx_labels(T,pos,font_size=11,ax=ax)
+            nx.draw_networkx_labels(T,pos,font_size=35,ax=ax)
 
 
         T=nx.Graph()
@@ -973,8 +973,10 @@ class Modelo:
         nx.set_edge_attributes(T,0,"weight")
 
         ani = animation.FuncAnimation(fig, func=update, frames=frames, interval=10000)
-
-        writer = animation.FFMpegWriter(fps=10, bitrate=3500)
+        fps = 1
+        if(frames>100):
+            fps = 2
+        writer = animation.FFMpegWriter(fps, bitrate=100)
         return ani.save(filename, writer = writer)
 
 
