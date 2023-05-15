@@ -75,6 +75,8 @@ class Modelo:
         self.minapar=0
         self.caps=False
         self.frames=0
+        ## Variable para controlar la reproducción automática de la gráfica dinámica
+        self.auto=0
      
         
     def cambiarPantallas(self, cambiopantalla):

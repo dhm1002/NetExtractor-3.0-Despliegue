@@ -419,38 +419,71 @@ def redDinamica():
     tiempoMasAlto = m.ordenarRedDinamica(epub)
     slider = tiempoMasAlto[2]
     if request.method == "POST":
+        # REPRODUCCIÓN AUTOMÁTICA
+        ajax = request.get_json(silent=True)
+        if(ajax != None):
+            if(ajax == 'detener'):
+                m.auto = 0
+                return json.dumps("True")
+            if(ajax == 'empezar'):
+                if(frames+1 > slider):
+                    m.auto = 0
+                else:
+                    frames = frames + 1
+                if(frames == slider):
+                    m.auto = 0
+                else:
+                    m.auto = 1
+                return json.dumps("True")
+            if(ajax == 'continuar'):
+                if(frames+1 > slider):
+                    m.auto = 0
+                else:
+                    frames = frames + 1
+                if(frames == slider):
+                    m.auto = 0
+                return json.dumps("True")
         if("btn btn-expgml" in request.form):
+            ## Desactivamos el modo automático para el resto de acciones
+            m.auto = 0
             filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".gml")
             m.exportGML(filename)
             return send_file(filename, mimetype='text/gml', download_name=session['fichero'] + ".gml", as_attachment=True)
         elif("btn btn-expgexf" in request.form):
+            m.auto = 0
             filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".gexf")
             m.exportGEXFdinamica(filename,frames,epub)
             return send_file(filename, mimetype='text/gexf', download_name=session['fichero'] + ".gexf", as_attachment=True)
         elif("btn btn-expnet" in request.form):
+            m.auto = 0
             filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".net")
             m.exportPajek(filename)
             return send_file(filename, mimetype='text/net', download_name=session['fichero'] + ".net", as_attachment=True)
         elif("btn btn-des" in request.form):
+            m.auto = 0
             filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".mp4")
             m.descargarRed(tiempoMasAlto[2],filename,epub)
             return send_file(filename, mimetype='text/mp4', download_name=session['fichero'] + ".mp4", as_attachment=True)
         elif("btn btn-desact" in request.form):
+            m.auto = 0
             filename = os.path.join(app.config['UPLOAD_FOLDER'], str(session['usuario']), session['fichero'] + ".mp4")
             m.descargarRed(frames,filename,epub)
             return send_file(filename, mimetype='text/mp4', download_name=session['fichero'] + ".mp4", as_attachment=True)
         elif("btn btn-anterior" in request.form):
+            m.auto = 0
             frames = frames-1
             jsonred = m.vistaDinamica(int(frames),epub)
-            return render_template('redDinamica.html', jsonred = jsonred, config = session['configVis'], cambiarPantalla = m.devolverCambio(),value=frames, slider=slider )
+            return render_template('redDinamica.html', jsonred = jsonred, config = session['configVis'], cambiarPantalla = m.devolverCambio(),value=frames, slider=slider , auto=m.auto)
         elif("btn btn-siguiente" in request.form):
+            m.auto = 0
             frames = frames+1
             jsonred = m.vistaDinamica(int(frames),epub)
-            return render_template('redDinamica.html', jsonred = jsonred, config = session['configVis'], cambiarPantalla = m.devolverCambio(), value=frames, slider=slider )
+            return render_template('redDinamica.html', jsonred = jsonred, config = session['configVis'], cambiarPantalla = m.devolverCambio(), value=frames, slider=slider, auto=m.auto )
         elif("btn btn-buscar" in request.form):
+            m.auto = 0
             frames=int(request.form['txt txt-inter'])
             jsonred = m.vistaDinamica(int(frames),epub)
-            return render_template('redDinamica.html', jsonred = jsonred, config = session['configVis'], cambiarPantalla = m.devolverCambio(), value=frames, slider=slider )   
+            return render_template('redDinamica.html', jsonred = jsonred, config = session['configVis'], cambiarPantalla = m.devolverCambio(), value=frames, slider=slider, auto=m.auto )   
     elif sesion == 0:
         tiempoMasAlto = m.ordenarRedDinamica(epub)
         frames = tiempoMasAlto[2]
@@ -459,7 +492,7 @@ def redDinamica():
     else:
         jsonred = m.vistaDinamica(int(frames),epub) 
 
-    return render_template('redDinamica.html', jsonred = jsonred, config = session['configVis'], cambiarPantalla = m.devolverCambio(), value=frames, slider=slider )
+    return render_template('redDinamica.html', jsonred = jsonred, config = session['configVis'], cambiarPantalla = m.devolverCambio(), value=frames, slider=slider, auto=m.auto )
 
 
 @app.route('/Informe/', methods=["GET", "POST"])
