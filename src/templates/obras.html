@@ -70,8 +70,8 @@
 
 	<div class="fixed-bottom" style="background-color:white">
 		<div id="indice">
-			<button type="button" class="btn btn-primary float-left btn-lg p-3 px-5" name="btn btn-volver" onclick="atras()">{{ _('Volver') }}</button>
-			<button type="button" class="btn btn-primary float-right btn-lg p-3 px-5" name="btn btn-ayuda" onclick="ayuda()">{{ _('Ayuda') }}</button>
+			<button type="button" class="btn btn-primary float-left btn-lg p-2 px-5" name="btn btn-volver" onclick="atras()">{{ _('Volver') }}</button>
+			<button type="button" class="btn btn-primary float-right btn-lg p-2 px-5" name="btn btn-ayuda" onclick="ayuda()">{{ _('Ayuda') }}</button>
 		</div>
 	</div>
 	<footer></footer>
@@ -89,9 +89,11 @@
 			$('#example').DataTable({
 				scrollY: '260px',
         		scrollCollapse: true,
-				paging: false
+				paging: false,
+				dom: '<"toolbar">frtip'
 			});
-		} );
+			$('div.toolbar').html('<b>Haz click en el botón \'Ver Personajes\' para seleccionar una obra.</b>');
+		});
 
 		var validNavigation = false; 
 		function atras() {
