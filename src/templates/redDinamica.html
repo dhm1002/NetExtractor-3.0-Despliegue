@@ -52,7 +52,7 @@
 					<h3>{{ _('Intervalo de tiempo actual:') }} {{ value }}</h3>
 				</div>
 				<div>
-						<h5>{{ _('Haz click para comenzar o detener la visualización automática a partir del instante actual.') }}</h5>
+						<h5>{{ _('Haz click en el siguiente botón para \'empezar\' o \'detener\' la visualización automática de la red a partir del instante actual.') }}</h5>
 						{% if auto==0%}
 						<div class="btn-group btn-block" role="group" aria-label="Basic example">
 							<button type="submit" class="btn btn-secondary" name="btn btn-start" onclick="start()">{{ _('EMPEZAR') }}</button>
@@ -63,15 +63,16 @@
 						</div>
 						{%endif%}
 				</div>
+				<br>
 				<form action="" id="form-menu1" method="post">
 					<!--<div class="btn-group btn-block" role="group" aria-label="Basic example">-->
-						<h5>{{ _('Introduzca el intervalo de tiempo concreto que quiera observar.') }}</h5>
-						<div class="slidecontainer">
+						<h5>{{ _('Ajusta en el deslizable el intervalo de tiempo concreto que quieras observar y haz click en \'buscar\' para visualizarlo.') }}</h5>
+						<div class="btn-group btn-block" role="group" aria-label="Basic example">
 							<input type="range" min="1" max="{{ slider }}" value="{{ value }}" class="slider" id="inter" name="txt txt-inter" > 
 							<!--input type="text" id="inter" name="txt txt-inter" size="17" placeholder="{{ _('Intervalo de tiempo') }}"-->
 							<button type="submit" class="btn btn-secondary" name="btn btn-buscar" onclick="sendForm()">{{ _('Buscar') }}</button>
-							<div id="demo"></div>
 						</div>
+							<div id="demo"></div>
 					<!--</div>-->
 				</form>
 				<form action="" id="form-menu" method="post">
@@ -80,17 +81,21 @@
 						<button type="submit" class="btn btn-secondary" id="siguiente" name="btn btn-siguiente">{{ _('Siguiente') }}</button>
 					</div>
 				</form>
+				<br>
 				<form action="" id="form-menu" method="post">
+					<h5>{{ _('Puedes descargar un vídeo con la evolución de la red, desde el inicio, hasta el instante actual o final.') }}</h5>
 					<div class="btn-group btn-block" role="group" aria-label="Basic example">
-						<button type="submit" class="btn btn-secondary" name="btn btn-desact">{{ _('Descargar animación actual') }}</button>
-						<button type="submit" class="btn btn-secondary" name="btn btn-des">{{ _('Descargar animación') }}</button>
+						<button type="submit" class="btn btn-secondary" name="btn btn-desact">{{ _('Descargar evolución hasta instante actual') }}</button>
+						<button type="submit" class="btn btn-secondary" name="btn btn-des">{{ _('Descargar evolución completa') }}</button>
 					</div>
 				</form>
+				<br>
 				<form action="" id="form-menu" method="post">
 					<div class="btn-group btn-block" role="group" aria-label="Basic example">
 						<button type="submit" class="btn btn-secondary" name="btn btn-expgexf">{{ _('Exportar GEXF') }}</button>
 					</div>
 				</form>
+				<br>
 				<div class="controls_container">
 				</div>
 				<div class="child_div2_child_mid"></div>

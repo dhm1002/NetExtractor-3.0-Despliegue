@@ -14,7 +14,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
-:root {
+ :root {
     
 	--major-width: 95vw;
 	--major-height: 55.19607845vw;
@@ -2610,7 +2610,6 @@ textarea.form-control.is-valid {
 .form-check-input.is-valid ~ .valid-tooltip {
     display: block
 }
-
 .was-validated .custom-control-input:valid ~ .custom-control-label,
 .custom-control-input.is-valid ~ .custom-control-label {
     color: #13B955
@@ -3613,6 +3612,9 @@ input[type="reset"].btn-block,
 input[type="button"].btn-block {
     width: 100%
 }
+input[type="range"].btn-block {
+    width: 100%
+}
 
 .fade {
     -webkit-transition: opacity 0.15s linear;
@@ -3918,7 +3920,13 @@ input[type="button"].btn-block {
     -ms-flex: 1 1 auto;
     flex: 1 1 auto
 }
-
+.btn-group>.slider {
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    margin-right: 10px;
+}
 .btn-group>.btn:hover,
 .btn-group-vertical>.btn:hover {
     z-index: 1
@@ -3950,7 +3958,7 @@ input[type="button"].btn-block {
 
 .btn-group>.btn:not(:first-child),
 .btn-group>.btn-group:not(:first-child) {
-    margin-left: -1px
+    margin-left: auto;
 }
 
 .dropdown-toggle-split {
@@ -10979,29 +10987,29 @@ a.text-dark:focus {
 .parent_div {
 	width: var(--major-width);
 	height: var(--major-height);
-	max-width: 138.428571415vh;
+	max-width: 200vh;
 	max-height: 95vh;
 	position: absolute;
 	margin: auto;
 	top: 0;
-	right: 0;
+	right: 20vh;
 	bottom: 0;
-	left: 0;
+	left: 20vh;
 }
 
 .child_div1 {
 	width: var(--major-height);
 	height: var(--major-height));
-	max-width: 95vh;
-	max-height: 95vh;
+	max-width: 1200vh;
+	max-height: 120vh;
 	float: left;
 }
 
 .canvas_container {
 	width: var(--canvas-dim);
 	height: var(--canvas-dim);
-	max-width: 94.321428542vh;
-	max-height: 94.321428542vh;
+	max-width: 120vh;
+	max-height: 120vh;
 	border-style: solid;
 	border-color: #cacaca;
 	border-width: 2px;
@@ -11010,27 +11018,27 @@ a.text-dark:focus {
 .child_div2 {
 	width: var(--sidebar-width);
 	height: var(--major-height);
-	max-width: 40.714285702vh;
-	max-height: 95vh;
-	float: right;
+	max-width: 80vh;
+	max-height: 120vh;
+	float: left;
 	overflow-y: scroll;
 }
 
 .controls_container {
 	width: var(--sidebar-width);
-	max-width: 40.714285702vh;
+	max-width: 55vh;
 	position: relative;
 }
 
 .child_div2_child_mid {
 	width: var(--sidebar-width);
-	max-width: 40.714285702vh;
+	max-width: 80vh;
 	height: 30px;
 }
 
 .infotext_container {
 	width: var(--sidebar-width);
-	max-width: 40.714285702vh;
+	max-width: 55vh;
 }
 
 p.sidebar-text {
