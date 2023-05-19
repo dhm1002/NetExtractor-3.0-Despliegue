@@ -11000,16 +11000,17 @@ a.text-dark:focus {
 .child_div1 {
 	width: var(--major-height);
 	height: var(--major-height));
-	max-width: 1200vh;
-	max-height: 120vh;
+	max-width: 120vh;
+	max-height: 100vh;
 	float: left;
+    margin-right: 20px;
 }
 
 .canvas_container {
 	width: var(--canvas-dim);
 	height: var(--canvas-dim);
 	max-width: 120vh;
-	max-height: 120vh;
+	max-height: 100vh;
 	border-style: solid;
 	border-color: #cacaca;
 	border-width: 2px;
