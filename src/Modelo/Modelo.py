@@ -1591,13 +1591,13 @@ class Modelo:
                 particiones = self.ordenarFrozen(partition)
                 tiempo=1
                 for x in particiones:
-                    todo=[i,tiempo, [x]]
+                    todo=[i,tiempo, list(x)]
                     guardarInforme.append(todo)
                     if(tiempo>maximo):
                         maximo = tiempo
                     tiempo=tiempo+1 
             elif(len(self.__G.nodes)>0):
-                todo=[i,1, [frozenset([list(self.__G.nodes)[0]])]]
+                todo=[i,1, list(self.__G.nodes)[0]]
                 guardarInforme.append(todo)
             else:
                 todo=[i,1, ["Red sin nodos"]]
@@ -1624,13 +1624,13 @@ class Modelo:
             if(len(self.__G.edges)>0):
                 tiempo=1
                 for x in nx.algorithms.community.greedy_modularity_communities(self.__G):
-                    todo=[i,tiempo, [x]]
+                    todo=[i,tiempo, list(x)]
                     guardarInforme.append(todo)
                     if(tiempo>maximo):
                         maximo = tiempo
                     tiempo=tiempo+1
             elif(len(self.__G.nodes)>0):
-                todo=[i,1, [frozenset([list(self.__G.nodes)[0]])]]
+                todo=[i,1, list(self.__G.nodes)[0]]
                 guardarInforme.append(todo)
             else:
                 todo=[i,1, ["Red sin nodos"]]
@@ -1654,7 +1654,7 @@ class Modelo:
             Modelo.vistaDinamica(self, i, epub)
             tiempo=1
             for x in nx.algorithms.community.k_clique_communities(self.__G, int(k)):
-                todo=[i,tiempo, [x]]
+                todo=[i,tiempo, list(x)]
                 guardarInforme.append(todo)
                 if(tiempo>maximo):
                     maximo = tiempo
@@ -1680,7 +1680,7 @@ class Modelo:
             lista = list(tuple(sorted(c) for c in next(d)))
             tiempo=1
             for x in lista:
-                todo=[i,tiempo, [x]]
+                todo=[i,tiempo, x]
                 guardarInforme.append(todo)
                 if(tiempo>maximo):
                     maximo = tiempo

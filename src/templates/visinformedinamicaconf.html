@@ -149,7 +149,7 @@
 					<table id="tablaRedes" class="table table-hover">
 						<thead>
 							<tr class="table-primary">
-							<th scope="col">{{_('Intervalo')}}</th>
+							<th scope="col">{{_('Instante')}}</th>
 							{% if "cbx cbx-nnod" in informe.keys() %}
 								<a name="numnodos"><th scope="col">{{_('Número Nodos')}}</th></a>
 							{% endif %}
@@ -224,7 +224,7 @@
 					<table id="cbx cbx-concomp" class="table table-hover">
 						<thead>
 							<tr class="table-primary">
-								<th scope="col">{{_('Intervalo')}}</th>
+								<th scope="col">{{_('Instante')}}</th>
 								{% for i in range(1,informe["cbx cbx-concomp"][1]+1)%}
 										<th scope="col">{{_('Componente ')}}{{i}}</th>
 								{% endfor %}
@@ -253,18 +253,18 @@
 						<table id="cbx cbx-gradosin" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">{{_('Intervalo')}}</th>
+								<th scope="col">{{_('Instante')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
 								</tr>
 							</thead>
 							<tbody>
-							{% for x in range(intervalos+1) %}
+							{% for x in range(intervalos) %}
 									<tr>
-										<td>{{x}}</td>
+										<td>{{x+1}}</td>
 										{% for i in informe["cbx cbx-gradosin"] %}
-											{% if x == i[0] %}
+											{% if x+1 == i[0] %}
 												<td>{{i[2]}}</td>
 											{% endif %}
 										{% endfor %}
@@ -280,18 +280,18 @@
 						<table id="cbx cbx-gradocon" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">{{_('Intervalo')}}</th>
+								<th scope="col">{{_('Instante')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
 								</tr>
 							</thead>
 							<tbody>
-							{% for x in range(intervalos+1) %}
+							{% for x in range(intervalos) %}
 									<tr>
-										<td>{{x}}</td>
+										<td>{{x+1}}</td>
 										{% for i in informe["cbx cbx-gradocon"] %}
-											{% if x == i[0] %}
+											{% if x+1 == i[0] %}
 												<td>{{i[2]}}</td>
 											{% endif %}
 										{% endfor %}
@@ -307,18 +307,18 @@
 						<table id="cbx cbx-locclust" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">{{_('Intervalo')}}</th>
+								<th scope="col">{{_('Instante')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
 								</tr>
 							</thead>
 							<tbody>
-							{% for x in range(intervalos+1) %}
+							{% for x in range(intervalos) %}
 									<tr>
-										<td>{{x}}</td>
+										<td>{{x+1}}</td>
 										{% for i in informe["cbx cbx-locclust"] %}
-											{% if x == i[0] %}
+											{% if x+1 == i[0] %}
 												<td>{{i[2]}}</td>
 											{% endif %}
 										{% endfor %}
@@ -334,18 +334,18 @@
 						<table id="cbx cbx-exc" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">{{_('Intervalo')}}</th>
+								<th scope="col">{{_('Instante')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
 								</tr>
 							</thead>
 							<tbody>
-							{% for x in range(intervalos+1) %}
+							{% for x in range(intervalos) %}
 									<tr>
-										<td>{{x}}</td>
+										<td>{{x+1}}</td>
 										{% for i in informe["cbx cbx-exc"] %}
-											{% if x == i[0] %}
+											{% if x+1 == i[0] %}
 												<td>{{i[2]}}</td>
 											{% endif %}
 										{% endfor %}
@@ -361,18 +361,18 @@
 						<table id="cbx cbx-centg" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">{{_('Intervalo')}}</th>
+								<th scope="col">{{_('Instante')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
 								</tr>
 							</thead>
 							<tbody>
-							{% for x in range(intervalos+1) %}
+							{% for x in range(intervalos) %}
 									<tr>
-										<td>{{x}}</td>
+										<td>{{x+1}}</td>
 										{% for i in informe["cbx cbx-centg"] %}
-											{% if x == i[0] %}
+											{% if x+1 == i[0] %}
 												<td>{{i[2]}}</td>
 											{% endif %}
 										{% endfor %}
@@ -388,18 +388,18 @@
 						<table id="cbx cbx-centc" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">{{_('Intervalo')}}</th>
+								<th scope="col">{{_('Instante')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
 								</tr>
 							</thead>
 							<tbody>
-							{% for x in range(intervalos+1) %}
+							{% for x in range(intervalos) %}
 									<tr>
-										<td>{{x}}</td>
+										<td>{{x+1}}</td>
 										{% for i in informe["cbx cbx-centc"] %}
-											{% if x == i[0] %}
+											{% if x+1 == i[0] %}
 												<td>{{i[2]}}</td>
 											{% endif %}
 										{% endfor %}
@@ -415,18 +415,18 @@
 						<table id="cbx cbx-centi" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">{{_('Intervalo')}}</th>
+								<th scope="col">{{_('Instante')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
 								</tr>
 							</thead>
 							<tbody>
-							{% for x in range(intervalos+1) %}
+							{% for x in range(intervalos) %}
 									<tr>
-										<td>{{x}}</td>
+										<td>{{x+1}}</td>
 										{% for i in informe["cbx cbx-centi"] %}
-											{% if x == i[0] %}
+											{% if x+1 == i[0] %}
 												<td>{{i[2]}}</td>
 											{% endif %}
 										{% endfor %}
@@ -442,18 +442,18 @@
 						<table id="cbx cbx-ranwal" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">{{_('Intervalo')}}</th>
+								<th scope="col">{{_('Instante')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
 								</tr>
 							</thead>
 							<tbody>
-							{% for x in range(intervalos+1) %}
+							{% for x in range(intervalos) %}
 									<tr>
-										<td>{{x}}</td>
+										<td>{{x+1}}</td>
 										{% for i in informe["cbx cbx-ranwal"] %}
-											{% if x == i[0] %}
+											{% if x+1 == i[0] %}
 												<td>{{i[2]}}</td>
 											{% endif %}
 										{% endfor %}
@@ -469,18 +469,18 @@
 						<table id="cbx cbx-centv" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">{{_('Intervalo')}}</th>
+								<th scope="col">{{_('Instante')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
 								</tr>
 							</thead>
 							<tbody>
-							{% for x in range(intervalos+1) %}
+							{% for x in range(intervalos) %}
 									<tr>
-										<td>{{x}}</td>
+										<td>{{x+1}}</td>
 										{% for i in informe["cbx cbx-centv"] %}
-											{% if x == i[0] %}
+											{% if x+1 == i[0] %}
 												<td>{{i[2]}}</td>
 											{% endif %}
 										{% endfor %}
@@ -496,18 +496,18 @@
 						<table id="cbx cbx-para" class="table table-hover">
 							<thead>
 								<tr class="table-primary">
-								<th scope="col">{{_('Intervalo')}}</th>
+								<th scope="col">{{_('Instante')}}</th>
 								{% for x in personajes %}
 									<th scope="col">{{x}}</th>
 								{% endfor %}
 								</tr>
 							</thead>
 							<tbody>
-							{% for x in range(intervalos+1) %}
+							{% for x in range(intervalos) %}
 									<tr>
-										<td>{{x}}</td>
+										<td>{{x+1}}</td>
 										{% for i in informe["cbx cbx-para"] %}
-											{% if x == i[0] %}
+											{% if x+1 == i[0] %}
 												<td>{{i[2]}}</td>
 											{% endif %}
 										{% endfor %}
@@ -524,22 +524,20 @@
 				<table id="cbx cbx-kcliperc" class="table table-hover">
 					<thead>
 						<tr class="table-primary">
-							<th scope="col">{{_('Intervalo')}}</th>
+							<th scope="col">{{_('Instante')}}</th>
 							{% for i in range(1,informe["cbx cbx-kcliperc"][1]+1) %}
 									<th scope="col">{{_('Comunidad ')}}{{i}}</th>
 							{% endfor %}
 						</tr>
 					</thead>
 					<tbody>
-						{% for x in range(intervalos+1) %}
+						{% for x in range(intervalos) %}
 								<tr>
-									<td>{{x}}</td>
+									<td>{{x+1}}</td>
 									
 										{% for i in informe["cbx cbx-kcliperc"][0] %}
-											{% if x == i[0] %}
-												{% for j in i[2] %}
-												<td>{{j}} </td>
-												{% endfor %}
+											{% if x+1 == i[0] %}
+												<td>{{i[2]}} </td>
 											{% endif %}
 										{% endfor %}
 									
@@ -555,22 +553,20 @@
 				<table id="cbx cbx-girnew" class="table table-hover">
 					<thead>
 						<tr class="table-primary">
-							<th scope="col">{{_('Intervalo')}}</th>
+							<th scope="col">{{_('Instante')}}</th>
 							{% for i in range(1,informe["cbx cbx-girnew"][1]+1) %}
 								<th scope="col">{{_('Comunidad ')}}{{i}}</th>
 							{% endfor %}
 						</tr>
 					</thead>
 					<tbody>
-						{% for x in range(intervalos+1) %}
+						{% for x in range(intervalos) %}
 								<tr>
-									<td>{{x}}</td>
+									<td>{{x+1}}</td>
 									
 										{% for i in informe["cbx cbx-girnew"][0] %}
-											{% if x == i[0] %}
-												{% for j in i[2] %}
-												<td>{{j}} </td>
-												{% endfor %}
+											{% if x+1 == i[0] %}
+												<td>{{i[2]}} </td>
 											{% endif %}
 										{% endfor %}
 									
@@ -586,22 +582,20 @@
 				<table id="cbx cbx-greedy" class="table table-hover">
 					<thead>
 						<tr class="table-primary">
-							<th scope="col">{{_('Intervalo')}}</th>
+							<th scope="col">{{_('Instante')}}</th>
 							{% for i in range(1,informe["cbx cbx-greedy"][1]+1) %}
 								<th scope="col">{{_('Comunidad ')}}{{i}}</th>
 							{% endfor %}
 						</tr>
 					</thead>
 					<tbody>
-						{% for x in range(intervalos+1) %}
+						{% for x in range(intervalos) %}
 								<tr>
-									<td>{{x}}</td>
+									<td>{{x+1}}</td>
 									
 										{% for i in informe["cbx cbx-greedy"][0] %}
-											{% if x == i[0] %}
-												{% for j in i[2] %}
-												<td>{{j}} </td>
-												{% endfor %}
+											{% if x+1 == i[0] %}
+												<td>{{i[2]}} </td>
 											{% endif %}
 										{% endfor %}
 									
@@ -617,22 +611,20 @@
 			<table id="cbx cbx-louvain" class="table table-hover">
 				<thead>
 					<tr class="table-primary">
-						<th scope="col">{{_('Intervalo')}}</th>
+						<th scope="col">{{_('Instante')}}</th>
 						{% for i in range(1,informe["cbx cbx-louvain"][1]+1) %}
 							<th scope="col">{{_('Comunidad ')}}{{i}}</th>
 						{% endfor %}
 					</tr>
 				</thead>
 				<tbody>
-					{% for x in range(intervalos+1) %}
+					{% for x in range(intervalos) %}
 							<tr>
-								<td>{{x}}</td>
+								<td>{{x+1}}</td>
 								
 									{% for i in informe["cbx cbx-louvain"][0] %}
-										{% if x == i[0] %}
-											{% for j in i[2] %}
-											<td>{{j}} </td>
-											{% endfor %}
+										{% if x+1 == i[0] %}
+											<td>{{i[2]}} </td>
 										{% endif %}
 									{% endfor %}
 								
