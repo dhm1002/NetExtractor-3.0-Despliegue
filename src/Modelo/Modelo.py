@@ -1094,7 +1094,36 @@ class Modelo:
             solicitud: lista con las metricas
             direc: directorio donde guardar imagenes
         """
-        switch = {'cbx cbx-nnod': self.nNodos, 'cbx cbx-nenl': self.nEnl, 'cbx cbx-nint': self.nInt, 'cbx cbx-gradosin': self.gSin, 'cbx cbx-gradocon': self.gCon, 'cbx cbx-distsin': self.dSin, 'cbx cbx-distcon': self.dCon, 'cbx cbx-dens': self.dens, 'cbx cbx-concomp': self.conComp, 'cbx cbx-exc': self.exc, 'cbx cbx-dia': self.diam, 'cbx cbx-rad': self.rad, 'cbx cbx-longmed': self.longMed, 'cbx cbx-locclust': self.locClust, 'cbx cbx-clust': self.clust, 'cbx cbx-trans': self.trans, 'cbx cbx-centg': self.centG, 'cbx cbx-centc': self.centC, 'cbx cbx-centi': self.centI, 'cbx cbx-ranwal': self.ranWal, 'cbx cbx-centv': self.centV,'cbx cbx-para': self.paRa, 'cbx cbx-kcliperc': self.kCliPerc, 'cbx cbx-girnew': self.girNew, 'cbx cbx-greedy': self.greedyComunidad, 'cbx cbx-louvain': self.louvain, 'cbx cbx-roleskcliq': self.roleskclique, 'cbx cbx-rolesgirvan': self.rolesGirvan, 'cbx cbx-rolesgreedy': self.rolesGreedy, 'cbx cbx-roleslouvain': self.rolesLouvain}
+        switch = {'cbx cbx-nnod': self.nNodos,
+                    'cbx cbx-nenl': self.nEnl,
+                    'cbx cbx-nint': self.nInt,
+                    'cbx cbx-gradosin': self.gSin,
+                    'cbx cbx-gradocon': self.gCon,
+                    'cbx cbx-distsin': self.dSin,
+                    'cbx cbx-distcon': self.dCon,
+                    'cbx cbx-dens': self.dens,
+                    'cbx cbx-concomp': self.conComp,
+                    'cbx cbx-exc': self.exc,
+                    'cbx cbx-dia': self.diam,
+                    'cbx cbx-rad': self.rad,
+                    'cbx cbx-longmed': self.longMed,
+                    'cbx cbx-locclust': self.locClust,
+                    'cbx cbx-clust': self.clust,
+                    'cbx cbx-trans': self.trans,
+                    'cbx cbx-centg': self.centG,
+                    'cbx cbx-centc': self.centC,
+                    'cbx cbx-centi': self.centI,
+                    'cbx cbx-ranwal': self.ranWal,
+                    'cbx cbx-centv': self.centV,
+                    'cbx cbx-para': self.paRa,
+                    'cbx cbx-kcliperc': self.kCliPerc,
+                    'cbx cbx-girnew': self.girNew,
+                    'cbx cbx-greedy': self.greedyComunidad,
+                    'cbx cbx-louvain': self.louvain,
+                    'cbx cbx-roleskcliq': self.roleskclique,
+                    'cbx cbx-rolesgirvan': self.rolesGirvan,
+                    'cbx cbx-rolesgreedy': self.rolesGreedy,
+                    'cbx cbx-roleslouvain': self.rolesLouvain}
         valkcliqper =  solicitud['valkcliqper']
         valkcliqperrol = solicitud['valkcliqperrol']
         del solicitud['valkcliqper']
@@ -1119,21 +1148,47 @@ class Modelo:
             direc: directorio donde guardar imagenes
             epub: variable para conocer si el diccionario es una pelicula o un guion
         """
-        switch = {'cbx cbx-nnod': self.nNodosDinamico(epub), 'cbx cbx-nenl': self.nEnlDinamico(epub), 'cbx cbx-nint': self.nIntDinamico(epub), 'cbx cbx-gradosin': self.gSinDinamica(epub), 'cbx cbx-gradocon': self.gConDinamica(epub), 'cbx cbx-dens': self.densDinamica(epub), 'cbx cbx-concomp': self.conCompDinamica(epub), 'cbx cbx-exc': self.excDinamica(epub), 'cbx cbx-dia': self.diamDinamica(epub), 'cbx cbx-rad': self.radDinamica(epub), 'cbx cbx-longmed': self.longMedDinamica(epub), 'cbx cbx-locclust': self.locClustDinamica(epub), 'cbx cbx-clust': self.clustDinamica(epub), 'cbx cbx-trans': self.transDinamica(epub), 'cbx cbx-centg': self.centGDinamica(epub), 'cbx cbx-centc': self.centCDinamica(epub), 'cbx cbx-centi': self.centIDinamica(epub), 'cbx cbx-ranwal': self.ranWalDinamica(epub), 'cbx cbx-centv': self.centVDinamica(epub),'cbx cbx-para': self.paRaDinamica(epub), 'cbx cbx-kcliperc': self.kCliPercDinamica, 'cbx cbx-girnew': self.girNewDinamica(epub), 'cbx cbx-greedy': self.greedyComunidadDinamica(epub), 'cbx cbx-louvain': self.louvainDinamica(epub), 'cbx cbx-roleskcliq': self.roleskclique, 'cbx cbx-rolesgirvan': self.rolesGirvan, 'cbx cbx-rolesgreedy': self.rolesGreedy, 'cbx cbx-roleslouvain': self.rolesLouvain}
+        switch = {'cbx cbx-nnod': self.nNodosDinamico,
+                    'cbx cbx-nenl': self.nEnlDinamico,
+                    'cbx cbx-nint': self.nIntDinamico,
+                    'cbx cbx-gradosin': self.gSinDinamica,
+                    'cbx cbx-gradocon': self.gConDinamica,
+                    'cbx cbx-dens': self.densDinamica,
+                    'cbx cbx-concomp': self.conCompDinamica,
+                    'cbx cbx-exc': self.excDinamica,
+                    'cbx cbx-dia': self.diamDinamica,
+                    'cbx cbx-rad': self.radDinamica,
+                    'cbx cbx-longmed': self.longMedDinamica,
+                    'cbx cbx-locclust': self.locClustDinamica,
+                    'cbx cbx-clust': self.clustDinamica,
+                    'cbx cbx-trans': self.transDinamica,
+                    'cbx cbx-centg': self.centGDinamica,
+                    'cbx cbx-centc': self.centCDinamica,
+                    'cbx cbx-centi': self.centIDinamica,
+                    'cbx cbx-ranwal': self.ranWalDinamica,
+                    'cbx cbx-centv': self.centVDinamica,
+                    'cbx cbx-para': self.paRaDinamica,
+                    'cbx cbx-kcliperc': self.kCliPercDinamica,
+                    'cbx cbx-girnew': self.girNewDinamica,
+                    'cbx cbx-greedy': self.greedyComunidadDinamica,
+                    'cbx cbx-louvain': self.louvainDinamica,
+                    'cbx cbx-roleskcliq': self.roleskclique,
+                    'cbx cbx-rolesgirvan': self.rolesGirvan,
+                    'cbx cbx-rolesgreedy': self.rolesGreedy, 
+                    'cbx cbx-roleslouvain': self.rolesLouvain}
         valkcliqper =  solicitud['valkcliqper']
-        #valkcliqperrol = solicitud['valkcliqperrol']
         del solicitud['valkcliqper']
-        #del solicitud['valkcliqperrol']
         self.informeDina = dict()
         self.dir = direc 
-        cont = 0
+        ## No le tengo que pasar variable a estas opciones
+        notEpub = ['cbx cbx-roleskcliq','cbx cbx-rolesgirvan','cbx cbx-rolesgreedy','cbx cbx-roleslouvain']
         for s in solicitud.keys():
             if('cbx cbx-kcliperc' == s):
                 self.informeDina[s] = switch[s](valkcliqper,epub)
-            #elif('cbx cbx-roleskcliq' == s):
-            #    self.informe[s] = switch[s](valkcliqperrol,epub)
-            else:
+            elif(s in notEpub):
                 self.informeDina[s] = switch[s]
+            else:
+                self.informeDina[s] = switch[s](epub)
 
     def generarValoresDescargaInforme(self):
         """
