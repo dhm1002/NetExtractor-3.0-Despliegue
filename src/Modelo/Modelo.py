@@ -37,6 +37,10 @@ plt.rcParams['animation.ffmpeg_path'] = s
 import time
 import requests
 
+##Generacion de Gexf dinámica
+
+from gexfpy import stringify
+from gexfpy import Gexf, Graph, Nodes, Edges, Node, Edge, Attribute, Attributes, Attvalue, Attvalues
 
 import itertools
 import time
@@ -907,7 +911,7 @@ class Modelo:
 
     def exportGEXFdinamica(self,filename,frames,epub):
         """
-        Método exportar la red dinámica a formato GEXF
+        Método exportar la red dinámica a formato GEXF con la librería Gexfpy
         
         Args:
             filename: ruta del nuevo fichero
@@ -915,19 +919,57 @@ class Modelo:
             epub: variable para conocer si el diccionario es una pelicula o un guion
         """
         g, listaFiNal, tiempoMasAlto = Modelo.ordenarRedDinamica(self,epub)
-        T=nx.Graph()
+
+        ## Una vez tenemos todos los enlaces, obtenemos los nodos con su instante de aparicion y las variaciones de pesos que va teniendo cada enlace
+
+        nodos = dict()
+        enlaces = dict()
 
         for i in range(len(listaFiNal)):
             if listaFiNal[i][0]<=frames:
-                if listaFiNal[i][1] not in T.nodes():
-                    T.add_node(listaFiNal[i][1], time=float(listaFiNal[i][0]))
-                if listaFiNal[i][2] not in T.nodes():
-                    T.add_node(listaFiNal[i][2], time=float(listaFiNal[i][0]))
-                if (listaFiNal[i][1],listaFiNal[i][2]) not in T.edges():
-                    T.add_edge(listaFiNal[i][1],listaFiNal[i][2],weight=int(listaFiNal[i][3]), time=float(listaFiNal[i][0]))
-                else: 
-                    T.edges[(listaFiNal[i][1],listaFiNal[i][2])]["weight"]=T.edges[(listaFiNal[i][1],listaFiNal[i][2])]["weight"]+1 
-        self.writeFile(filename,nx.generate_gexf(T))
+                ## Añadimos los nodos del enlace que no estén todavía en el diccionario
+                if listaFiNal[i][1] not in nodos.keys():
+                    nodos[listaFiNal[i][1]]=listaFiNal[i][0]
+                if listaFiNal[i][2] not in nodos.keys():
+                    nodos[listaFiNal[i][2]]=listaFiNal[i][0]
+
+                ## Para cada enlace tendremos una lista de tuplas (instante,peso) para cada modificación
+                if (listaFiNal[i][1],listaFiNal[i][2]) not in enlaces.keys():
+                    enlaces[(listaFiNal[i][1],listaFiNal[i][2])] = list()
+                    enlaces.get((listaFiNal[i][1],listaFiNal[i][2])).append((listaFiNal[i][0],listaFiNal[i][3]))
+                else:
+                    enlaces.get((listaFiNal[i][1],listaFiNal[i][2])).append((listaFiNal[i][0],listaFiNal[i][3]))
+
+        ## nodo único
+
+        ## Creamos el fichero Gexf con formato dinámico
+        gexf = Gexf()
+        gexf.graph = Graph(mode = "dynamic",defaultedgetype="undirected")
+        gexf.graph.attributes = Attributes(attribute = Attribute(id="weight", title="Weight", type="int"),class_value= "edge", mode="dynamic")
+
+        ## Añadimos los nodos al gexf con su instante de aparición y final el límite indicado
+        nodosGrafo = list()
+        for i in nodos.keys():
+            nodosGrafo.append(Node(id=i, label=i, start = nodos[i], end = frames))
+
+        gexf.graph.nodes = [Nodes(node = nodosGrafo, count = len(nodosGrafo))]
+
+        ## Para crear los enlaces, deberemos crear primero una lista con los pesos que van obteniendo a lo largo de los instantes. 
+        ## Importante indicar final de un peso el inicio del siguiente para que Gephi no de problemas al exportar
+        enlacesGrafo = list()
+        for i in enlaces.keys():
+            pesoEnlaces = list()
+            pesos = enlaces[i]
+            for a in range(len(pesos)-1):
+                pesoEnlaces.append(Attvalue(for_value="weight",value=pesos[a][1], start=pesos[a][0], end=pesos[a+1][0]))
+            ## El útlimo no tiene peso siguiente y el final será frames
+            pesoEnlaces.append(Attvalue(for_value="weight",value=pesos[len(pesos)-1][1], start=pesos[len(pesos)-1][0], end=frames))
+            enlacesGrafo.append(Edge( source = i[0], target = i[1], label = i[0]+i[1], start = pesos[0][0], end = frames, attvalues = Attvalues(pesoEnlaces)))
+
+        
+        gexf.graph.edges = [Edges(edge=enlacesGrafo, count = len(enlacesGrafo))]
+        s = stringify(gexf)
+        self.writeFile(filename,s)
 
     def elementosRed(self):
         """
