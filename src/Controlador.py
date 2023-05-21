@@ -110,7 +110,6 @@ def selCorpus():
                 os.makedirs(dirName)
         tbd.replaceObject(session['usuario'],m)
         session['corpus'] = request.form['obras']
-        session['fichero'] = request.form['obras']
         m.cambiarPantallas(2)
         return redirect(url_for('obras'))
     return render_template('corpus.html', corpus = m.getCorpus(), contador = 0 )
@@ -130,6 +129,7 @@ def obras():
         m.diccionarioObras(corpus,obra)
         # Debido al formato de los grafos en las obras de teatro, la configuración inicial es un poco diferente
         session['configVis'] = {'Path to file (csv or json)': 'https://gist.githubusercontent.com/ulfaslak/6be66de1ac3288d5c1d9452570cbba5a/raw/0b9595c09b9f70a77ee05ca16d5a8b42a9130c9e/miserables.json', 'Apply heat (wiggle)': False, 'Charge strength': -100, 'Center gravity': 0.1, 'Link distance': 25, 'Link width': 2, 'Link alpha': 0.5, 'Node size': 5, 'Node stroke size': 0.5, 'Node size exponent': 0.5, 'Link width exponent': 0.5, 'Collision': False, 'Node fill': '#16a085', 'Node stroke': '#000000', 'Link stroke': '#7c7c7c', 'Label stroke': '#000000', 'Show labels': True, 'Show singleton nodes': False, 'Node size by strength': True, 'Zoom': 2, 'Min. link weight %': 0, 'Max. link weight %': 100}   
+        session['fichero'] = request.form['obra']
         return redirect(url_for('moddict'))
     return render_template('obras.html', obras = m.getPlays(session['corpus']))
 

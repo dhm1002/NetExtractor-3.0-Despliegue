@@ -817,11 +817,7 @@ class Modelo:
         #sus puntos finales, u y v, así como por su marca de tiempo t.
         listaOrdenada=sorted(listaFinalEnlaces, key=itemgetter(4), reverse=False)
 
-        g = dn.DynGraph(edge_removal=True)
-
-        for i in range(len(listaOrdenada)):
-            g.add_interaction(u=listaOrdenada[i][1], v=listaOrdenada[i][2], t=listaOrdenada[i][4])
-            
+          
         listaNueva=list()
         for i in range(len(listaOrdenada)):
             objetosNueva=[listaOrdenada[i][4],listaOrdenada[i][1],listaOrdenada[i][2]]
@@ -865,6 +861,30 @@ class Modelo:
                             listaFinal.append(objNueva)
                             dictEnlPers[str([listaNueva[j][1],listaNueva[j][2]])]=1
                             listaCheck.append([listaNueva[j][0],listaNueva[j][1],listaNueva[j][2]])
+
+        ## Este grafo se usa para la exportación de la animación, lo generamos con los enlaces comprobamos aquellos nodos que aparecen antes de tener enlaces
+        persk = list(self.personajes.keys())
+        tam = len(persk)
+        g = dn.DynGraph(edge_removal=True)
+        for n in range(1,tiempoMasAlto+1):
+            for i in range(len(listaFinal)):
+                if listaFinal[i][0] == n:
+                    g.add_interaction(u=listaFinal[i][1], v=listaFinal[i][2], t=listaFinal[i][0])
+            if epub:
+                for j in range(tam):
+                    for cap in self.personajes[persk[j]].getPosicionPers().keys():
+                        if n == cap:
+                            if(self.personajes[persk[j]].getNumApariciones()[0]>=self.minapar):
+                                if j not in g:
+                                    g.add_node(persk[j])
+            else:
+                for j in self.diccionarioApariciones.keys():
+                    if n in self.diccionarioApariciones.get(j):
+                        if(len(self.diccionarioApariciones.get(j))>=self.apar):
+                            personaje = list(self.personajes[j].getPersonaje().keys())[0].upper()
+                            if personaje not in g:
+                                g.add_interaction(u=personaje, v=personaje, t=n)
+            
         return g, listaFinal, tiempoMasAlto
 
 
@@ -924,21 +944,41 @@ class Modelo:
 
         nodos = dict()
         enlaces = dict()
+        frame=0
+        persk = list(self.personajes.keys())
+        tam = len(persk)
+        while(frames>frame):
+            for i in range(len(listaFiNal)):
+                if listaFiNal[i][0] == frame+1:
+                        ## Añadimos los nodos del enlace que no estén todavía en el diccionario
+                        if listaFiNal[i][1] not in nodos.keys():
+                            nodos[listaFiNal[i][1]]=listaFiNal[i][0]
+                        if listaFiNal[i][2] not in nodos.keys():
+                            nodos[listaFiNal[i][2]]=listaFiNal[i][0]
 
-        for i in range(len(listaFiNal)):
-            if listaFiNal[i][0]<=frames:
-                ## Añadimos los nodos del enlace que no estén todavía en el diccionario
-                if listaFiNal[i][1] not in nodos.keys():
-                    nodos[listaFiNal[i][1]]=listaFiNal[i][0]
-                if listaFiNal[i][2] not in nodos.keys():
-                    nodos[listaFiNal[i][2]]=listaFiNal[i][0]
+                        ## Para cada enlace tendremos una lista de tuplas (instante,peso) para cada modificación
+                        if (listaFiNal[i][1],listaFiNal[i][2]) not in enlaces.keys():
+                            enlaces[(listaFiNal[i][1],listaFiNal[i][2])] = list()
+                            enlaces.get((listaFiNal[i][1],listaFiNal[i][2])).append((listaFiNal[i][0],listaFiNal[i][3]))
+                        else:
+                            enlaces.get((listaFiNal[i][1],listaFiNal[i][2])).append((listaFiNal[i][0],listaFiNal[i][3]))
+            if epub:
+                for j in range(tam):
+                    for cap in self.personajes[persk[j]].getPosicionPers().keys():
+                        if frame+1 == cap:
+                            if(self.personajes[persk[j]].getNumApariciones()[0]>=self.minapar):
+                                if j not in nodos.keys():
+                                    nodos[persk[j]]=frame
+            else:
+                for j in self.diccionarioApariciones.keys():
+                    if frame+1 in self.diccionarioApariciones.get(j):
+                        if(len(self.diccionarioApariciones.get(j))>=self.apar):
+                            personaje = list(self.personajes[j].getPersonaje().keys())[0].upper()
+                            if personaje not in nodos.keys():
+                                nodos[personaje]=frame
 
-                ## Para cada enlace tendremos una lista de tuplas (instante,peso) para cada modificación
-                if (listaFiNal[i][1],listaFiNal[i][2]) not in enlaces.keys():
-                    enlaces[(listaFiNal[i][1],listaFiNal[i][2])] = list()
-                    enlaces.get((listaFiNal[i][1],listaFiNal[i][2])).append((listaFiNal[i][0],listaFiNal[i][3]))
-                else:
-                    enlaces.get((listaFiNal[i][1],listaFiNal[i][2])).append((listaFiNal[i][0],listaFiNal[i][3]))
+            frame=frame+1
+        
 
         ## nodo único
 
@@ -1002,11 +1042,12 @@ class Modelo:
                 if listaFiNal[i][0] == frames+1:
                     if (listaFiNal[i][1],listaFiNal[i][2]) in T.edges():
                         widths[listaFiNal[i][1],listaFiNal[i][2]]=listaFiNal[i][3]    
+
+            
             d = dict(T.degree())
             nx.draw_networkx_nodes(T,pos,ax=ax,node_size=[v * 1000 for v in d.values()], alpha=0.5,cmap=[v * 100 for v in d.values()])
             nx.draw_networkx_edges(T,pos,ax=ax, edgelist = widths.keys(), width=list(widths.values()))
             nx.draw_networkx_labels(T,pos,font_size=35,ax=ax)
-
 
         T=nx.Graph()
         T=g.time_slice(t_from=1, t_to=tiempoMasAlto)
