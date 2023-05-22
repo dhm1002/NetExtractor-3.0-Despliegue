@@ -1,136 +1,159 @@
 # Translations template for PROJECT.
-# Copyright (C) 2020 ORGANIZATION
+# Copyright (C) 2023 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-02-05 17:27+0100\n"
+"POT-Creation-Date: 2023-05-22 19:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.7.0\n"
+"Generated-By: Babel 2.11.0\n"
 
-#: src/Controlador.py:92
+#: src/Controlador.py:93
 msgid "La ruta indicada no contiene un fichero epub"
 msgstr ""
 
-#: src/Controlador.py:113
+#: src/Controlador.py:153
 msgid "Diccionario creado con éxito"
 msgstr ""
 
-#: src/Modelo/Modelo.py:741
+#: src/Modelo/Modelo.py:1905
 msgid "Histograma de grado"
 msgstr ""
 
-#: src/Modelo/Modelo.py:742 src/Modelo/Modelo.py:767
+#: src/Modelo/Modelo.py:1906 src/Modelo/Modelo.py:1931
 msgid "N nodos"
 msgstr ""
 
-#: src/Modelo/Modelo.py:743 src/templates/visinforme.html:241
-#: src/templates/visinforme.html:264
+#: src/Modelo/Modelo.py:1907 src/templates/visinforme.html:241
+#: src/templates/visinforme.html:264 src/templates/visinformedinamica.html:241
+#: src/templates/visinformedinamica.html:264
 msgid "Grado"
 msgstr ""
 
-#: src/Modelo/Modelo.py:766
+#: src/Modelo/Modelo.py:1930
 msgid "Histograma de Interacciones"
 msgstr ""
 
-#: src/Modelo/Modelo.py:768
+#: src/Modelo/Modelo.py:1932
 msgid "Interacciones"
 msgstr ""
 
-#: src/templates/about.html:2 src/templates/delpers.html:2
-#: src/templates/delrefpers.html:2 src/templates/dictaut.html:2
-#: src/templates/dictpelicula.html:2 src/templates/formatoIncorrecto.html:2
-#: src/templates/home.html:2 src/templates/impdict.html:2
-#: src/templates/index.html:2 src/templates/informe.html:2
-#: src/templates/joinpers.html:2 src/templates/moddict.html:2
-#: src/templates/modetnia.html:2 src/templates/modidpers.html:2
-#: src/templates/modsexo.html:2 src/templates/newpers.html:2
-#: src/templates/newrefpers.html:2 src/templates/obtdict.html:2
+#: src/templates/about.html:2 src/templates/corpus.html:2
+#: src/templates/delpers.html:2 src/templates/delrefpers.html:2
+#: src/templates/dictaut.html:2 src/templates/dictpelicula.html:2
+#: src/templates/formatoIncorrecto.html:2 src/templates/home.html:2
+#: src/templates/impdict.html:2 src/templates/index.html:2
+#: src/templates/informe.html:2 src/templates/informedinamico.html:2
+#: src/templates/informedinamicoconf.html:2 src/templates/joinpers.html:2
+#: src/templates/moddict.html:2 src/templates/modetnia.html:2
+#: src/templates/modidpers.html:2 src/templates/modsexo.html:2
+#: src/templates/newpers.html:2 src/templates/newrefpers.html:2
+#: src/templates/obras.html:2 src/templates/obtdict.html:2
 #: src/templates/params.html:2 src/templates/paramsPeliculas.html:2
-#: src/templates/red.html:2 src/templates/seleccion.html:2
-#: src/templates/visinforme.html:2
+#: src/templates/red.html:2 src/templates/redDinamica.html:2
+#: src/templates/seleccion.html:2 src/templates/visinforme.html:2
+#: src/templates/visinformedinamica.html:2
+#: src/templates/visinformedinamicaconf.html:2
 msgid "es"
 msgstr ""
 
-#: src/templates/about.html:18 src/templates/delpers.html:18
-#: src/templates/delrefpers.html:18 src/templates/dictaut.html:18
-#: src/templates/dictpelicula.html:18 src/templates/formatoIncorrecto.html:18
-#: src/templates/home.html:18 src/templates/impdict.html:18
-#: src/templates/index.html:18 src/templates/informe.html:18
-#: src/templates/joinpers.html:18 src/templates/moddict.html:18
-#: src/templates/modetnia.html:18 src/templates/modidpers.html:18
-#: src/templates/modsexo.html:18 src/templates/newpers.html:18
-#: src/templates/newrefpers.html:18 src/templates/obtdict.html:18
+#: src/templates/about.html:18 src/templates/corpus.html:18
+#: src/templates/delpers.html:18 src/templates/delrefpers.html:18
+#: src/templates/dictaut.html:18 src/templates/dictpelicula.html:18
+#: src/templates/formatoIncorrecto.html:18 src/templates/home.html:18
+#: src/templates/impdict.html:18 src/templates/index.html:18
+#: src/templates/informe.html:18 src/templates/informedinamico.html:18
+#: src/templates/informedinamicoconf.html:18 src/templates/joinpers.html:18
+#: src/templates/moddict.html:18 src/templates/modetnia.html:18
+#: src/templates/modidpers.html:18 src/templates/modsexo.html:18
+#: src/templates/newpers.html:18 src/templates/newrefpers.html:18
+#: src/templates/obras.html:18 src/templates/obtdict.html:18
 #: src/templates/params.html:18 src/templates/paramsPeliculas.html:18
-#: src/templates/red.html:18 src/templates/seleccion.html:18
-#: src/templates/visinforme.html:29
+#: src/templates/red.html:18 src/templates/redDinamica.html:18
+#: src/templates/seleccion.html:18 src/templates/visinforme.html:29
+#: src/templates/visinformedinamica.html:29
+#: src/templates/visinformedinamicaconf.html:29
 msgid "Inicio"
 msgstr ""
 
-#: src/templates/about.html:21 src/templates/delpers.html:21
-#: src/templates/delrefpers.html:21 src/templates/dictaut.html:21
-#: src/templates/dictpelicula.html:21 src/templates/formatoIncorrecto.html:21
-#: src/templates/home.html:21 src/templates/impdict.html:21
-#: src/templates/index.html:21 src/templates/informe.html:21
-#: src/templates/joinpers.html:21 src/templates/moddict.html:21
-#: src/templates/modetnia.html:21 src/templates/modidpers.html:21
-#: src/templates/modsexo.html:21 src/templates/newpers.html:21
-#: src/templates/newrefpers.html:21 src/templates/obtdict.html:21
+#: src/templates/about.html:21 src/templates/corpus.html:21
+#: src/templates/delpers.html:21 src/templates/delrefpers.html:21
+#: src/templates/dictaut.html:21 src/templates/dictpelicula.html:21
+#: src/templates/formatoIncorrecto.html:21 src/templates/home.html:21
+#: src/templates/impdict.html:21 src/templates/index.html:21
+#: src/templates/informe.html:21 src/templates/informedinamico.html:21
+#: src/templates/informedinamicoconf.html:21 src/templates/joinpers.html:21
+#: src/templates/moddict.html:21 src/templates/modetnia.html:21
+#: src/templates/modidpers.html:21 src/templates/modsexo.html:21
+#: src/templates/newpers.html:21 src/templates/newrefpers.html:21
+#: src/templates/obras.html:21 src/templates/obtdict.html:21
 #: src/templates/params.html:21 src/templates/paramsPeliculas.html:21
-#: src/templates/red.html:21 src/templates/seleccion.html:21
-#: src/templates/visinforme.html:32
+#: src/templates/red.html:21 src/templates/redDinamica.html:21
+#: src/templates/seleccion.html:21 src/templates/visinforme.html:32
+#: src/templates/visinformedinamica.html:32
+#: src/templates/visinformedinamicaconf.html:32
 msgid "Repositorio"
 msgstr ""
 
-#: src/templates/about.html:24 src/templates/delpers.html:24
-#: src/templates/delrefpers.html:24 src/templates/dictaut.html:24
-#: src/templates/dictpelicula.html:24 src/templates/formatoIncorrecto.html:24
-#: src/templates/home.html:24 src/templates/impdict.html:24
-#: src/templates/index.html:24 src/templates/informe.html:24
-#: src/templates/joinpers.html:24 src/templates/moddict.html:24
-#: src/templates/modetnia.html:24 src/templates/modidpers.html:24
-#: src/templates/modsexo.html:24 src/templates/newpers.html:24
-#: src/templates/newrefpers.html:24 src/templates/obtdict.html:24
+#: src/templates/about.html:24 src/templates/corpus.html:24
+#: src/templates/delpers.html:24 src/templates/delrefpers.html:24
+#: src/templates/dictaut.html:24 src/templates/dictpelicula.html:24
+#: src/templates/formatoIncorrecto.html:24 src/templates/home.html:24
+#: src/templates/impdict.html:24 src/templates/index.html:24
+#: src/templates/informe.html:24 src/templates/informedinamico.html:24
+#: src/templates/informedinamicoconf.html:24 src/templates/joinpers.html:24
+#: src/templates/moddict.html:24 src/templates/modetnia.html:24
+#: src/templates/modidpers.html:24 src/templates/modsexo.html:24
+#: src/templates/newpers.html:24 src/templates/newrefpers.html:24
+#: src/templates/obras.html:24 src/templates/obtdict.html:24
 #: src/templates/params.html:24 src/templates/paramsPeliculas.html:24
-#: src/templates/red.html:24 src/templates/seleccion.html:24
-#: src/templates/visinforme.html:35
+#: src/templates/red.html:24 src/templates/redDinamica.html:24
+#: src/templates/seleccion.html:24 src/templates/visinforme.html:35
+#: src/templates/visinformedinamica.html:35
+#: src/templates/visinformedinamicaconf.html:35
 msgid "Acerca De"
 msgstr ""
 
-#: src/templates/about.html:27 src/templates/delpers.html:27
-#: src/templates/delrefpers.html:27 src/templates/dictaut.html:27
-#: src/templates/dictpelicula.html:27 src/templates/formatoIncorrecto.html:27
-#: src/templates/home.html:27 src/templates/impdict.html:27
-#: src/templates/index.html:27 src/templates/informe.html:27
-#: src/templates/joinpers.html:27 src/templates/moddict.html:27
-#: src/templates/modetnia.html:27 src/templates/modidpers.html:27
-#: src/templates/modsexo.html:27 src/templates/newpers.html:27
-#: src/templates/newrefpers.html:27 src/templates/obtdict.html:27
+#: src/templates/about.html:27 src/templates/corpus.html:27
+#: src/templates/delpers.html:27 src/templates/delrefpers.html:27
+#: src/templates/dictaut.html:27 src/templates/dictpelicula.html:27
+#: src/templates/formatoIncorrecto.html:27 src/templates/home.html:27
+#: src/templates/impdict.html:27 src/templates/index.html:27
+#: src/templates/informe.html:27 src/templates/informedinamico.html:27
+#: src/templates/informedinamicoconf.html:27 src/templates/joinpers.html:27
+#: src/templates/moddict.html:27 src/templates/modetnia.html:27
+#: src/templates/modidpers.html:27 src/templates/modsexo.html:27
+#: src/templates/newpers.html:27 src/templates/newrefpers.html:27
+#: src/templates/obras.html:27 src/templates/obtdict.html:27
 #: src/templates/params.html:27 src/templates/paramsPeliculas.html:27
-#: src/templates/red.html:27 src/templates/seleccion.html:27
-#: src/templates/visinforme.html:38
+#: src/templates/red.html:27 src/templates/redDinamica.html:27
+#: src/templates/seleccion.html:27 src/templates/visinforme.html:38
+#: src/templates/visinformedinamica.html:38
+#: src/templates/visinformedinamicaconf.html:38
 msgid "Wiki"
 msgstr ""
 
 #: src/templates/about.html:46
-msgid "¿Qué es NetExtractor?"
+msgid "¿Qué es NetExtractor 2.0?"
 msgstr ""
 
 #: src/templates/about.html:47
 msgid ""
-"NetExtractor es una herramienta desarrollada en la Universidad de Burgos "
-"que permite generar de forma automática la red de interacciones de "
-"personajes en novelas o películas y analizar las redes obtenidas para "
-"capturar sus métricas más relevantes de una forma sencilla."
+"NetExtractor 2.0 es una herramienta desarrollada en la Universidad de "
+"Burgos que permite generar de forma automática la red de interacciones de"
+" personajes en novelas o películas y analizar las redes obtenidaspara "
+"capturar sus métricas más relevantes de una forma sencilla. Además, estas"
+" redes complejas podrán visualizarse de forma dinámica y mostrar un "
+"informe dinámico."
 msgstr ""
 
 #: src/templates/about.html:49
@@ -139,11 +162,13 @@ msgstr ""
 
 #: src/templates/about.html:50
 msgid ""
-"El proyecto de NetExtractor fue iniciado por el alumno del grado de "
+"El proyecto de NetExtractor 2.0 fue iniciado por el alumno del grado de "
 "Ingeniería Informática Luis Miguel Cabrejas, tutorizado por D. Jose "
-"Manuel Galán y D. Luis Rodrigo Izquierdo; y ha sido continuado por el "
-"alumno de Ingeniería Informática Jorge Navarro, tutorizado por D. Jose "
-"Manuel Galán y Dña. Virginia Ahedo."
+"Manuel Galán y D. Luis Rodrigo Izquierdo; y fue continuado por el alumno "
+"de Ingeniería Informática Jorge Navarro, tutorizado por D. Jose Manuel "
+"Galán y Dña. Virginia Ahedo. De su última actualización ha sido encargado"
+" el alumno de Ingeniería Informática Alberto Diez, tutorizado por D. Jose"
+" Manuel Galán y Dña. Virginia Ahedo."
 msgstr ""
 
 #: src/templates/about.html:52
@@ -161,6 +186,83 @@ msgstr ""
 msgid "¿Qué herramientas se han empleado?"
 msgstr ""
 
+#: src/templates/corpus.html:42 src/templates/obras.html:42
+msgid "Título"
+msgstr ""
+
+#: src/templates/corpus.html:43
+msgid "Obras"
+msgstr ""
+
+#: src/templates/corpus.html:44 src/templates/obras.html:44
+msgid "Personajes"
+msgstr ""
+
+#: src/templates/corpus.html:45
+msgid "Hombres"
+msgstr ""
+
+#: src/templates/corpus.html:46
+msgid "Mujeres"
+msgstr ""
+
+#: src/templates/corpus.html:47
+msgid "Última actualización"
+msgstr ""
+
+#: src/templates/corpus.html:61
+msgid "Ver Obras"
+msgstr ""
+
+#: src/templates/corpus.html:77 src/templates/delpers.html:95
+#: src/templates/delrefpers.html:37 src/templates/dictaut.html:58
+#: src/templates/dictpelicula.html:48 src/templates/impdict.html:37
+#: src/templates/index.html:48 src/templates/informe.html:37
+#: src/templates/informedinamico.html:37
+#: src/templates/informedinamicoconf.html:37 src/templates/joinpers.html:37
+#: src/templates/moddict.html:77 src/templates/modetnia.html:39
+#: src/templates/modidpers.html:37 src/templates/modsexo.html:99
+#: src/templates/newpers.html:96 src/templates/newrefpers.html:37
+#: src/templates/obras.html:73 src/templates/obtdict.html:37
+#: src/templates/params.html:37 src/templates/paramsPeliculas.html:37
+#: src/templates/red.html:37 src/templates/redDinamica.html:37
+#: src/templates/visinforme.html:48 src/templates/visinformedinamica.html:48
+#: src/templates/visinformedinamicaconf.html:48
+msgid "Volver"
+msgstr ""
+
+#: src/templates/corpus.html:78 src/templates/obras.html:74
+msgid "Ayuda"
+msgstr ""
+
+#: src/templates/corpus.html:100
+msgid "Haz click en el botón 'Ver Obras' para seleccionar un corpus."
+msgstr ""
+
+#: src/templates/corpus.html:110
+msgid ""
+"En la siguiente tabla se muestran todos los conjuntos de obras "
+"disponibles."
+msgstr ""
+
+#: src/templates/corpus.html:111 src/templates/obras.html:106
+msgid ""
+"- Se puede ordenar por una columna específica haciendo click en las "
+"flechas de la cabecera"
+msgstr ""
+
+#: src/templates/corpus.html:112 src/templates/obras.html:107
+msgid ""
+"- Se puede buscar un término concreto en el buscador de la parte superior"
+" derecha"
+msgstr ""
+
+#: src/templates/corpus.html:113
+msgid ""
+"- Al hacer click en cualquier botón 'Ver obras' se redirigirá a la "
+"pantalla que muestra todas las obras del corpus correspondiente "
+msgstr ""
+
 #: src/templates/delpers.html:38
 msgid "Marque los personajes a eliminar."
 msgstr ""
@@ -174,66 +276,53 @@ msgid "Marque para Borrar"
 msgstr ""
 
 #: src/templates/delpers.html:47 src/templates/delrefpers.html:51
-#: src/templates/joinpers.html:53 src/templates/moddict.html:75
+#: src/templates/joinpers.html:53 src/templates/moddict.html:84
 #: src/templates/modetnia.html:47 src/templates/modetnia.html:57
 #: src/templates/modidpers.html:54 src/templates/modsexo.html:39
 #: src/templates/modsexo.html:54 src/templates/newpers.html:39
 #: src/templates/newpers.html:49 src/templates/newrefpers.html:54
-#: src/templates/params.html:60 src/templates/paramsPeliculas.html:52
+#: src/templates/params.html:60 src/templates/paramsPeliculas.html:56
 msgid "ID Personaje"
 msgstr ""
 
 #: src/templates/delpers.html:48 src/templates/delrefpers.html:52
-#: src/templates/joinpers.html:54 src/templates/moddict.html:76
+#: src/templates/joinpers.html:54 src/templates/moddict.html:85
 #: src/templates/modetnia.html:58 src/templates/modidpers.html:55
 #: src/templates/modsexo.html:55 src/templates/newpers.html:50
 #: src/templates/newrefpers.html:55 src/templates/params.html:61
-#: src/templates/paramsPeliculas.html:53
+#: src/templates/paramsPeliculas.html:57
 msgid "Referencias personaje"
 msgstr ""
 
 #: src/templates/delpers.html:49 src/templates/delrefpers.html:53
-#: src/templates/joinpers.html:55 src/templates/moddict.html:77
+#: src/templates/joinpers.html:55 src/templates/moddict.html:86
 #: src/templates/modetnia.html:59 src/templates/modidpers.html:56
 #: src/templates/modsexo.html:56 src/templates/newpers.html:51
 #: src/templates/newrefpers.html:56 src/templates/params.html:62
-#: src/templates/paramsPeliculas.html:54
+#: src/templates/paramsPeliculas.html:58
 msgid "Número Apariciones"
 msgstr ""
 
 #: src/templates/delpers.html:50 src/templates/delrefpers.html:54
-#: src/templates/joinpers.html:56 src/templates/moddict.html:78
+#: src/templates/joinpers.html:56 src/templates/moddict.html:87
 #: src/templates/modetnia.html:60 src/templates/modidpers.html:57
 #: src/templates/modsexo.html:57 src/templates/newpers.html:52
 #: src/templates/newrefpers.html:57 src/templates/params.html:63
-#: src/templates/paramsPeliculas.html:55
+#: src/templates/paramsPeliculas.html:59
 msgid "Etnia"
 msgstr ""
 
 #: src/templates/delpers.html:51 src/templates/delrefpers.html:55
-#: src/templates/joinpers.html:57 src/templates/moddict.html:79
+#: src/templates/joinpers.html:57 src/templates/moddict.html:88
 #: src/templates/modetnia.html:61 src/templates/modidpers.html:58
 #: src/templates/modsexo.html:58 src/templates/newpers.html:53
 #: src/templates/newrefpers.html:58 src/templates/params.html:64
-#: src/templates/paramsPeliculas.html:56
+#: src/templates/paramsPeliculas.html:60
 msgid "Sexo"
 msgstr ""
 
 #: src/templates/delpers.html:60
 msgid "Marque para eliminar el personaje"
-msgstr ""
-
-#: src/templates/delpers.html:95 src/templates/delrefpers.html:37
-#: src/templates/dictaut.html:58 src/templates/dictpelicula.html:48
-#: src/templates/impdict.html:37 src/templates/index.html:48
-#: src/templates/informe.html:37 src/templates/joinpers.html:37
-#: src/templates/moddict.html:68 src/templates/modetnia.html:39
-#: src/templates/modidpers.html:37 src/templates/modsexo.html:99
-#: src/templates/newpers.html:96 src/templates/newrefpers.html:37
-#: src/templates/obtdict.html:37 src/templates/params.html:37
-#: src/templates/paramsPeliculas.html:37 src/templates/red.html:37
-#: src/templates/visinforme.html:48
-msgid "Volver"
 msgstr ""
 
 #: src/templates/delpers.html:128
@@ -269,7 +358,8 @@ msgid "Vaciar Diccionario"
 msgstr ""
 
 #: src/templates/dictaut.html:59 src/templates/impdict.html:38
-#: src/templates/moddict.html:69 src/templates/obtdict.html:38
+#: src/templates/moddict.html:78 src/templates/obtdict.html:38
+#: src/templates/redDinamica.html:81
 msgid "Siguiente"
 msgstr ""
 
@@ -336,15 +426,17 @@ msgid "Introducir nuevo guion"
 msgstr ""
 
 #: src/templates/home.html:43
-msgid "¡Bienvenido a NetExtractor!"
+msgid "¡Bienvenido a NetExtractor 2.0!"
 msgstr ""
 
 #: src/templates/home.html:45
 msgid ""
-"NetExtractor es un proyecto con el fin de generar redes de interacciones "
-"entre personajes, ya sean tanto de películas como de novelas, con el fin "
-"de posteriormente poder extraer características de dichas redes que "
-"podrán ser elegidas y mostradas en un informe."
+"NetExtractor 2.0 es un proyecto con el fin de generar redes de "
+"interacciones entre personajes, ya sean tanto de películas como de "
+"novelas, con el fin de posteriormente poder extraer características de "
+"dichas redes que podrán ser elegidas y mostradas en un informe. Además, "
+"estas redes complejas podrán visualizarse de forma dinámica y mostrar un "
+"informe dinámico."
 msgstr ""
 
 #: src/templates/home.html:46
@@ -407,220 +499,374 @@ msgstr ""
 msgid "Introduzca la ruta al fichero ePub"
 msgstr ""
 
-#: src/templates/informe.html:38 src/templates/red.html:38
+#: src/templates/informe.html:38 src/templates/informedinamico.html:38
+#: src/templates/informedinamicoconf.html:38 src/templates/red.html:38
+#: src/templates/redDinamica.html:38
 msgid "Generar Informe"
 msgstr ""
 
-#: src/templates/informe.html:42 src/templates/moddict.html:36
+#: src/templates/informe.html:42 src/templates/informedinamico.html:42
+#: src/templates/informedinamicoconf.html:42 src/templates/moddict.html:36
 msgid "Este proceso puede llevar varios minutos..."
 msgstr ""
 
-#: src/templates/informe.html:50
+#: src/templates/informe.html:50 src/templates/informedinamico.html:50
 msgid "Extracción de datos para el informe"
 msgstr ""
 
-#: src/templates/informe.html:53 src/templates/visinforme.html:57
-#: src/templates/visinforme.html:177
+#: src/templates/informe.html:53 src/templates/informedinamico.html:53
+#: src/templates/visinforme.html:57 src/templates/visinforme.html:177
+#: src/templates/visinformedinamica.html:57
+#: src/templates/visinformedinamica.html:177
 msgid "Medidas básicas"
 msgstr ""
 
-#: src/templates/informe.html:55 src/templates/visinforme.html:60
-#: src/templates/visinforme.html:180
+#: src/templates/informe.html:55 src/templates/informedinamico.html:55
+#: src/templates/informedinamicoconf.html:57 src/templates/visinforme.html:60
+#: src/templates/visinforme.html:180 src/templates/visinformedinamica.html:60
+#: src/templates/visinformedinamica.html:180
+#: src/templates/visinformedinamicaconf.html:63
+#: src/templates/visinformedinamicaconf.html:154
 msgid "Número Nodos"
 msgstr ""
 
-#: src/templates/informe.html:58 src/templates/visinforme.html:63
-#: src/templates/visinforme.html:185
+#: src/templates/informe.html:58 src/templates/informedinamico.html:58
+#: src/templates/informedinamicoconf.html:60 src/templates/visinforme.html:63
+#: src/templates/visinforme.html:185 src/templates/visinformedinamica.html:63
+#: src/templates/visinformedinamica.html:185
+#: src/templates/visinformedinamicaconf.html:66
+#: src/templates/visinformedinamicaconf.html:157
 msgid "Número Enlaces"
 msgstr ""
 
-#: src/templates/informe.html:61 src/templates/visinforme.html:66
-#: src/templates/visinforme.html:189
+#: src/templates/informe.html:61 src/templates/informedinamico.html:61
+#: src/templates/informedinamicoconf.html:63 src/templates/visinforme.html:66
+#: src/templates/visinforme.html:189 src/templates/visinformedinamica.html:66
+#: src/templates/visinformedinamica.html:189
+#: src/templates/visinformedinamicaconf.html:69
 msgid "Número Interacciones"
 msgstr ""
 
-#: src/templates/informe.html:64 src/templates/visinforme.html:69
-#: src/templates/visinforme.html:193
+#: src/templates/informe.html:64 src/templates/informedinamico.html:64
+#: src/templates/visinforme.html:69 src/templates/visinforme.html:193
+#: src/templates/visinformedinamica.html:69
+#: src/templates/visinformedinamica.html:193
 msgid "Medidas de grado"
 msgstr ""
 
-#: src/templates/informe.html:66 src/templates/visinforme.html:72
-#: src/templates/visinforme.html:197
+#: src/templates/informe.html:66 src/templates/informedinamico.html:66
+#: src/templates/informedinamicoconf.html:91 src/templates/visinforme.html:72
+#: src/templates/visinforme.html:197 src/templates/visinformedinamica.html:72
+#: src/templates/visinformedinamica.html:197
+#: src/templates/visinformedinamicaconf.html:96
+#: src/templates/visinformedinamicaconf.html:252
 msgid "Grado Nodos Sin Peso"
 msgstr ""
 
-#: src/templates/informe.html:69 src/templates/visinforme.html:75
-#: src/templates/visinforme.html:217
+#: src/templates/informe.html:69 src/templates/informedinamico.html:69
+#: src/templates/informedinamicoconf.html:94 src/templates/visinforme.html:75
+#: src/templates/visinforme.html:217 src/templates/visinformedinamica.html:75
+#: src/templates/visinformedinamica.html:217
+#: src/templates/visinformedinamicaconf.html:99
+#: src/templates/visinformedinamicaconf.html:279
 msgid "Grado Nodos Con Peso"
 msgstr ""
 
-#: src/templates/informe.html:72 src/templates/visinforme.html:78
-#: src/templates/visinforme.html:237
+#: src/templates/informe.html:72 src/templates/informedinamico.html:72
+#: src/templates/visinforme.html:78 src/templates/visinforme.html:237
+#: src/templates/visinformedinamica.html:78
+#: src/templates/visinformedinamica.html:237
 msgid "Distribución Grado Sin Peso"
 msgstr ""
 
-#: src/templates/informe.html:75 src/templates/visinforme.html:81
-#: src/templates/visinforme.html:260
+#: src/templates/informe.html:75 src/templates/informedinamico.html:75
+#: src/templates/visinforme.html:81 src/templates/visinforme.html:260
+#: src/templates/visinformedinamica.html:81
+#: src/templates/visinformedinamica.html:260
 msgid "Distribución Grado Con Peso"
 msgstr ""
 
-#: src/templates/informe.html:78 src/templates/visinforme.html:84
-#: src/templates/visinforme.html:283
+#: src/templates/informe.html:78 src/templates/informedinamico.html:78
+#: src/templates/informedinamicoconf.html:66 src/templates/visinforme.html:84
+#: src/templates/visinforme.html:283 src/templates/visinformedinamica.html:84
+#: src/templates/visinformedinamica.html:283
+#: src/templates/visinformedinamicaconf.html:72
+#: src/templates/visinformedinamicaconf.html:163
 msgid "Densidad"
 msgstr ""
 
-#: src/templates/informe.html:83 src/templates/visinforme.html:87
-#: src/templates/visinforme.html:288
+#: src/templates/informe.html:83 src/templates/informedinamico.html:83
+#: src/templates/visinforme.html:87 src/templates/visinforme.html:288
+#: src/templates/visinformedinamica.html:87
+#: src/templates/visinformedinamica.html:288
 msgid "Medidas de Distancia"
 msgstr ""
 
-#: src/templates/informe.html:85 src/templates/visinforme.html:90
-#: src/templates/visinforme.html:291
+#: src/templates/informe.html:85 src/templates/informedinamico.html:85
+#: src/templates/informedinamicoconf.html:88 src/templates/visinforme.html:90
+#: src/templates/visinforme.html:291 src/templates/visinformedinamica.html:90
+#: src/templates/visinformedinamica.html:291
+#: src/templates/visinformedinamicaconf.html:93
+#: src/templates/visinformedinamicaconf.html:223
 msgid "Componentes Conectados"
 msgstr ""
 
-#: src/templates/informe.html:88 src/templates/visinforme.html:93
+#: src/templates/informe.html:88 src/templates/informedinamico.html:88
+#: src/templates/informedinamicoconf.html:100 src/templates/visinforme.html:93
 #: src/templates/visinforme.html:313 src/templates/visinforme.html:318
+#: src/templates/visinformedinamica.html:93
+#: src/templates/visinformedinamica.html:313
+#: src/templates/visinformedinamica.html:318
+#: src/templates/visinformedinamicaconf.html:105
+#: src/templates/visinformedinamicaconf.html:333
 msgid "Excentricidad"
 msgstr ""
 
-#: src/templates/informe.html:91
+#: src/templates/informe.html:91 src/templates/informedinamico.html:91
+#: src/templates/informedinamicoconf.html:75
+#: src/templates/visinformedinamicaconf.html:172
 msgid "Diámetro"
 msgstr ""
 
-#: src/templates/informe.html:94 src/templates/visinforme.html:99
-#: src/templates/visinforme.html:338
+#: src/templates/informe.html:94 src/templates/informedinamico.html:94
+#: src/templates/informedinamicoconf.html:78 src/templates/visinforme.html:99
+#: src/templates/visinforme.html:338 src/templates/visinformedinamica.html:99
+#: src/templates/visinformedinamica.html:338
+#: src/templates/visinformedinamicaconf.html:84
+#: src/templates/visinformedinamicaconf.html:175
 msgid "Radio"
 msgstr ""
 
-#: src/templates/informe.html:97 src/templates/visinforme.html:102
-#: src/templates/visinforme.html:343
+#: src/templates/informe.html:97 src/templates/informedinamico.html:97
+#: src/templates/informedinamicoconf.html:81 src/templates/visinforme.html:102
+#: src/templates/visinforme.html:343 src/templates/visinformedinamica.html:102
+#: src/templates/visinformedinamica.html:343
+#: src/templates/visinformedinamicaconf.html:87
+#: src/templates/visinformedinamicaconf.html:178
 msgid "Distancia Media"
 msgstr ""
 
-#: src/templates/informe.html:100 src/templates/visinforme.html:105
-#: src/templates/visinforme.html:347
+#: src/templates/informe.html:100 src/templates/informedinamico.html:100
+#: src/templates/visinforme.html:105 src/templates/visinforme.html:347
+#: src/templates/visinformedinamica.html:105
+#: src/templates/visinformedinamica.html:347
 msgid "Medidas de Clustering"
 msgstr ""
 
-#: src/templates/informe.html:102 src/templates/visinforme.html:108
+#: src/templates/informe.html:102 src/templates/informedinamico.html:102
+#: src/templates/informedinamicoconf.html:97 src/templates/visinforme.html:108
+#: src/templates/visinformedinamica.html:108
+#: src/templates/visinformedinamicaconf.html:102
+#: src/templates/visinformedinamicaconf.html:306
 msgid "Coeficiente de Clustering Local"
 msgstr ""
 
-#: src/templates/informe.html:105 src/templates/visinforme.html:111
+#: src/templates/informe.html:105 src/templates/informedinamico.html:105
+#: src/templates/informedinamicoconf.html:69 src/templates/visinforme.html:111
+#: src/templates/visinformedinamica.html:111
+#: src/templates/visinformedinamicaconf.html:75
+#: src/templates/visinformedinamicaconf.html:166
 msgid "Coeficiente de Clustering Local Medio"
 msgstr ""
 
-#: src/templates/informe.html:108 src/templates/visinforme.html:114
-#: src/templates/visinforme.html:372
+#: src/templates/informe.html:108 src/templates/informedinamico.html:108
+#: src/templates/informedinamicoconf.html:72 src/templates/visinforme.html:114
+#: src/templates/visinforme.html:372 src/templates/visinformedinamica.html:114
+#: src/templates/visinformedinamica.html:372
+#: src/templates/visinformedinamicaconf.html:78
+#: src/templates/visinformedinamicaconf.html:169
 msgid "Transitividad"
 msgstr ""
 
-#: src/templates/informe.html:113 src/templates/visinforme.html:117
-#: src/templates/visinforme.html:376
+#: src/templates/informe.html:113 src/templates/informedinamico.html:113
+#: src/templates/visinforme.html:117 src/templates/visinforme.html:376
+#: src/templates/visinformedinamica.html:117
+#: src/templates/visinformedinamica.html:376
 msgid "Medidas de Centralidad"
 msgstr ""
 
-#: src/templates/informe.html:115 src/templates/visinforme.html:120
+#: src/templates/informe.html:115 src/templates/informedinamico.html:115
+#: src/templates/informedinamicoconf.html:103 src/templates/visinforme.html:120
 #: src/templates/visinforme.html:379 src/templates/visinforme.html:384
+#: src/templates/visinformedinamica.html:120
+#: src/templates/visinformedinamica.html:379
+#: src/templates/visinformedinamica.html:384
+#: src/templates/visinformedinamicaconf.html:108
+#: src/templates/visinformedinamicaconf.html:360
 msgid "Centralidad Grado"
 msgstr ""
 
-#: src/templates/informe.html:118 src/templates/visinforme.html:123
+#: src/templates/informe.html:118 src/templates/informedinamico.html:118
+#: src/templates/informedinamicoconf.html:106 src/templates/visinforme.html:123
 #: src/templates/visinforme.html:402 src/templates/visinforme.html:407
+#: src/templates/visinformedinamica.html:123
+#: src/templates/visinformedinamica.html:402
+#: src/templates/visinformedinamica.html:407
+#: src/templates/visinformedinamicaconf.html:111
+#: src/templates/visinformedinamicaconf.html:387
 msgid "Centralidad Cercanía"
 msgstr ""
 
-#: src/templates/informe.html:121 src/templates/visinforme.html:126
+#: src/templates/informe.html:121 src/templates/informedinamico.html:121
+#: src/templates/informedinamicoconf.html:109 src/templates/visinforme.html:126
 #: src/templates/visinforme.html:423 src/templates/visinforme.html:428
+#: src/templates/visinformedinamica.html:126
+#: src/templates/visinformedinamica.html:423
+#: src/templates/visinformedinamica.html:428
+#: src/templates/visinformedinamicaconf.html:114
+#: src/templates/visinformedinamicaconf.html:414
 msgid "Centralidad Intermediación"
 msgstr ""
 
-#: src/templates/informe.html:124 src/templates/visinforme.html:129
+#: src/templates/informe.html:124 src/templates/informedinamico.html:124
+#: src/templates/informedinamicoconf.html:112 src/templates/visinforme.html:129
+#: src/templates/visinformedinamica.html:129
+#: src/templates/visinformedinamicaconf.html:117
+#: src/templates/visinformedinamicaconf.html:441
 msgid "Intermediación Camino Aleatorio"
 msgstr ""
 
-#: src/templates/informe.html:127 src/templates/visinforme.html:132
+#: src/templates/informe.html:127 src/templates/informedinamico.html:127
+#: src/templates/informedinamicoconf.html:115 src/templates/visinforme.html:132
 #: src/templates/visinforme.html:469 src/templates/visinforme.html:474
+#: src/templates/visinformedinamica.html:132
+#: src/templates/visinformedinamica.html:469
+#: src/templates/visinformedinamica.html:474
+#: src/templates/visinformedinamicaconf.html:120
+#: src/templates/visinformedinamicaconf.html:468
 msgid "Centralidad Valor Propio"
 msgstr ""
 
-#: src/templates/informe.html:130 src/templates/visinforme.html:135
+#: src/templates/informe.html:130 src/templates/informedinamico.html:130
+#: src/templates/informedinamicoconf.html:118 src/templates/visinforme.html:135
 #: src/templates/visinforme.html:492 src/templates/visinforme.html:497
+#: src/templates/visinformedinamica.html:135
+#: src/templates/visinformedinamica.html:492
+#: src/templates/visinformedinamica.html:497
+#: src/templates/visinformedinamicaconf.html:123
+#: src/templates/visinformedinamicaconf.html:495
 msgid "Pagerank"
 msgstr ""
 
-#: src/templates/informe.html:133 src/templates/visinforme.html:515
+#: src/templates/informe.html:133 src/templates/informedinamico.html:133
+#: src/templates/visinforme.html:515 src/templates/visinformedinamica.html:515
 msgid "Grupos y comunidades"
 msgstr ""
 
-#: src/templates/informe.html:135 src/templates/visinforme.html:141
-#: src/templates/visinforme.html:518
+#: src/templates/informe.html:135 src/templates/informedinamico.html:135
+#: src/templates/informedinamicoconf.html:121 src/templates/visinforme.html:141
+#: src/templates/visinforme.html:518 src/templates/visinformedinamica.html:141
+#: src/templates/visinformedinamica.html:518
+#: src/templates/visinformedinamicaconf.html:126
+#: src/templates/visinformedinamicaconf.html:523
 msgid "Comunidades K-clique"
 msgstr ""
 
-#: src/templates/informe.html:137
+#: src/templates/informe.html:137 src/templates/informedinamico.html:137
+#: src/templates/informedinamicoconf.html:123
 msgid "Valor k del K-clique para comunidades: (Por defecto será 2)"
 msgstr ""
 
-#: src/templates/informe.html:142 src/templates/visinforme.html:144
-#: src/templates/visinforme.html:544
+#: src/templates/informe.html:142 src/templates/informedinamico.html:142
+#: src/templates/informedinamicoconf.html:128 src/templates/visinforme.html:144
+#: src/templates/visinforme.html:544 src/templates/visinformedinamica.html:144
+#: src/templates/visinformedinamica.html:544
+#: src/templates/visinformedinamicaconf.html:129
+#: src/templates/visinformedinamicaconf.html:552
 msgid "Comunidades Girvan-Newman"
 msgstr ""
 
-#: src/templates/informe.html:145 src/templates/visinforme.html:147
-#: src/templates/visinforme.html:570
+#: src/templates/informe.html:145 src/templates/informedinamico.html:145
+#: src/templates/informedinamicoconf.html:131 src/templates/visinforme.html:147
+#: src/templates/visinforme.html:570 src/templates/visinformedinamica.html:147
+#: src/templates/visinformedinamica.html:570
+#: src/templates/visinformedinamicaconf.html:132
+#: src/templates/visinformedinamicaconf.html:581
 msgid "Comunidades Clauset-Newman-Moore"
 msgstr ""
 
-#: src/templates/informe.html:148 src/templates/visinforme.html:150
-#: src/templates/visinforme.html:596
+#: src/templates/informe.html:148 src/templates/informedinamico.html:148
+#: src/templates/informedinamicoconf.html:134 src/templates/visinforme.html:150
+#: src/templates/visinforme.html:596 src/templates/visinformedinamica.html:150
+#: src/templates/visinformedinamica.html:596
+#: src/templates/visinformedinamicaconf.html:135
+#: src/templates/visinformedinamicaconf.html:610
 msgid "Comunidades Louvain"
 msgstr ""
 
-#: src/templates/informe.html:153 src/templates/visinforme.html:153
-#: src/templates/visinforme.html:622
+#: src/templates/informe.html:153 src/templates/informedinamico.html:153
+#: src/templates/visinforme.html:153 src/templates/visinforme.html:622
+#: src/templates/visinformedinamica.html:153
+#: src/templates/visinformedinamica.html:622
 msgid "Detección de roles"
 msgstr ""
 
-#: src/templates/informe.html:155 src/templates/visinforme.html:156
-#: src/templates/visinforme.html:625
+#: src/templates/informe.html:155 src/templates/informedinamico.html:155
+#: src/templates/visinforme.html:156 src/templates/visinforme.html:625
+#: src/templates/visinformedinamica.html:156
+#: src/templates/visinformedinamica.html:625
 msgid "Roles K-clique"
 msgstr ""
 
-#: src/templates/informe.html:157
+#: src/templates/informe.html:157 src/templates/informedinamico.html:157
 msgid "Valor k del K-clique para roles: (Por defecto será 2)"
 msgstr ""
 
-#: src/templates/informe.html:162 src/templates/visinforme.html:159
-#: src/templates/visinforme.html:681
+#: src/templates/informe.html:162 src/templates/informedinamico.html:162
+#: src/templates/visinforme.html:159 src/templates/visinforme.html:681
+#: src/templates/visinformedinamica.html:159
+#: src/templates/visinformedinamica.html:681
 msgid "Roles Girvan-Newman"
 msgstr ""
 
-#: src/templates/informe.html:165 src/templates/visinforme.html:162
-#: src/templates/visinforme.html:737
+#: src/templates/informe.html:165 src/templates/informedinamico.html:165
+#: src/templates/visinforme.html:162 src/templates/visinforme.html:737
+#: src/templates/visinformedinamica.html:162
+#: src/templates/visinformedinamica.html:737
 msgid "Roles Clauset-Newman-Moore"
 msgstr ""
 
-#: src/templates/informe.html:168 src/templates/visinforme.html:165
-#: src/templates/visinforme.html:793
+#: src/templates/informe.html:168 src/templates/informedinamico.html:168
+#: src/templates/visinforme.html:165 src/templates/visinforme.html:793
+#: src/templates/visinformedinamica.html:165
+#: src/templates/visinformedinamica.html:793
 msgid "Roles Louvain"
 msgstr ""
 
-#: src/templates/informe.html:267
+#: src/templates/informe.html:267 src/templates/informedinamico.html:267
+#: src/templates/informedinamicoconf.html:178
 msgid "Por favor introduzca un valor"
 msgstr ""
 
-#: src/templates/informe.html:271 src/templates/visinforme.html:868
+#: src/templates/informe.html:271 src/templates/informedinamico.html:271
+#: src/templates/visinforme.html:868 src/templates/visinformedinamica.html:868
+#: src/templates/visinformedinamicaconf.html:727
 msgid "K del K-clique de comunidades"
 msgstr ""
 
-#: src/templates/informe.html:275
+#: src/templates/informe.html:275 src/templates/informedinamico.html:275
 msgid "K del K-clique de comunidades mayor o igual que 2"
 msgstr ""
 
-#: src/templates/informe.html:278
+#: src/templates/informe.html:278 src/templates/informedinamico.html:278
+#: src/templates/informedinamicoconf.html:181
 msgid "Esto puede tardar unos minutos."
+msgstr ""
+
+#: src/templates/informedinamicoconf.html:50
+msgid "Extracción de datos para el informe dinámico"
+msgstr ""
+
+#: src/templates/informedinamicoconf.html:55
+#: src/templates/visinformedinamicaconf.html:60
+#: src/templates/visinformedinamicaconf.html:147
+msgid "Medidas de red"
+msgstr ""
+
+#: src/templates/informedinamicoconf.html:86
+#: src/templates/visinformedinamicaconf.html:90
+#: src/templates/visinformedinamicaconf.html:220
+msgid "Medidas de nodo"
 msgstr ""
 
 #: src/templates/joinpers.html:44
@@ -643,67 +889,77 @@ msgstr ""
 msgid "Los personajes seleccionados han sido juntados con éxito"
 msgstr ""
 
-#: src/templates/moddict.html:43
+#: src/templates/moddict.html:44
 msgid "Añadir Personaje"
 msgstr ""
 
-#: src/templates/moddict.html:44
+#: src/templates/moddict.html:46
 msgid "Eliminar Personaje"
 msgstr ""
 
-#: src/templates/moddict.html:45
+#: src/templates/moddict.html:48
 msgid "Juntar Personajes"
 msgstr ""
 
-#: src/templates/moddict.html:46
+#: src/templates/moddict.html:50
 msgid "Añadir Referencia"
 msgstr ""
 
-#: src/templates/moddict.html:47
+#: src/templates/moddict.html:51
 msgid "Eliminar Referencia"
 msgstr ""
 
-#: src/templates/moddict.html:48
+#: src/templates/moddict.html:53
 msgid "Modificar Id Personaje"
 msgstr ""
 
-#: src/templates/moddict.html:49
+#: src/templates/moddict.html:55
 msgid "Modificar Etnia Personaje"
 msgstr ""
 
-#: src/templates/moddict.html:50
+#: src/templates/moddict.html:56
 msgid "Modificar Sexo Personaje"
 msgstr ""
 
-#: src/templates/moddict.html:51
+#: src/templates/moddict.html:57
 msgid "Exportar Diccionario"
 msgstr ""
 
-#: src/templates/moddict.html:60
-msgid "Obtener Posiciones"
+#: src/templates/moddict.html:67
+msgid "Obtener Etnia (Opcional: esta opción puede tomar varios minutos.)"
 msgstr ""
 
-#: src/templates/moddict.html:62
+#: src/templates/moddict.html:70
 msgid "Obtener Etnia y Sexo (Opcional: esta opción puede tomar varios minutos.)"
 msgstr ""
 
-#: src/templates/moddict.html:69
+#: src/templates/moddict.html:78
 msgid "Este proceso puede llevar unos minutos"
 msgstr ""
 
-#: src/templates/moddict.html:144
+#: src/templates/moddict.html:167
 msgid ""
-"Primero se van a buscar las posiciones de los personajes así como la "
+"Primero se van a buscar las apariciones de los personajes así como la "
 "etnia y el sexo, esto puede tardar unos minutos."
 msgstr ""
 
-#: src/templates/moddict.html:166
+#: src/templates/moddict.html:190
 msgid "Se va a calcular la etnia y el sexo, esto puede tardar unos minutos."
 msgstr ""
 
-#: src/templates/moddict.html:188
+#: src/templates/moddict.html:192
+msgid "Se va a calcular la etnia , esto puede tardar unos minutos."
+msgstr ""
+
+#: src/templates/moddict.html:217
 msgid ""
-"Primero se van a buscar las posiciones de los personajes, esto puede "
+"Primero se van a buscar las apariciones de los personajes así como el "
+"sexo, esto puede tardar unos minutos."
+msgstr ""
+
+#: src/templates/moddict.html:219
+msgid ""
+"Primero se van a buscar las apariciones de los personajes, esto puede "
 "tardar unos minutos."
 msgstr ""
 
@@ -856,6 +1112,34 @@ msgstr ""
 msgid "No existe ningún personaje con la ID introducida"
 msgstr ""
 
+#: src/templates/obras.html:43
+msgid "Autor"
+msgstr ""
+
+#: src/templates/obras.html:45
+msgid "Año"
+msgstr ""
+
+#: src/templates/obras.html:57
+msgid "Ver Personajes"
+msgstr ""
+
+#: src/templates/obras.html:95
+msgid "Haz click en el botón 'Ver Personajes' para seleccionar una obra."
+msgstr ""
+
+#: src/templates/obras.html:105
+msgid ""
+"En la siguiente tabla se muestran todos las obras disponibles para el "
+"corpus seleccionado."
+msgstr ""
+
+#: src/templates/obras.html:108
+msgid ""
+"- Al hacer click en cualquier botón 'Ver personajes' se redirigirá a la "
+"pantalla que muestra todos los personajes de la obra seleccionada "
+msgstr ""
+
 #: src/templates/obtdict.html:46
 msgid "Url perteneciente a *.fandom.com/wiki/Category:Characters"
 msgstr ""
@@ -878,7 +1162,7 @@ msgstr ""
 msgid "Introduzca el número mínimo de apariciones en el libro:"
 msgstr ""
 
-#: src/templates/params.html:45 src/templates/paramsPeliculas.html:45
+#: src/templates/params.html:45 src/templates/paramsPeliculas.html:49
 msgid "Número mínimo de apariciones"
 msgstr ""
 
@@ -896,7 +1180,8 @@ msgstr ""
 msgid "Tener en cuenta los capítulos"
 msgstr ""
 
-#: src/templates/params.html:119 src/templates/paramsPeliculas.html:110
+#: src/templates/params.html:119 src/templates/paramsPeliculas.html:114
+#: src/templates/redDinamica.html:241
 msgid "Introduzca un número mínimo de apariciones"
 msgstr ""
 
@@ -904,7 +1189,8 @@ msgstr ""
 msgid "Introduzca una distancia entre personajes"
 msgstr ""
 
-#: src/templates/params.html:126 src/templates/paramsPeliculas.html:114
+#: src/templates/params.html:126 src/templates/paramsPeliculas.html:118
+#: src/templates/redDinamica.html:245
 msgid "Introduzca un valor numérico para el número mínimo de apariciones"
 msgstr ""
 
@@ -912,20 +1198,82 @@ msgstr ""
 msgid "Introduzca un valor numérico para la distancia entre personajes"
 msgstr ""
 
-#: src/templates/paramsPeliculas.html:44
+#: src/templates/paramsPeliculas.html:45
+msgid "Introduzca el número mínimo de apariciones en la obra:"
+msgstr ""
+
+#: src/templates/paramsPeliculas.html:47
 msgid "Introduzca el número mínimo de apariciones en la película:"
 msgstr ""
 
-#: src/templates/red.html:51
-msgid "Exportar GML"
+#: src/templates/red.html:39
+msgid "Red Dinámica"
 msgstr ""
 
 #: src/templates/red.html:52
+msgid "Exportar GML"
+msgstr ""
+
+#: src/templates/red.html:53 src/templates/redDinamica.html:95
 msgid "Exportar GEXF"
 msgstr ""
 
-#: src/templates/red.html:53
+#: src/templates/red.html:54
 msgid "Exportar NET"
+msgstr ""
+
+#: src/templates/redDinamica.html:39
+msgid "Generar Informe Dinámico"
+msgstr ""
+
+#: src/templates/redDinamica.html:52
+msgid "Instante de tiempo actual:"
+msgstr ""
+
+#: src/templates/redDinamica.html:55
+msgid ""
+"Haz click en el siguiente botón para 'empezar' o 'detener' la "
+"visualización automática de la red a partir del instante actual."
+msgstr ""
+
+#: src/templates/redDinamica.html:58
+msgid "EMPEZAR"
+msgstr ""
+
+#: src/templates/redDinamica.html:62
+msgid "DETENER"
+msgstr ""
+
+#: src/templates/redDinamica.html:69
+msgid ""
+"Ajusta en el deslizable el intervalo de tiempo concreto que quieras "
+"observar y haz click en 'buscar' para visualizarlo."
+msgstr ""
+
+#: src/templates/redDinamica.html:72
+msgid "Intervalo de tiempo"
+msgstr ""
+
+#: src/templates/redDinamica.html:73
+msgid "Buscar"
+msgstr ""
+
+#: src/templates/redDinamica.html:80
+msgid "Anterior"
+msgstr ""
+
+#: src/templates/redDinamica.html:86
+msgid ""
+"Puedes descargar un vídeo con la evolución de la red, desde el inicio, "
+"hasta el instante actual o final."
+msgstr ""
+
+#: src/templates/redDinamica.html:88
+msgid "Descargar evolución hasta instante actual"
+msgstr ""
+
+#: src/templates/redDinamica.html:89
+msgid "Descargar evolución completa"
 msgstr ""
 
 #: src/templates/seleccion.html:37
@@ -942,59 +1290,84 @@ msgid ""
 "lugar utilice los que tiene la propia aplicación."
 msgstr ""
 
-#: src/templates/seleccion.html:47
-msgid "epub"
+#: src/templates/seleccion.html:41
+msgid "Obras de teatro"
 msgstr ""
 
-#: src/templates/seleccion.html:50
-msgid "pelicula"
+#: src/templates/seleccion.html:42
+msgid "Todos los datos empleados para este módulo han sido extraídos de: "
+msgstr ""
+
+#: src/templates/seleccion.html:43
+msgid "https://dracor.org/."
+msgstr ""
+
+#: src/templates/seleccion.html:51
+msgid "Epub"
+msgstr ""
+
+#: src/templates/seleccion.html:54
+msgid "Película"
+msgstr ""
+
+#: src/templates/seleccion.html:57
+msgid "Obra de teatro"
 msgstr ""
 
 #: src/templates/visinforme.html:49 src/templates/visinforme.html:55
+#: src/templates/visinformedinamica.html:49
+#: src/templates/visinformedinamica.html:55
+#: src/templates/visinformedinamicaconf.html:50
+#: src/templates/visinformedinamicaconf.html:58
 msgid "Menú de Navegación"
 msgstr ""
 
 #: src/templates/visinforme.html:96 src/templates/visinforme.html:333
+#: src/templates/visinformedinamica.html:96
+#: src/templates/visinformedinamica.html:333
+#: src/templates/visinformedinamicaconf.html:81
 msgid "Diametro"
 msgstr ""
 
-#: src/templates/visinforme.html:138
+#: src/templates/visinforme.html:138 src/templates/visinformedinamica.html:138
 msgid "Grupos y Comunidades"
 msgstr ""
 
-#: src/templates/visinforme.html:172
+#: src/templates/visinforme.html:172 src/templates/visinformedinamica.html:172
 msgid "Informe"
 msgstr ""
 
-#: src/templates/visinforme.html:182
+#: src/templates/visinforme.html:182 src/templates/visinformedinamica.html:182
 msgid "En el caso de esta red el número de nodos es:"
 msgstr ""
 
-#: src/templates/visinforme.html:186
+#: src/templates/visinforme.html:186 src/templates/visinformedinamica.html:186
 msgid "En el caso de esta red el número de enlaces es:"
 msgstr ""
 
-#: src/templates/visinforme.html:190
+#: src/templates/visinforme.html:190 src/templates/visinformedinamica.html:190
 msgid "En el caso de esta red el número de interacciones es:"
 msgstr ""
 
-#: src/templates/visinforme.html:202
+#: src/templates/visinforme.html:202 src/templates/visinformedinamica.html:202
 msgid "Grados Nodo Sin Peso"
 msgstr ""
 
-#: src/templates/visinforme.html:222
+#: src/templates/visinforme.html:222 src/templates/visinformedinamica.html:222
 msgid "Grados Nodo Con Peso"
 msgstr ""
 
 #: src/templates/visinforme.html:242 src/templates/visinforme.html:265
+#: src/templates/visinformedinamica.html:242
+#: src/templates/visinformedinamica.html:265
 msgid "Num Nodos con este Grado"
 msgstr ""
 
-#: src/templates/visinforme.html:285
+#: src/templates/visinforme.html:285 src/templates/visinformedinamica.html:285
 msgid "En el caso de esta red la densidad es:"
 msgstr ""
 
-#: src/templates/visinforme.html:295
+#: src/templates/visinforme.html:295 src/templates/visinformedinamica.html:295
 msgid "Componente"
 msgstr ""
 
@@ -1002,79 +1375,168 @@ msgstr ""
 #: src/templates/visinforme.html:383 src/templates/visinforme.html:406
 #: src/templates/visinforme.html:427 src/templates/visinforme.html:450
 #: src/templates/visinforme.html:473 src/templates/visinforme.html:496
+#: src/templates/visinformedinamica.html:317
+#: src/templates/visinformedinamica.html:354
+#: src/templates/visinformedinamica.html:383
+#: src/templates/visinformedinamica.html:406
+#: src/templates/visinformedinamica.html:427
+#: src/templates/visinformedinamica.html:450
+#: src/templates/visinformedinamica.html:473
+#: src/templates/visinformedinamica.html:496
 msgid "Personaje"
 msgstr ""
 
-#: src/templates/visinforme.html:335
+#: src/templates/visinforme.html:335 src/templates/visinformedinamica.html:335
 msgid "En el caso de esta red el diámetro es:"
 msgstr ""
 
-#: src/templates/visinforme.html:340
+#: src/templates/visinforme.html:340 src/templates/visinformedinamica.html:340
 msgid "En el caso de esta red el radio es:"
 msgstr ""
 
-#: src/templates/visinforme.html:350
+#: src/templates/visinforme.html:350 src/templates/visinformedinamica.html:350
 msgid "Clustering Local"
 msgstr ""
 
-#: src/templates/visinforme.html:369
+#: src/templates/visinforme.html:369 src/templates/visinformedinamica.html:369
 msgid "Clustering Global"
 msgstr ""
 
-#: src/templates/visinforme.html:373
+#: src/templates/visinforme.html:373 src/templates/visinformedinamica.html:373
 msgid "En esta red la transitividad es:"
 msgstr ""
 
 #: src/templates/visinforme.html:446 src/templates/visinforme.html:451
+#: src/templates/visinformedinamica.html:446
+#: src/templates/visinformedinamica.html:451
 msgid "Centralidad Intermediación Camino Aleatorio"
 msgstr ""
 
 #: src/templates/visinforme.html:522 src/templates/visinforme.html:548
 #: src/templates/visinforme.html:574 src/templates/visinforme.html:600
+#: src/templates/visinformedinamica.html:522
+#: src/templates/visinformedinamica.html:548
+#: src/templates/visinformedinamica.html:574
+#: src/templates/visinformedinamica.html:600
 msgid "Comunidad"
 msgstr ""
 
 #: src/templates/visinforme.html:626 src/templates/visinforme.html:682
 #: src/templates/visinforme.html:738 src/templates/visinforme.html:794
+#: src/templates/visinformedinamica.html:626
+#: src/templates/visinformedinamica.html:682
+#: src/templates/visinformedinamica.html:738
+#: src/templates/visinformedinamica.html:794
 msgid "No Hubs Ultra Periféricos (R1)"
 msgstr ""
 
 #: src/templates/visinforme.html:632 src/templates/visinforme.html:688
 #: src/templates/visinforme.html:744 src/templates/visinforme.html:800
+#: src/templates/visinformedinamica.html:632
+#: src/templates/visinformedinamica.html:688
+#: src/templates/visinformedinamica.html:744
+#: src/templates/visinformedinamica.html:800
 msgid "No Hubs Periféricos (R2)"
 msgstr ""
 
 #: src/templates/visinforme.html:638 src/templates/visinforme.html:694
 #: src/templates/visinforme.html:750 src/templates/visinforme.html:806
+#: src/templates/visinformedinamica.html:638
+#: src/templates/visinformedinamica.html:694
+#: src/templates/visinformedinamica.html:750
+#: src/templates/visinformedinamica.html:806
 msgid "No Hubs Conectores (R3)"
 msgstr ""
 
 #: src/templates/visinforme.html:644 src/templates/visinforme.html:700
 #: src/templates/visinforme.html:756 src/templates/visinforme.html:812
+#: src/templates/visinformedinamica.html:644
+#: src/templates/visinformedinamica.html:700
+#: src/templates/visinformedinamica.html:756
+#: src/templates/visinformedinamica.html:812
 msgid "No Hubs Kinless (R4)"
 msgstr ""
 
 #: src/templates/visinforme.html:650 src/templates/visinforme.html:706
 #: src/templates/visinforme.html:762 src/templates/visinforme.html:818
+#: src/templates/visinformedinamica.html:650
+#: src/templates/visinformedinamica.html:706
+#: src/templates/visinformedinamica.html:762
+#: src/templates/visinformedinamica.html:818
 msgid "Hubs Provinciales (R5)"
 msgstr ""
 
 #: src/templates/visinforme.html:656 src/templates/visinforme.html:712
 #: src/templates/visinforme.html:768 src/templates/visinforme.html:824
+#: src/templates/visinformedinamica.html:656
+#: src/templates/visinformedinamica.html:712
+#: src/templates/visinformedinamica.html:768
+#: src/templates/visinformedinamica.html:824
 msgid "Hubs Conectores (R6)"
 msgstr ""
 
 #: src/templates/visinforme.html:662 src/templates/visinforme.html:718
 #: src/templates/visinforme.html:774 src/templates/visinforme.html:830
+#: src/templates/visinformedinamica.html:662
+#: src/templates/visinformedinamica.html:718
+#: src/templates/visinformedinamica.html:774
+#: src/templates/visinformedinamica.html:830
 msgid "Hubs Kinless (R7)"
 msgstr ""
 
 #: src/templates/visinforme.html:668 src/templates/visinforme.html:724
 #: src/templates/visinforme.html:780 src/templates/visinforme.html:836
+#: src/templates/visinformedinamica.html:668
+#: src/templates/visinformedinamica.html:724
+#: src/templates/visinformedinamica.html:780
+#: src/templates/visinformedinamica.html:836
 msgid "Nodos Aislados:"
 msgstr ""
 
-#: src/templates/visinforme.html:864
+#: src/templates/visinforme.html:864 src/templates/visinformedinamica.html:864
+#: src/templates/visinformedinamicaconf.html:723
 msgid "Por favor introduzca valor en:"
+msgstr ""
+
+#: src/templates/visinformedinamicaconf.html:49
+msgid "Exportar Informe dinámico"
+msgstr ""
+
+#: src/templates/visinformedinamicaconf.html:142
+msgid "Informe Dinámico:"
+msgstr ""
+
+#: src/templates/visinformedinamicaconf.html:152
+#: src/templates/visinformedinamicaconf.html:227
+#: src/templates/visinformedinamicaconf.html:256
+#: src/templates/visinformedinamicaconf.html:283
+#: src/templates/visinformedinamicaconf.html:310
+#: src/templates/visinformedinamicaconf.html:337
+#: src/templates/visinformedinamicaconf.html:364
+#: src/templates/visinformedinamicaconf.html:391
+#: src/templates/visinformedinamicaconf.html:418
+#: src/templates/visinformedinamicaconf.html:445
+#: src/templates/visinformedinamicaconf.html:472
+#: src/templates/visinformedinamicaconf.html:499
+#: src/templates/visinformedinamicaconf.html:527
+#: src/templates/visinformedinamicaconf.html:556
+#: src/templates/visinformedinamicaconf.html:585
+#: src/templates/visinformedinamicaconf.html:614
+msgid "Instante"
+msgstr ""
+
+#: src/templates/visinformedinamicaconf.html:160
+msgid "Número Interaciones"
+msgstr ""
+
+#: src/templates/visinformedinamicaconf.html:229
+msgid "Componente "
+msgstr ""
+
+#: src/templates/visinformedinamicaconf.html:529
+#: src/templates/visinformedinamicaconf.html:558
+#: src/templates/visinformedinamicaconf.html:587
+#: src/templates/visinformedinamicaconf.html:616
+msgid "Comunidad "
 msgstr ""
 

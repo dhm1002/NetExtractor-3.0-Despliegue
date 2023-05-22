@@ -39,12 +39,12 @@
 		<table id="example" class="display" style="width:150%">
 			<thead>
 				<tr>
-					<th>Título</th>
-					<th>Obras</th>
-					<th>Personajes</th>
-					<th>Hombres</th>
-					<th>Mujeres</th>
-					<th>Última actualización</th>
+					<th>{{ _('Título') }}</th>
+					<th>{{ _('Obras') }}</th>
+					<th>{{ _('Personajes') }}</th>
+					<th>{{ _('Hombres') }}</th>
+					<th>{{ _('Mujeres') }}</th>
+					<th>{{ _('Última actualización') }}</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -97,7 +97,7 @@
 				paging: false,
 				dom: '<"toolbar">frtip'
 			});
-			$('div.toolbar').html('<b>Haz click en el botón \'Ver Obras\' para seleccionar un corpus.</b>');
+			$('div.toolbar').html("<b>{{ _('Haz click en el botón \'Ver Obras\' para seleccionar un corpus.')}}</b>");
 		});
 
 		var validNavigation = false; 
@@ -107,12 +107,10 @@
 		}
 		
 		function ayuda() {	
-			s= 'En la siguiente tabla se muestran todos los conjuntos de obras disponibles.\n'+
-				'- Se puede ordenar por una columna específica haciendo click en las flechas de la cabecera\n'+
-				'- Se puede buscar un término concreto en el buscador de la parte superior derecha\n'+
-				'- Al hacer click en cualquier botón \'Ver obras\' se redirigirá a la pantalla que muestra todas las obras del corpus correspondiente '
-
-			alert(s)
+			alert("{{ _('En la siguiente tabla se muestran todos los conjuntos de obras disponibles.') }}\n"+
+			"{{ _('- Se puede ordenar por una columna específica haciendo click en las flechas de la cabecera') }}\n"+
+			"{{ _('- Se puede buscar un término concreto en el buscador de la parte superior derecha') }}\n"+
+			"{{ _('- Al hacer click en cualquier botón \'Ver obras\' se redirigirá a la pantalla que muestra todas las obras del corpus correspondiente ') }}\n")
 
 		}
 

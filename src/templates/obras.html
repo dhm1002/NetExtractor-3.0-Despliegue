@@ -39,10 +39,10 @@
 		<table id="example" class="display" style="width:80%">
 			<thead>
 				<tr>
-					<th>Título</th>
-					<th>Autor</th>
-					<th>Personajes</th>
-					<th>Año</th>
+					<th>{{ _('Título') }}</th>
+					<th>{{ _('Autor') }}</th>
+					<th>{{ _('Personajes') }}</th>
+					<th>{{ _('Año') }}</th>
                     <th></th>
 				</tr>
 			</thead>
@@ -92,7 +92,7 @@
 				paging: false,
 				dom: '<"toolbar">frtip'
 			});
-			$('div.toolbar').html('<b>Haz click en el botón \'Ver Personajes\' para seleccionar una obra.</b>');
+			$('div.toolbar').html("<b>{{ _('Haz click en el botón \'Ver Personajes\' para seleccionar una obra.') }}</b>");
 		});
 
 		var validNavigation = false; 
@@ -102,12 +102,10 @@
 		}
 
 		function ayuda() {	
-			s= 'En la siguiente tabla se muestran todos las obras disponibles para el corpus seleccionado.\n'+
-				'- Se puede ordenar por una columna específica haciendo click en las flechas de la cabecera\n'+
-				'- Se puede buscar un término concreto en el buscador de la parte superior derecha\n'+
-				'- Al hacer click en cualquier botón \'Ver personajes\' se redirigirá a la pantalla que muestra todos los personajes de la obra seleccionada '
-
-			alert(s)
+			alert("{{ _('En la siguiente tabla se muestran todos las obras disponibles para el corpus seleccionado.') }}\n"+
+			"{{ _('- Se puede ordenar por una columna específica haciendo click en las flechas de la cabecera') }}\n"+
+			"{{ _('- Se puede buscar un término concreto en el buscador de la parte superior derecha') }}\n"+
+			"{{ _('- Al hacer click en cualquier botón \'Ver personajes\' se redirigirá a la pantalla que muestra todos los personajes de la obra seleccionada ') }}\n")
 
 		}
 		function sendForm(nombre){
