@@ -36,7 +36,7 @@
 	
 	<form id="form" class="m-auto" action="" method="post" enctype=multipart/form-data>
 		<input type='hidden' id= 'obra' name='obra' value='' />
-		<table id="example" class="display" style="width:80%">
+		<table id="example" class="display nowrap" style="width:100%">
 			<thead>
 				<tr>
 					<th>{{ _('Título') }}</th>
@@ -82,15 +82,20 @@
 	<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<link href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css" rel="stylesheet"/>
+	<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+
+
 
 	<script type="text/javascript">
 
 		$(document).ready(function() {
 			$('#example').DataTable({
-				scrollY: '260px',
+				scrollY: '45vh',
         		scrollCollapse: true,
 				paging: false,
-				dom: '<"toolbar">frtip'
+				dom: '<"toolbar">frtip',
+				responsive: true,
 			});
 			$('div.toolbar').html("<b>{{ _('Haz click en el botón \'Ver Personajes\' para seleccionar una obra.') }}</b>");
 		});
