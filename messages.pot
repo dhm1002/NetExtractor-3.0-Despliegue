@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-22 19:36+0200\n"
+"POT-Creation-Date: 2023-05-30 19:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "La ruta indicada no contiene un fichero epub"
 msgstr ""
 
-#: src/Controlador.py:153
+#: src/Controlador.py:154
 msgid "Diccionario creado con éxito"
 msgstr ""
 
@@ -143,17 +143,17 @@ msgid "Wiki"
 msgstr ""
 
 #: src/templates/about.html:46
-msgid "¿Qué es NetExtractor 2.0?"
+msgid "¿Qué es NetExtractor 3.0?"
 msgstr ""
 
 #: src/templates/about.html:47
 msgid ""
-"NetExtractor 2.0 es una herramienta desarrollada en la Universidad de "
+"NetExtractor 3.0 es una herramienta desarrollada en la Universidad de "
 "Burgos que permite generar de forma automática la red de interacciones de"
-" personajes en novelas o películas y analizar las redes obtenidaspara "
-"capturar sus métricas más relevantes de una forma sencilla. Además, estas"
-" redes complejas podrán visualizarse de forma dinámica y mostrar un "
-"informe dinámico."
+" personajes en novelas, películas u obras de teatro y analizar las redes "
+"obtenidas para capturar sus métricas más relevantes de una forma "
+"sencilla. Además, estas redes complejas podrán visualizarse de forma "
+"dinámica y mostrar un informe dinámico."
 msgstr ""
 
 #: src/templates/about.html:49
@@ -162,13 +162,15 @@ msgstr ""
 
 #: src/templates/about.html:50
 msgid ""
-"El proyecto de NetExtractor 2.0 fue iniciado por el alumno del grado de "
+"El proyecto de NetExtractor fue iniciado por el alumno del grado de "
 "Ingeniería Informática Luis Miguel Cabrejas, tutorizado por D. Jose "
-"Manuel Galán y D. Luis Rodrigo Izquierdo; y fue continuado por el alumno "
-"de Ingeniería Informática Jorge Navarro, tutorizado por D. Jose Manuel "
-"Galán y Dña. Virginia Ahedo. De su última actualización ha sido encargado"
-" el alumno de Ingeniería Informática Alberto Diez, tutorizado por D. Jose"
-" Manuel Galán y Dña. Virginia Ahedo."
+"Manuel Galán y D. Luis Rodrigo Izquierdo. Fue continuado en su versión "
+"1.0 por el alumno de Ingeniería Informática Jorge Navarro y más adelante,"
+" en la 2.0, por el alumno Alberto Diez, ambos tutorizados por D. Jose "
+"Manuel Galán y Dña. Virginia Ahedo. De su última actualización, la "
+"versión 3.0, ha sido encargado el alumno de Ingeniería Informática David "
+"Hernando Martín, tutorizado por D. Jose Manuel Galán y Dña. Virginia "
+"Ahedo."
 msgstr ""
 
 #: src/templates/about.html:52
@@ -235,29 +237,29 @@ msgstr ""
 msgid "Ayuda"
 msgstr ""
 
-#: src/templates/corpus.html:100
+#: src/templates/corpus.html:118
 msgid "Haz click en el botón 'Ver Obras' para seleccionar un corpus."
 msgstr ""
 
-#: src/templates/corpus.html:110
+#: src/templates/corpus.html:130
 msgid ""
 "En la siguiente tabla se muestran todos los conjuntos de obras "
 "disponibles."
 msgstr ""
 
-#: src/templates/corpus.html:111 src/templates/obras.html:106
+#: src/templates/corpus.html:131 src/templates/obras.html:125
 msgid ""
 "- Se puede ordenar por una columna específica haciendo click en las "
 "flechas de la cabecera"
 msgstr ""
 
-#: src/templates/corpus.html:112 src/templates/obras.html:107
+#: src/templates/corpus.html:132 src/templates/obras.html:126
 msgid ""
 "- Se puede buscar un término concreto en el buscador de la parte superior"
 " derecha"
 msgstr ""
 
-#: src/templates/corpus.html:113
+#: src/templates/corpus.html:133
 msgid ""
 "- Al hacer click en cualquier botón 'Ver obras' se redirigirá a la "
 "pantalla que muestra todas las obras del corpus correspondiente "
@@ -426,17 +428,17 @@ msgid "Introducir nuevo guion"
 msgstr ""
 
 #: src/templates/home.html:43
-msgid "¡Bienvenido a NetExtractor 2.0!"
+msgid "¡Bienvenido a NetExtractor 3.0!"
 msgstr ""
 
 #: src/templates/home.html:45
 msgid ""
-"NetExtractor 2.0 es un proyecto con el fin de generar redes de "
-"interacciones entre personajes, ya sean tanto de películas como de "
-"novelas, con el fin de posteriormente poder extraer características de "
-"dichas redes que podrán ser elegidas y mostradas en un informe. Además, "
-"estas redes complejas podrán visualizarse de forma dinámica y mostrar un "
-"informe dinámico."
+"NetExtractor 3.0 es un proyecto con el fin de generar redes de "
+"interacciones entre personajes, ya sean tanto de películas, novelas u "
+"obras de teatro, con el fin de posteriormente poder extraer "
+"características de dichas redes que podrán ser elegidas y mostradas en un"
+" informe. Además, estas redes complejas podrán visualizarse de forma "
+"dinámica y mostrar un informe dinámico."
 msgstr ""
 
 #: src/templates/home.html:46
@@ -450,6 +452,13 @@ msgstr ""
 
 #: src/templates/home.html:47
 msgid ""
+"Por último, las obras de teatro serán extraídas de la siguiente página: "
+"<a href=\"https://dracor.org/\">https://dracor.org/</a> permitiendo "
+"elegir entre un amplio catálogo de corpus y de obras disponibles"
+msgstr ""
+
+#: src/templates/home.html:48
+msgid ""
 "Si desea obtener más información acerca de los integrantes del proyecto o"
 " su desarrollo puede acceder en la parte superior de esta página a los "
 "apartados de \"Acerca de\" o \"Repositorio\". Si desea más información "
@@ -457,13 +466,14 @@ msgid ""
 " \"Wiki\" en la parte superior también."
 msgstr ""
 
-#: src/templates/home.html:48
+#: src/templates/home.html:49
 msgid ""
 "Una vez que pulse el botón de empezar se le mostrará la pantalla para "
-"poder elegir si desea obtener la red de una novela o de una película."
+"poder elegir si desea obtener la red de una novela, una película o una "
+"obra de teatro."
 msgstr ""
 
-#: src/templates/home.html:58
+#: src/templates/home.html:59
 msgid "¡Empezar!"
 msgstr ""
 
@@ -1124,17 +1134,17 @@ msgstr ""
 msgid "Ver Personajes"
 msgstr ""
 
-#: src/templates/obras.html:95
+#: src/templates/obras.html:114
 msgid "Haz click en el botón 'Ver Personajes' para seleccionar una obra."
 msgstr ""
 
-#: src/templates/obras.html:105
+#: src/templates/obras.html:124
 msgid ""
 "En la siguiente tabla se muestran todos las obras disponibles para el "
 "corpus seleccionado."
 msgstr ""
 
-#: src/templates/obras.html:108
+#: src/templates/obras.html:127
 msgid ""
 "- Al hacer click en cualquier botón 'Ver personajes' se redirigirá a la "
 "pantalla que muestra todos los personajes de la obra seleccionada "

@@ -90,13 +90,27 @@
 	<script type="text/javascript">
 
 		$(document).ready(function() {
-			$('#example').DataTable({
-				scrollY: '45vh',
-        		scrollCollapse: true,
-				paging: false,
-				dom: '<"toolbar">frtip',
-				responsive: true,
-			});
+			if('{{g.locale}}' == "es"){
+				$('#example').DataTable({
+					scrollY: '45vh',
+					scrollCollapse: true,
+					paging: false,
+					dom: '<"toolbar">frtip',
+					responsive: true,
+					"language": {
+						"url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+					}
+				});
+				
+			}else{
+				$('#example').DataTable({
+					scrollY: '45vh',
+					scrollCollapse: true,
+					paging: false,
+					dom: '<"toolbar">frtip',
+					responsive: true,
+				});
+			}
 			$('div.toolbar').html("<b>{{ _('Haz click en el botón \'Ver Personajes\' para seleccionar una obra.') }}</b>");
 		});
 

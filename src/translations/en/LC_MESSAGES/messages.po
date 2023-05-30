@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-22 19:36+0200\n"
-"PO-Revision-Date: 2023-05-22 19:54+0200\n"
+"POT-Creation-Date: 2023-05-30 19:05+0200\n"
+"PO-Revision-Date: 2023-05-30 19:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_GB\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "La ruta indicada no contiene un fichero epub"
 msgstr "The selected file is not an epub"
 
-#: src/Controlador.py:153
+#: src/Controlador.py:154
 msgid "Diccionario creado con éxito"
 msgstr "Dictionary was successfully created"
 
@@ -145,23 +145,23 @@ msgid "Wiki"
 msgstr "Wiki"
 
 #: src/templates/about.html:46
-msgid "¿Qué es NetExtractor 2.0?"
-msgstr "What is NetExtractor 2.0?"
+msgid "¿Qué es NetExtractor 3.0?"
+msgstr "what is NetExtractor 3.0?"
 
 #: src/templates/about.html:47
 msgid ""
-"NetExtractor 2.0 es una herramienta desarrollada en la Universidad de Burgos "
+"NetExtractor 3.0 es una herramienta desarrollada en la Universidad de Burgos "
 "que permite generar de forma automática la red de interacciones de "
-"personajes en novelas o películas y analizar las redes obtenidaspara "
-"capturar sus métricas más relevantes de una forma sencilla. Además, estas "
-"redes complejas podrán visualizarse de forma dinámica y mostrar un informe "
-"dinámico."
+"personajes en novelas, películas u obras de teatro y analizar las redes "
+"obtenidas para capturar sus métricas más relevantes de una forma sencilla. "
+"Además, estas redes complejas podrán visualizarse de forma dinámica y "
+"mostrar un informe dinámico."
 msgstr ""
-"NetExtractor 2.0 is a tool developed at the University of Burgos that allows "
-"you to automatically generate the network of interactions of characters in "
-"novels or movies and analyze the networks obtained to capture their most "
-"relevant metrics in a simple way. Furthermore, these complex networks will "
-"be able to be dynamically visualized and display a dynamic report."
+"NetExtractor 3.0 is a tool developed at the University of Burgos that allows "
+"to automatically generate the network of interactions of characters in "
+"novels, films or plays and to analyse the networks obtained to capture their "
+"most relevant metrics in a simple way. Moreover, these complex networks can "
+"be visualised dynamically and a dynamic report can be displayed."
 
 #: src/templates/about.html:49
 msgid "¿Quién integra el proyecto?"
@@ -169,20 +169,23 @@ msgstr "Who integrates the Project?"
 
 #: src/templates/about.html:50
 msgid ""
-"El proyecto de NetExtractor 2.0 fue iniciado por el alumno del grado de "
+"El proyecto de NetExtractor fue iniciado por el alumno del grado de "
 "Ingeniería Informática Luis Miguel Cabrejas, tutorizado por D. Jose Manuel "
-"Galán y D. Luis Rodrigo Izquierdo; y fue continuado por el alumno de "
-"Ingeniería Informática Jorge Navarro, tutorizado por D. Jose Manuel Galán y "
-"Dña. Virginia Ahedo. De su última actualización ha sido encargado el alumno "
-"de Ingeniería Informática Alberto Diez, tutorizado por D. Jose Manuel Galán "
-"y Dña. Virginia Ahedo."
+"Galán y D. Luis Rodrigo Izquierdo. Fue continuado en su versión 1.0 por el "
+"alumno de Ingeniería Informática Jorge Navarro y más adelante, en la 2.0, "
+"por el alumno Alberto Diez, ambos tutorizados por D. Jose Manuel Galán y "
+"Dña. Virginia Ahedo. De su última actualización, la versión 3.0, ha sido "
+"encargado el alumno de Ingeniería Informática David Hernando Martín, "
+"tutorizado por D. Jose Manuel Galán y Dña. Virginia Ahedo."
 msgstr ""
-"The NetExtractor 2.0 project was initiated by the Computer Engineering "
-"degree student Luis Miguel Cabrejas, tutored by D. Jose Manuel Galán and D. "
-"Luis Rodrigo Izquierdo; and it was continued by the Computer Engineering "
-"student Jorge Navarro, tutored by Mr. Jose Manuel Galán and Mrs. Virginia "
-"Ahedo.Computer Engineering student Alberto Diez, tutored by Mr. Jose Manuel "
-"Galán and Mrs. Virginia Ahedo, has been in charge of its latest update."
+"The NetExtractor project was started by the Computer Engineering student "
+"Luis Miguel Cabrejas, tutored by Jose Manuel Galán and Luis Rodrigo "
+"Izquierdo. It was continued in version 1.0 by the Computer Engineering "
+"student Jorge Navarro and later, in version 2.0, by the student Alberto "
+"Diez, both tutored by Mr. Jose Manuel Galán and Ms. Virginia Ahedo. The "
+"latest update, version 3.0, has been carried out by the Computer Engineering "
+"student David Hernando Martín, tutored by Jose Manuel Galán and Virginia "
+"Ahedo."
 
 #: src/templates/about.html:52
 msgid "Agradecimientos"
@@ -251,35 +254,35 @@ msgstr "Return"
 msgid "Ayuda"
 msgstr "Help"
 
-#: src/templates/corpus.html:100
+#: src/templates/corpus.html:118
 msgid "Haz click en el botón 'Ver Obras' para seleccionar un corpus."
 msgstr "Click on the 'View plays' button to select a corpus."
 
-#: src/templates/corpus.html:110
+#: src/templates/corpus.html:130
 msgid ""
 "En la siguiente tabla se muestran todos los conjuntos de obras disponibles."
 msgstr "The following table shows all the sets of plays available."
 
-#: src/templates/corpus.html:111 src/templates/obras.html:106
+#: src/templates/corpus.html:131 src/templates/obras.html:125
 msgid ""
 "- Se puede ordenar por una columna específica haciendo click en las flechas "
 "de la cabecera"
 msgstr ""
 "- You can sort by a specific column by clicking on the arrows in the header"
 
-#: src/templates/corpus.html:112 src/templates/obras.html:107
+#: src/templates/corpus.html:132 src/templates/obras.html:126
 msgid ""
 "- Se puede buscar un término concreto en el buscador de la parte superior "
 "derecha"
 msgstr "- You can search a specific term in the search engine on the top right"
 
-#: src/templates/corpus.html:113
+#: src/templates/corpus.html:133
 msgid ""
 "- Al hacer click en cualquier botón 'Ver obras' se redirigirá a la pantalla "
 "que muestra todas las obras del corpus correspondiente "
 msgstr ""
 "- Clicking on any 'See plays' you will redirect to the screen that shows all "
-"the plays of the corresponding corpus"
+"the plays of the corresponding corpus "
 
 #: src/templates/delpers.html:38
 msgid "Marque los personajes a eliminar."
@@ -451,22 +454,22 @@ msgid "Introducir nuevo guion"
 msgstr "Introduce new script"
 
 #: src/templates/home.html:43
-msgid "¡Bienvenido a NetExtractor 2.0!"
-msgstr "Welcome to NetExtractor 2.0!"
+msgid "¡Bienvenido a NetExtractor 3.0!"
+msgstr "Welcome to NetExtractor 3.0!"
 
 #: src/templates/home.html:45
 msgid ""
-"NetExtractor 2.0 es un proyecto con el fin de generar redes de interacciones "
-"entre personajes, ya sean tanto de películas como de novelas, con el fin de "
-"posteriormente poder extraer características de dichas redes que podrán ser "
-"elegidas y mostradas en un informe. Además, estas redes complejas podrán "
-"visualizarse de forma dinámica y mostrar un informe dinámico."
+"NetExtractor 3.0 es un proyecto con el fin de generar redes de interacciones "
+"entre personajes, ya sean tanto de películas, novelas u obras de teatro, con "
+"el fin de posteriormente poder extraer características de dichas redes que "
+"podrán ser elegidas y mostradas en un informe. Además, estas redes complejas "
+"podrán visualizarse de forma dinámica y mostrar un informe dinámico."
 msgstr ""
-"NetExtractor 2.0 is a project in order to generate networks of interactions "
-"between characters, whether of movies and novels, in order to be able to "
-"extract characteristics from those networks that can be chosen and displayed "
-"in a report. Furthermore, these complex networks will be able to be "
-"dynamically visualized and display a dynamic report."
+"NetExtractor 3.0 is a project with the aim of generating networks of "
+"interactions between characters, whether from films, novels or plays, in "
+"order to subsequently extract characteristics from these networks that can "
+"be chosen and displayed in a report. In addition, these complex networks can "
+"be visualised dynamically and displayed in a dynamic report."
 
 #: src/templates/home.html:46
 msgid ""
@@ -484,6 +487,16 @@ msgstr ""
 
 #: src/templates/home.html:47
 msgid ""
+"Por último, las obras de teatro serán extraídas de la siguiente página: <a "
+"href=\"https://dracor.org/\">https://dracor.org/</a> permitiendo elegir "
+"entre un amplio catálogo de corpus y de obras disponibles"
+msgstr ""
+"Finally, the plays will be extracted from the following website: <a "
+"href=\"https://dracor.org/\">https://dracor.org/</a>, allowing you to choose "
+"from a wide catalogue of available plays and corpus"
+
+#: src/templates/home.html:48
+msgid ""
 "Si desea obtener más información acerca de los integrantes del proyecto o su "
 "desarrollo puede acceder en la parte superior de esta página a los apartados "
 "de \"Acerca de\" o \"Repositorio\". Si desea más información acerca de cómo "
@@ -495,15 +508,16 @@ msgstr ""
 "page. If you want more information about how to manage by the application "
 "you can see the \"Wiki\" section at the top as well."
 
-#: src/templates/home.html:48
+#: src/templates/home.html:49
 msgid ""
 "Una vez que pulse el botón de empezar se le mostrará la pantalla para poder "
-"elegir si desea obtener la red de una novela o de una película."
+"elegir si desea obtener la red de una novela, una película o una obra de "
+"teatro."
 msgstr ""
-"Once you press the start button you will be shown the screen to be able to "
-"choose if you want to get the network of a novel or a movie."
+"Once you press the start button you will be shown the screen to choose "
+"whether you want to get the network from a novel, a film or a play."
 
-#: src/templates/home.html:58
+#: src/templates/home.html:59
 msgid "¡Empezar!"
 msgstr "Start!"
 
@@ -1172,18 +1186,18 @@ msgstr "Year"
 msgid "Ver Personajes"
 msgstr "View Characters"
 
-#: src/templates/obras.html:95
+#: src/templates/obras.html:114
 msgid "Haz click en el botón 'Ver Personajes' para seleccionar una obra."
 msgstr "Click on 'View characters' button to select a play."
 
-#: src/templates/obras.html:105
+#: src/templates/obras.html:124
 msgid ""
 "En la siguiente tabla se muestran todos las obras disponibles para el corpus "
 "seleccionado."
 msgstr ""
 "The following table shows all the plays available for the selected corpus."
 
-#: src/templates/obras.html:108
+#: src/templates/obras.html:127
 msgid ""
 "- Al hacer click en cualquier botón 'Ver personajes' se redirigirá a la "
 "pantalla que muestra todos los personajes de la obra seleccionada "

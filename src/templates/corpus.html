@@ -90,18 +90,35 @@
 	<link href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css" rel="stylesheet"/>
 	<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
 
-	<script type="text/javascript">
 
+	<script type="text/javascript">
+		
 		$(document).ready(function() {
-			$('#example').DataTable({
-				scrollY: '45vh',
-        		scrollCollapse: true,
-				paging: false,
-				dom: '<"toolbar">frtip',
-				responsive: true,
-			});
+			if('{{g.locale}}' == "es"){
+				$('#example').DataTable({
+					scrollY: '45vh',
+					scrollCollapse: true,
+					paging: false,
+					dom: '<"toolbar">frtip',
+					responsive: true,
+					"language": {
+						"url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+					}
+				});
+				
+			}else{
+				$('#example').DataTable({
+					scrollY: '45vh',
+					scrollCollapse: true,
+					paging: false,
+					dom: '<"toolbar">frtip',
+					responsive: true,
+				});
+			}
 			$('div.toolbar').html("<b>{{ _('Haz click en el botón \'Ver Obras\' para seleccionar un corpus.')}}</b>");
 		});
+
+		
 
 		var validNavigation = false; 
 		function atras() {
