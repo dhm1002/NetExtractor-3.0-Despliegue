@@ -661,6 +661,8 @@ class Modelo:
                 nodo1 = list(self.personajes[i[0]].getPersonaje().keys())[0].upper()
                 nodo2 = list(self.personajes[i[1]].getPersonaje().keys())[0].upper()
                 self.__Gnoatt.add_edge(nodo1,nodo2,weight=i[2]['weight'])
+        self.__G = self.__Gnoatt
+        
 
     
     def anadirAtributos(self):
