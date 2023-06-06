@@ -651,7 +651,6 @@ class Modelo:
     ## EL grafo que obtenemos de dracor nos da mucha información innecesaria, asi que con este método lo simplificamos
     def simplificarGrafo(self):  
         self.__Gnoatt = nx.Graph()
-        self.__Gnoatt.graph = self.__G.graph
         for i in self.__G.nodes:
             if(i in self.personajes):
                 nodo = list(self.personajes[i].getPersonaje().keys())[0].upper()
