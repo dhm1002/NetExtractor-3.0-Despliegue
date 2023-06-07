@@ -32,9 +32,9 @@ import dynetx as dn
 import networkx as nx
 import matplotlib.pyplot as plt
 
-v = os.path.join(os.path.dirname( __file__ ), os.pardir)
-s = os.path.abspath(os.path.join(v, 'ffmpeg'))
-plt.rcParams['animation.ffmpeg_path'] = s
+raiz = os.path.join(os.path.dirname( __file__ ), os.pardir)
+fichero = os.path.abspath(os.path.join(raiz, 'ffmpeg'))
+plt.rcParams['animation.ffmpeg_path'] = fichero
 import time
 import requests
 
