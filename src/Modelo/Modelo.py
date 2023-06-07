@@ -1033,9 +1033,6 @@ class Modelo:
             frames: el intervalo de tiempo que queremos observar.
             epub: variable para conocer si el diccionario es una pelicula o un guion
         """
-        v = os.path.join(os.path.dirname( __file__ ), os.pardir)
-        s = os.path.abspath(os.path.join(v, 'ffmpeg.exe'))
-        plt.rcParams['animation.ffmpeg_path'] = s
         g, listaFiNal, tiempoMasAlto = Modelo.ordenarRedDinamica(self,epub)
 
         def update(frames):
