@@ -34,7 +34,7 @@ import matplotlib.pyplot as plt
 
 v = os.path.join(os.path.dirname( __file__ ), os.pardir)
 x = os.path.join(v, os.pardir)
-s = os.path.abspath(os.path.join(x, 'ffmpeg.exe'))
+s = os.path.abspath(os.path.join(x, 'ffmpeg'))
 plt.rcParams['animation.ffmpeg_path'] = s
 import time
 import requests
